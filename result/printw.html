@@ -1,0 +1,538 @@
+<HTML
+><HEAD
+><TITLE
+>About output functions like printw() </TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.64
+"><LINK
+REL="HOME"
+TITLE=" NCURSES Programming HOWTO "
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="A Word about Windows"
+HREF="awordwindows.html"><LINK
+REL="NEXT"
+TITLE="About input functions like scanw() "
+HREF="scanw.html"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>NCURSES Programming HOWTO</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="awordwindows.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="scanw.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="PRINTW"
+>6. About output functions like printw()</A
+></H1
+><P
+>I guess you can't wait any more to see some action. Back to our odyssey of
+curses functions. Now that curses is initialized, let's interact with
+world.</P
+><P
+>There are three classes of functions which you can use to do output on screen.
+<P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>addch() class: Print single character with attributes </P
+></LI
+><LI
+><P
+>printw() class: Print formatted output similar to printf()</P
+></LI
+><LI
+><P
+>addstr() class: Print strings</P
+></LI
+></OL
+></P
+><P
+>These functions can be used interchangeably and it's a matter of style as to
+which class is used. Let's see each one in detail.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="ADDCHCLASS"
+>6.1. addch() class of functions</A
+></H2
+><P
+>These functions put a single character into the current cursor location and
+advance the position of the cursor. You can give the character to be printed but
+they usually are used to print a charcter with some attributes.  Attributes are
+explained in detail in later <A
+HREF="#attr"
+TARGET="_top"
+>sections</A
+> of the
+document. If a character is associated with an attribute(bold, reverse video
+etc.), when curses prints the character, it is printed in that attribute.</P
+><P
+>In order to combine a character with some attributes, you have two options:</P
+><P
+></P
+><UL
+><LI
+><P
+>By OR'ing a single character with the desired attribute macros. These attribute
+macros could be found in the header file
+<TT
+CLASS="LITERAL"
+>ncurses.h</TT
+>. For example, you want to print a
+character ch(of type char) bold and underlined, you would call addch() as below.
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    addch(ch | A_BOLD | A_UNDERLINE);</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+></LI
+><LI
+><P
+>By using functions like <TT
+CLASS="LITERAL"
+>attrset(),attron(),attroff()</TT
+>. These functions are explained in the <A
+HREF="#attr"
+TARGET="_top"
+>Attributes</A
+> section. Briefly, they manipulate the current attributes of 
+the given window. Once set, the character printed in the window are associated 
+with the attributes until it is turned off.</P
+></LI
+></UL
+><P
+>Additionally, <TT
+CLASS="LITERAL"
+>curses</TT
+> provides some special
+characters for character-based graphics. You can draw tables, horizontal or
+vertical lines, etc. You can find all avaliable characters in the header file
+<TT
+CLASS="LITERAL"
+>ncurses.h</TT
+>.  Try looking for macros beginning
+with <TT
+CLASS="LITERAL"
+>ACS_</TT
+> in this file. </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN258"
+>6.2. mvaddch(), waddch() and mvwaddch()</A
+></H2
+><P
+><TT
+CLASS="LITERAL"
+>mvaddch()</TT
+> is used to move the cursor to a 
+given point, and then print. Thus, the calls:
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    move(row,col);    /* moves the cursor to row<EM
+>th</EM
+> row and col<EM
+>th</EM
+> column */
+    addch(ch);</PRE
+></FONT
+></TD
+></TR
+></TABLE
+>
+can be replaced by
+<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    mvaddch(row,col,ch);</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></P
+><P
+><TT
+CLASS="LITERAL"
+>waddch()</TT
+> is similar to
+<TT
+CLASS="LITERAL"
+>addch()</TT
+>, except that it adds a character into
+the given window. (Note that <TT
+CLASS="LITERAL"
+>addch()</TT
+> adds a
+character into the window <TT
+CLASS="LITERAL"
+>stdscr</TT
+>.)</P
+><P
+>In a similar fashion <TT
+CLASS="LITERAL"
+>mvwaddch()</TT
+> function is
+used to add a character into the given window at the given coordinates.</P
+><P
+>Now, we are familiar with the basic output function
+<TT
+CLASS="LITERAL"
+>addch()</TT
+>. But, if we want to print a string, it
+would be very annoying to print it character by character. Fortunately,
+<TT
+CLASS="LITERAL"
+>ncurses</TT
+> provides <TT
+CLASS="LITERAL"
+>printf</TT
+><EM
+>-like</EM
+> or
+<TT
+CLASS="LITERAL"
+>puts</TT
+><EM
+>-like</EM
+> functions.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="PRINTWCLASS"
+>6.3. printw() class of functions</A
+></H2
+><P
+>These functions are similar to <TT
+CLASS="LITERAL"
+>printf()</TT
+> with
+the added capability of printing at any position on the screen. </P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="PRINTWMVPRINTW"
+>6.3.1. printw() and mvprintw</A
+></H3
+><P
+>These two functions work much like <TT
+CLASS="LITERAL"
+>printf()</TT
+>.
+<TT
+CLASS="LITERAL"
+>mvprintw()</TT
+> can be used to move the cursor to a
+position and then print. If you want to move the cursor first and then print
+using <TT
+CLASS="LITERAL"
+>printw()</TT
+> function, use
+<TT
+CLASS="LITERAL"
+>move() </TT
+> first and then use
+<TT
+CLASS="LITERAL"
+>printw()</TT
+> though I see no point why one should
+avoid using <TT
+CLASS="LITERAL"
+>mvprintw()</TT
+>, you have the
+flexibility to manipulate. </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="WPRINTWMVWPRINTW"
+>6.3.2. wprintw() and mvwprintw</A
+></H3
+><P
+>These two functions are similar to above two except that they print in the 
+corresponding window given as argument. </P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="VWPRINTW"
+>6.3.3. vwprintw()</A
+></H3
+><P
+>This function is similar to <TT
+CLASS="LITERAL"
+>vprintf()</TT
+>. This can
+be used when variable number of arguments are to be printed.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="SIMPLEPRINTWEX"
+>6.3.4. A Simple printw example</A
+></H3
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="BPREX"
+></A
+><P
+><B
+>Example 3.  A Simple printw example </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>/* File path: basics/printw_example.c */
+#include &#60;ncurses.h&#62;  /* ncurses.h includes stdio.h */  
+#include &#60;string.h&#62; 
+ 
+int main()
+{
+ char mesg[]="Just a string"; /* message to be appeared on the screen */
+ int row,col;                 /* to store the number of rows and *
+                               * the number of colums of the screen */
+ initscr();                   /* start the curses mode */
+ getmaxyx(stdscr,row,col);    /* get the number of rows and columns */
+ mvprintw(row/2,(col-strlen(mesg))/2,"%s",mesg);
+                             /* print the message at the center of the screen */
+ mvprintw(row-2,0,"This screen has %d rows and %d columns\n",row,col);
+ printw("Try resizing your window(if possible) and then run this program again");
+ refresh();
+ getch();
+ endwin();
+
+ return 0;
+}           </PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Above program demonstrates how easy it is to use <TT
+CLASS="LITERAL"
+>printw</TT
+>. You just feed the coordinates and the message to be appeared
+on the screen, then it does what you want.</P
+><P
+>The above program introduces us to a new function
+<TT
+CLASS="LITERAL"
+>getmaxyx()</TT
+>, a macro defined in
+<TT
+CLASS="LITERAL"
+>ncurses.h</TT
+>. It gives the number of columns and
+the number of rows in a given window.
+<TT
+CLASS="LITERAL"
+>getmaxyx()</TT
+> does this by updating the variables
+given to it. Since <TT
+CLASS="LITERAL"
+>getmaxyx()</TT
+> is not a function
+we don't pass pointers to it, we just give two integer variables. </P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="ADDSTRCLASS"
+>6.4. addstr() class of functions</A
+></H2
+><P
+><TT
+CLASS="LITERAL"
+>addstr()</TT
+> is used to put a character string into
+a given window. This function is similar to calling
+<TT
+CLASS="LITERAL"
+>addch()</TT
+> once for each character in a given
+string. This is true for all output functions. There are other functions from
+this family such as <TT
+CLASS="LITERAL"
+>mvaddstr(),mvwaddstr()</TT
+> and
+<TT
+CLASS="LITERAL"
+>waddstr()</TT
+>, which obey the naming convention of
+curses.(e.g. mvaddstr() is similar to the respective calls move() and then
+addstr().) Another function of this family is addnstr(), which takes an integer
+parameter(say n) additionally. This function puts at most n characters into the
+screen. If n is negative, then the entire string will be added. </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="ACAUTION"
+>6.5. A word of caution</A
+></H2
+><P
+>All these functions take y co-ordinate first and then x in their arguments.
+A common mistake by beginners is to pass x,y in that order. If you are
+doing too many manipulations of (y,x) co-ordinates, think of dividing the
+screen into windows and manipulate each one seperately. Windows are explained
+in the <A
+HREF="windows.html"
+>Section 9</A
+> section.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="awordwindows.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="scanw.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>A Word about Windows</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>About input functions like scanw()</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

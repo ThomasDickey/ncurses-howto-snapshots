@@ -1,0 +1,478 @@
+<HTML
+><HEAD
+><TITLE
+>Attributes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.64
+"><LINK
+REL="HOME"
+TITLE=" NCURSES Programming HOWTO "
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="About input functions like scanw() "
+HREF="scanw.html"><LINK
+REL="NEXT"
+TITLE="All about window functions"
+HREF="windows.html"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>NCURSES Programming HOWTO</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="scanw.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="windows.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="ATTRIB"
+>8. Attributes</A
+></H1
+><P
+>We have seen an example of how attributes can be used to print characters with
+some special effects. Attributes, when set prudently, can present information in
+an easy, understandable manner. The following program takes a C file as input
+and prints the file with comments in bold. Scan through the code. </P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="BSIAT"
+></A
+><P
+><B
+>Example 5.  A Simple Attributes example </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>/* File path: basics/simple_attr.c */
+#include &#60;ncurses.h&#62;
+
+int main(int argc, char *argv[])
+{   int ch, prev;
+    FILE *fp;
+    int goto_prev = FALSE, y, x;
+
+    if(argc != 2)
+    {    printf("Usage: %s &#60;a c file name&#62;\n", argv[0]);
+        exit(1);
+    }
+    fp = fopen(argv[1], "r");
+    if(fp == NULL)
+    {    perror("Cannot open input file");
+        exit(1);
+    }
+
+    initscr();            /* Start curses mode */
+
+    prev = EOF;
+    while((ch = fgetc(fp)) != EOF)
+    {    if(prev == '/' &#38;&#38; ch == '*')     
+                /* If it is / and * then olny switch bold on */    
+        {    attron(A_BOLD);
+            goto_prev = TRUE;  /* Go to previous char / and print it in BOLD */
+        }
+        if(goto_prev == TRUE)
+        {    getyx(stdscr, y, x);
+            move(y, x - 1);
+            printw("%c%c", '/', ch); /* The actual printing is done here */
+            goto_prev = FALSE;       /* Set it to FALSE or every thing from 
+                                      * here will be / */
+        }
+        else
+            printw("%c", ch);
+        refresh();
+        if(prev == '*' &#38;&#38; ch == '/')
+            attroff(A_BOLD);    /* Switch it off once we got and then / */
+        prev = ch;
+    }
+    
+    endwin();   /* End curses mode */
+
+    return 0;
+}</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><P
+> 
+Don't worry about all those initialization and other crap. Concentrate on 
+the while loop. It reads each character in the file and searches for the 
+pattern /*. Once it spots the pattern, it switches the BOLD attribute on with 
+<TT
+CLASS="LITERAL"
+> attron()</TT
+> . When we get the pattern */ it is 
+switched off by <TT
+CLASS="LITERAL"
+> attoff()</TT
+> .</P
+><P
+> 
+The above program also introduces us to two useful functions
+<TT
+CLASS="LITERAL"
+>getyx() </TT
+> and
+<TT
+CLASS="LITERAL"
+>move()</TT
+>. The first function gets the
+co-ordinates of the present cursor into the variables y, x. Since getyx() is a
+macro we don't have to pass pointers to variables. The function
+<TT
+CLASS="LITERAL"
+>move()</TT
+> moves the cursor to the co-ordinates
+given to it. </P
+><P
+> 
+The above program is really a simple one which doesn't do much. On these lines
+one could write a more useful program which reads a C file, parses it and prints
+it in different colors. One could even extend it to other languages as well.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="ATTRIBDETAILS"
+>8.1. The details</A
+></H2
+><P
+>Let's get into more details of attributes. The functions <TT
+CLASS="LITERAL"
+>attron(), attroff(), attrset() </TT
+>, and their sister functions
+<TT
+CLASS="LITERAL"
+> attr_get()</TT
+> etc..  can be used to switch
+attributes on/off , get attributes and produce a colorful display.</P
+><P
+>The functions attron and attroff take a bitmask of attributes and switch them 
+on or off, respectively. The following video attributes, which are defined in 
+&#60;curses.h&#62; can be passed to these functions. </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    
+    A_NORMAL        Normal display (no highlight)
+    A_STANDOUT      Best highlighting mode of the terminal.
+    A_UNDERLINE     Underlining
+    A_REVERSE       Reverse video
+    A_BLINK         Blinking
+    A_DIM           Half bright
+    A_BOLD          Extra bright or bold
+    A_PROTECT       Protected mode
+    A_INVIS         Invisible or blank mode
+    A_ALTCHARSET    Alternate character set
+    A_CHARTEXT      Bit-mask to extract a character
+    COLOR_PAIR(n)   Color-pair number n 
+    </PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+> 
+The last one is the most color ful one :-) Colors are explained in the 
+<A
+HREF="#color"
+TARGET="_top"
+>next sections</A
+>.</P
+><P
+>We can OR(|) any number of above attributes to get a combined effect. If you 
+wanted reverse video with blinking characters you can use</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    attron(A_REVERSE | A_BLINK);</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="ATTRONVSATTRSET"
+>8.2. attron() vs attrset()</A
+></H2
+><P
+>Then what is the difference between attron() and attrset()? attrset sets the
+attributes of window whereas attron just switches on the attribute given to it.
+So attrset() fully overrides whatever attributes the window previously had and
+sets it to the new attribute(s). Similarly attroff() just switches off the
+attribute(s) given to it as an argument. This gives us the flexibility of
+managing attributes easily.But if you use them carelessly you may loose track of
+what attributes the window has and garble the display. This is especially true
+while managing menus with colors and highlighting. So decide on a consistent
+policy and stick to it. You can always use <TT
+CLASS="LITERAL"
+> standend()</TT
+> which is equivalent to <TT
+CLASS="LITERAL"
+> attrset(A_NORMAL)</TT
+> which turns off all attributes and brings you to normal mode.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="ATTR_GET"
+>8.3. attr_get()</A
+></H2
+><P
+>&#13;The function attr_get() gets the current attributes and color pair of the
+window. Though we might not use this as often as the above functions, this is
+useful in scanning areas of screen. Say we wanted to do some complex update on
+screen and we are not sure what attribute each character is associated with.
+Then this function can be used with either attrset or attron to produce the
+desired effect.&#13;</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="ATTR_FUNCS"
+>8.4. attr_ functions</A
+></H2
+><P
+>There are series of functions like attr_set(), attr_on etc.. These are similar
+to above functions except that they take parameters of type
+<TT
+CLASS="LITERAL"
+>attr_t</TT
+></P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="WATTRFUNCS"
+>8.5. wattr functions</A
+></H2
+><P
+>For each of the above functions we have a corresponding function with 'w' which
+operates on a particular window. The above functions operate on stdscr. </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CHGAT"
+>8.6. chgat() functions</A
+></H2
+><P
+>The function chgat() is listed in the end of the man page curs_attr. It actually
+is a useful one. This function can be used to set attributes for a group of
+characters without moving. I mean it !!! without moving the cursor :-) It
+changes the attributes of a given number of characters starting at the current
+cursor location.</P
+><P
+>We can give -1 as the character count to update till end of line. If you want to
+change attributes of charcters from current position to end of line, just use
+this.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    chgat(-1, A_REVERSE, 0, NULL);</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+> 
+This function is useful when changing attributes for characters that are
+already on the screen. Move to the character from which you want to change and
+change the attribute. </P
+><P
+>Other functions wchgat(), mvchgat(), wchgat() behave similarly except that the w
+functions operate on the particular window. The mv functions first move the
+cursor then perform the work given to them. Actually chgat is a macro which is
+replaced by a wchgat() with stdscr as the window. Most of the "w-less" functions
+are macros.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="BWICH"
+></A
+><P
+><B
+>Example 6.  Chgat() Usage example </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>/* File path: basics/with_chgat.c */
+#include &#60;ncurses.h&#62;
+
+int main(int argc, char *argv[])
+{   initscr();      /* Start curses mode            */
+    start_color();  /* Start color functionality    */
+    
+    init_pair(1, COLOR_CYAN, COLOR_BLACK);
+    printw("A Big string which i didn't care to type fully ");
+    mvchgat(0, 0, -1, A_BLINK, 1, NULL);    
+    /* 
+     * First two parameters specify the position at which to start 
+     * Third parameter number of characters to update. -1 means till 
+     * end of line
+     * Forth parameter is the normal attribute you wanted to give 
+     * to the charcter
+     * Fifth is the color index. It is the index given during init_pair()
+     * use 0 if you don't want color.
+     * Sixth one is always NULL 
+     */
+    refresh();
+    endwin();       /* End curses mode */
+    return 0;
+}</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>This example also introduces us to the color world of curses. Colors will be 
+explained in detail later. Use 0 for no color.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="scanw.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="windows.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>About input functions like scanw()</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>All about window functions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
