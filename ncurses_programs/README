@@ -8,14 +8,12 @@ ncurses
    |----> demo               -- output files go into this directory after make
    |          |
    |          |----> exe     -- exe files of all example programs
-   |          |----> obj     -- object files of all example programs
    |----> forms              -- programs related to form library
    |----> menus              -- programs related to menus library
    |----> panels             -- programs related to panels library
    |----> Makefile           -- the top level Makefile
    |----> README             -- the top level README file. contains instructions
-   |			     -- to create executables for example programs
-   |----> NCURSES_HOWTO.html -- the HOWTO file 
+   |			             -- to create executables for example programs
 
 To compile and install all example programs, just run make in this directory.
 	
@@ -40,12 +38,13 @@ JustForFun
 
   basics
     |
+    |----> acs_vars.c	    -- ACS_ variables example
     |----> hello_world.c	-- Simple "Hello World" Program
     |----> init_func_example.c	-- Initialization functions example
     |----> key_code.c		-- Shows the scan code of the key pressed
     |----> mouse_menu.c		-- A menu accessible by mouse
     |----> other_border.c	-- Shows usage of other border functions apart
-    |				-- box()
+    |				        -- box()
     |----> printw_example.c	-- A very simple printw() example
     |----> scanw_example.c	-- A very simple getstr() example
     |----> simple_attr.c	-- A program that can print a c file with comments
