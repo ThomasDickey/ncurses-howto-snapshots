@@ -1,0 +1,233 @@
+<HTML
+><HEAD
+><TITLE
+>Miscellaneous features</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.64
+"><LINK
+REL="HOME"
+TITLE=" NCURSES Programming HOWTO "
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Screen Manipulation"
+HREF="screen.html"><LINK
+REL="NEXT"
+TITLE=" Other libraries "
+HREF="otherlib.html"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>NCURSES Programming HOWTO</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="screen.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="otherlib.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="MISC"
+>14. Miscellaneous features</A
+></H1
+><P
+>Now you know enough features to write a good curses program, with all bells and
+whistles. There are some miscellaneous functions which are useful in various
+cases.  Let's go headlong into some of those.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CURSSET"
+>14.1. curs_set()</A
+></H2
+><P
+>This function can be used to make the cursor invisible. The parameter to this
+function should be </P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    0 : invisible      or
+    1 : normal    or
+    2 : very visible.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="TEMPLEAVE"
+>14.2. Temporarily Leaving Curses mode</A
+></H2
+><P
+>Some times you may want to get back to cooked mode (normal line buffering mode)
+temporarily. In such a case you will first need to save the tty modes with a
+call to <TT
+CLASS="LITERAL"
+>def_prog_mode()</TT
+> and then call
+<TT
+CLASS="LITERAL"
+>endwin()</TT
+> to end the curses mode. This will
+leave you in the original tty mode. To get back to curses once you are done,
+call <TT
+CLASS="LITERAL"
+>reset_prog_mode() </TT
+>. This function returns
+the tty to the state stored by <TT
+CLASS="LITERAL"
+>def_prog_mode()</TT
+>. Then do refresh(), and you are back to the curses mode. Here
+is an example showing the sequence of things to be done.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="BTELE"
+></A
+><P
+><B
+>Example 12.  Temporarily Leaving Curses Mode </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>/* File Path: basics/temp_leave.c */
+#include &#60;ncurses.h&#62;
+
+int main()
+{    
+    initscr();                      /* Start curses mode */
+    printw("Hello World !!!\n");    /* Print Hello World */
+    refresh();                      /* Print it on to the real screen */
+    def_prog_mode();                /* Save the tty modes          */
+    endwin();                       /* End curses mode temporarily      */
+    system("/bin/sh");              /* Do whatever you like in cooked mode */
+    reset_prog_mode();              /* Return to the previous tty mode*/
+                                    /* stored by def_prog_mode()       */
+    refresh();                      /* Do refresh() to restore the       */
+                                    /* Screen contents          */
+    printw("Another String\n");     /* Back to curses use the full    */
+    refresh();                      /* capabilities of curses      */
+    endwin();                       /* End curses mode          */
+
+    return 0;
+}</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="screen.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="otherlib.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Screen Manipulation</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Other libraries</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

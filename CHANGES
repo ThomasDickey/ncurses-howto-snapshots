@@ -1,3 +1,13 @@
+2002-01-03  Pradeep Padala <ppadala@gmail.com>
+
+	* result/windows.html, result/screen.html, result/tools.html, result/printw.html, result/scanw.html, result/panels.html, result/otherlib.html, result/mouse.html, result/misc.html, result/menus.html, result/justforfun.html, result/keys.html, result/intro.html, result/index.html, result/init.html, result/gory.html, result/helloworld.html, result/forms.html, result/awordwindows.html, result/color.html, result/attrib.html:
+	t20020103
+
+2002-01-02  Pradeep Padala <ppadala@gmail.com>
+
+	* ncurses_programs/forms/Makefile, ncurses_programs/forms/README, ncurses_programs/forms/form_attrib.c, ncurses_programs/forms/form_options.c, ncurses_programs/forms/form_simple.c, ncurses_programs/forms/form_win.c, ncurses_programs/menus/Makefile, ncurses_programs/menus/README, ncurses_programs/menus/menu_attrib.c, ncurses_programs/menus/menu_item_data.c, ncurses_programs/menus/menu_multi_column.c, ncurses_programs/menus/menu_scroll.c, ncurses_programs/menus/menu_simple.c, ncurses_programs/menus/menu_toggle.c, ncurses_programs/menus/menu_userptr.c, ncurses_programs/menus/menu_win.c, ncurses_programs/panels/Makefile, ncurses_programs/panels/README, ncurses_programs/panels/panel_browse.c, ncurses_programs/panels/panel_hide.c, ncurses_programs/panels/panel_resize.c, ncurses_programs/panels/panel_simple.c, ncurses_programs/COPYING, ncurses_programs/JustForFun/Makefile, ncurses_programs/JustForFun/README, ncurses_programs/JustForFun/hanoi.c, ncurses_programs/JustForFun/life.c, ncurses_programs/JustForFun/magic.c, ncurses_programs/JustForFun/queens.c, ncurses_programs/JustForFun/shuffle.c, ncurses_programs/JustForFun/tt.c, ncurses_programs/Makefile, ncurses_programs/NCURSES_HOWTO.sgml, ncurses_programs/README, ncurses_programs/basics/Makefile, ncurses_programs/basics/README, ncurses_programs/basics/hello_world.c, ncurses_programs/basics/init_func_example.c, ncurses_programs/basics/key_code.c, ncurses_programs/basics/mouse_menu.c, ncurses_programs/basics/other_border.c, ncurses_programs/basics/printw_example.c, ncurses_programs/basics/scanw_example.c, ncurses_programs/basics/simple_attr.c, ncurses_programs/basics/simple_color.c, ncurses_programs/basics/simple_key.c, ncurses_programs/basics/temp_leave.c, ncurses_programs/basics/win_border.c, ncurses_programs/basics/with_chgat.c:
+	t20020105
+
 2001-07-28  Thomas E. Dickey  <dickey@clark.net>
 
 	* result/NCURSES_HOWTO.html: RCS_BASE

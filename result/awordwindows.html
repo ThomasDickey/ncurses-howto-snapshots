@@ -1,0 +1,215 @@
+<HTML
+><HEAD
+><TITLE
+>A Word about Windows</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.64
+"><LINK
+REL="HOME"
+TITLE=" NCURSES Programming HOWTO "
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Initialization "
+HREF="init.html"><LINK
+REL="NEXT"
+TITLE="About output functions like printw() "
+HREF="printw.html"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>NCURSES Programming HOWTO</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="init.html"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="printw.html"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AWORDWINDOWS"
+>5. A Word about Windows</A
+></H1
+><P
+> 
+Before we plunge into the myriad ncurses functions, let me clear few things
+about windows. Windows are explained in detail in following <A
+HREF="#windows"
+TARGET="_top"
+>sections</A
+>.</P
+><P
+>A Window is an imaginary screen defined by curses system. A window does not mean
+a bordered window which you usually see on Win9X platforms. When curses is
+initialized, it creates a default window named
+<TT
+CLASS="LITERAL"
+>stdscr</TT
+> which represents your 80x25 (or the size
+of window in which you are running) screen.  If you are doing simple tasks like
+printing few strings, reading input etc., you can safely use this single window
+for all of your purposes. You can also create windows and call functions which
+explicitly work on the specified window.</P
+><P
+>For example, if you call</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    printw("Hi There !!!");
+    refresh();</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>It prints the string on stdscr at the present cursor position. Similarly the 
+call to refresh(), works on stdscr only. </P
+><P
+>Say you have created <A
+HREF="#windows"
+TARGET="_top"
+>windows</A
+> then you have to call
+a function with a 'w' added to the usual function.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    wprintw(win, "Hi There !!!");
+    wrefresh(win);</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>As you will see in the rest of the document, naming of functions follow the
+same convention. For each function there usually are three more functions.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    printw(string);        /* Print on stdscr at present cursor position */
+    mvprintw(y, x, string);/* Move to (y, x) then print string     */
+    wprintw(win, string);  /* Print on windown win at present cursor position */
+                           /* in the window */
+    mvwprintw(win, y, x, string);   /* Move to (y, x) relative to window */
+                                    /* co-ordinates and then print         */</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>Usually the w-less functions are macros which expand to corresponding w-function
+with stdscr as the window parameter.</P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="init.html"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="printw.html"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Initialization</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>About output functions like printw()</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
