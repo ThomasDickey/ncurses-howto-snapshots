@@ -1,0 +1,374 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+> Tools and Widget Libraries</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE=" NCURSES Programming HOWTO "
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE=" Forms Library "
+HREF="forms.html"><LINK
+REL="NEXT"
+TITLE="Just For Fun !!!"
+HREF="justforfun.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>NCURSES Programming HOWTO</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="forms.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="justforfun.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="TOOLS"
+>19. Tools and Widget Libraries</A
+></H1
+><P
+> 
+Now that you have seen the capabilities of ncurses and its sister libraries, you
+are rolling your sleeves up and gearing for a project that heavily manipulates
+screen. But wait..  It can be pretty difficult to write and maintain complex GUI
+widgets in plain ncurses or even with the additional libraries. There are some
+ready-to-use tools and widget libraries that can be used instead of writing your
+own widgets. You can use some of them, get ideas from the code, or even extend
+them.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CDK"
+>19.1. CDK (Curses Development Kit)</A
+></H2
+><P
+>In the author's words </P
+><P
+><EM
+> 
+CDK stands for 'Curses Development Kit' and it currently contains 21 ready
+to use widgets which facilitate the speedy development of full screen
+curses programs. </EM
+></P
+><P
+>The kit provides some useful widgets, which can be used in your programs
+directly. It's pretty well written and the documentation is very good. The
+examples in the examples directory can be a good place to start for beginners.
+The CDK can be downloaded from <A
+HREF="http://invisible-island.net/cdk/"
+TARGET="_top"
+>http://invisible-island.net/cdk/</A
+>
+. Follow the instructions in 
+README file to install it.</P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="WIDGETLIST"
+>19.1.1. Widget List</A
+></H3
+><P
+>The following is the list of widgets provided with cdk and their description.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>Widget Type           Quick Description
+===========================================================================
+Alphalist             Allows a user to select from a list of words, with
+                      the ability to narrow the search list by typing in a
+                      few characters of the desired word.
+Buttonbox             This creates a multiple button widget. 
+Calendar              Creates a little simple calendar widget.
+Dialog                Prompts the user with a message, and the user
+                      can pick an answer from the buttons provided.
+Entry                 Allows the user to enter various types of information.
+File Selector         A file selector built from Cdk base widgets. This
+                      example shows how to create more complicated widgets
+                      using the Cdk widget library.
+Graph                 Draws a graph.
+Histogram             Draws a histogram.
+Item List             Creates a pop up field which allows the user to select
+                      one of several choices in a small field. Very useful
+                      for things like days of the week or month names.
+Label                 Displays messages in a pop up box, or the label can be
+                      considered part of the screen.
+Marquee               Displays a message in a scrolling marquee.
+Matrix                Creates a complex matrix with lots of options.
+Menu                  Creates a pull-down menu interface.
+Multiple Line Entry   A multiple line entry field. Very useful
+                      for long fields. (like a description
+                      field)
+Radio List            Creates a radio button list.
+Scale                 Creates a numeric scale. Used for allowing a user to
+                      pick a numeric value and restrict them to a range of 
+                      values.
+Scrolling List        Creates a scrolling list/menu list.
+Scrolling Window      Creates a scrolling log file viewer. Can add 
+                      information into the window while its running. 
+                      A good widget for displaying the progress of
+                      something. (akin to a console window)
+Selection List        Creates a multiple option selection list.
+Slider                Akin to the scale widget, this widget provides a
+                      visual slide bar to represent the numeric value.
+Template              Creates a entry field with character sensitive 
+                      positions. Used for pre-formatted fields like
+                      dates and phone numbers.
+Viewer                This is a file/information viewer. Very useful
+                      when you need to display loads of information.
+===========================================================================</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="CDKATTRACT"
+>19.1.2. Some Attractive Features</A
+></H3
+><P
+>Apart from making our life easier with readily usable widgets, cdk solves one
+frustrating problem with printing multi colored strings, justified strings
+elegantly.  Special formatting tags can be embedded in the strings which are
+passed to CDK functions. For Example</P
+><P
+>If the string</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>"&#60;/B/1&#62;This line should have a yellow foreground and a blue
+background.&#60;!1&#62;"</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>given as a parameter to newCDKLabel(), it prints the line with yellow foreground
+and blue background. There are other tags available for justifying string,
+embedding special drawing characters etc.. Please refer to the man page
+cdk_display(3X) for details. The man page explains the usage with nice examples.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="CDKCONCLUSION"
+>19.1.3. Conclusion</A
+></H3
+><P
+>All in all, CDK is a well-written package of widgets, which if used properly can
+form a strong frame work for developing complex GUI.</P
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="DIALOG"
+>19.2. The dialog</A
+></H2
+><P
+>Long long ago, in September 1994, when few people knew linux, Jeff Tranter wrote
+an <A
+HREF="http://www2.linuxjournal.com/lj-issues/issue5/2807.html"
+TARGET="_top"
+>article</A
+> on dialog in Linux Journal. He starts the article with these words..</P
+><P
+><EM
+>Linux is based on the Unix operating system, but also features a number of
+unique and useful kernel features and application programs that often go beyond
+what is available under Unix. One little-known gem is "dialog", a utility for
+creating professional-looking dialog boxes from within shell scripts. This
+article presents a tutorial introduction to the dialog utility, and shows
+examples of how and where it can be used</EM
+></P
+><P
+> 
+As he explains, dialog is a real gem in making professional-looking dialog boxes
+with ease. It creates a variety of dialog boxes, menus, check lists etc.. It is
+usually installed by default. If not, you can find it at <A
+HREF="http://www.ibiblio.org/pub/Linux/utils/shell/dialog-0.61a.tar.gz"
+TARGET="_top"
+> ibiblio
+linux archive</A
+>. </P
+><P
+>The above-mentioned article gives a very good overview of its uses and
+capabilites.  The man page has more details. It can be used in variety of
+situations. One good example is building of linux kernel in text mode. Linux
+kernel uses a modified version of dialog tailored for its needs. </P
+><P
+>dialog was initially designed to be used with shell scripts. If you want to use
+its functionality in a c program, then you can use libdialog. The documentation
+regarding this is sparse. Definitive reference is the dialog.h header file which
+comes with the library. You may need to hack here and there to get the required
+output. The source is easily customizable. I have used it on a number of
+occasions by modifying the code.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="PERLCURSES"
+>19.3. Perl Curses Modules CURSES::FORM and CURSES::WIDGETS</A
+></H2
+><P
+>The perl module Curses, Curses::Form and Curses::Widgets give access to curses
+from perl.  If you have curses and basic perl is installed, you can get these
+modules from <A
+HREF="http://www.cpan.org/modules/01modules.index.html"
+TARGET="_top"
+> CPAN
+All Modules page</A
+>.  Get the three zipped modules in the Curses category.
+Once installed you can use these modules from perl scripts like any other
+module. For more information on perl modules see perlmod man page. The above
+modules come with good documentation and they have some demo scripts to test the
+functionality. Though the widgets provided are very rudimentary, these modules
+provide good access to curses library from perl.</P
+><P
+>Some of my code examples are converted to perl by Anuradha Ratnaweera and they
+are available in the <VAR
+CLASS="LITERAL"
+>perl</VAR
+> directory.</P
+><P
+> 
+For more information see man pages Curses(3) , Curses::Form(3) and
+Curses::Widgets(3).  These pages are installed only when the above modules are
+acquired and installed.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="forms.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="justforfun.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Forms Library</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Just For Fun !!!</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
