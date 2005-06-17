@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>Screen Manipulation</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE=" NCURSES Programming HOWTO "
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE="Interfacing with the mouse "
+HREF="mouse.html"><LINK
+REL="NEXT"
+TITLE="Miscellaneous features"
+HREF="misc.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>NCURSES Programming HOWTO</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="mouse.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="misc.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SCREEN"
+>13. Screen Manipulation</A
+></H1
+><P
+>In this section, we will look into some functions, which allow us to manage the
+screen efficiently and to write some fancy programs. This is especially
+important in writing games. </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="GETYX"
+>13.1. getyx() functions</A
+></H2
+><P
+>&#13;The function <VAR
+CLASS="LITERAL"
+>getyx()</VAR
+> can be used to find out
+the present cursor co-ordinates. It will fill the values of x and y co-ordinates
+in the arguments given to it. Since getyx() is a macro you don't have to pass
+the address of the variables. It can be called as</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    getyx(win, y, x);
+    /* win: window pointer
+     *   y, x: y, x co-ordinates will be put into this variables 
+     */</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><P
+>The function getparyx() gets the beginning co-ordinates of the sub window
+relative to the main window. This is some times useful to update a sub window.
+When designing fancy stuff like writing multiple menus, it becomes difficult to
+store the menu positions, their first option co-ordinates etc. A simple solution
+to this problem, is to create menus in sub windows and later find the starting
+co-ordinates of the menus by using getparyx().</P
+><P
+>The functions getbegyx() and getmaxyx() store current window's beginning and
+maximum co-ordinates. These functions are useful in the same way as above in
+managing the windows and sub windows effectively.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SCREENDUMP"
+>13.2. Screen Dumping</A
+></H2
+><P
+>While writing games, some times it becomes necessary to store the state of the
+screen and restore it back to the same state. The function scr_dump() can be
+used to dump the screen contents to a file given as an argument. Later it can be
+restored by scr_restore function. These two simple functions can be used
+effectively to maintain a fast moving game with changing scenarios. </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="WINDOWDUMP"
+>13.3. Window Dumping</A
+></H2
+><P
+>To store and restore windows, the functions
+<VAR
+CLASS="LITERAL"
+>putwin()</VAR
+> and <VAR
+CLASS="LITERAL"
+>getwin()</VAR
+> can be used. <VAR
+CLASS="LITERAL"
+>putwin()</VAR
+> puts
+the present window state into a file, which can be later restored by
+<VAR
+CLASS="LITERAL"
+>getwin()</VAR
+>.</P
+><P
+> 
+The function <VAR
+CLASS="LITERAL"
+>copywin()</VAR
+> can be used to copy a
+window completely onto another window. It takes the source and destination
+windows as parameters and according to the rectangle specified, it copies the
+rectangular region from source to destination window.  It's last parameter
+specifies whether to overwrite or just overlay the contents on to the
+destination window. If this argument is true, then the copying is
+non-destructive.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="mouse.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="misc.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Interfacing with the mouse</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Miscellaneous features</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

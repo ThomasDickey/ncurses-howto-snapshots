@@ -1,3 +1,13 @@
+2005-06-17  Pradeep Padala <ppadala@gmail.com>
+
+	* ncurses_programs/COPYING: t20050620
+
+	* result/index.html, result/justforfun.html, result/ref.html, result/forms.html, result/menus.html, result/tools.html, result/misc.html, result/mouse.html, result/otherlib.html, result/panels.html, result/screen.html, result/attrib.html, result/color.html, result/keys.html, result/windows.html, result/awordwindows.html, result/init.html, result/printw.html, result/scanw.html, result/gory.html, result/helloworld.html, result/intro.html:
+	t20050617
+
+	* ncurses_programs/basics/mouse_menu.c, ncurses_programs/basics/simple_color.c, ncurses_programs/basics/simple_attr.c, ncurses_programs/JustForFun/magic.c, ncurses_programs/panels/panel_simple.c, ncurses_programs/basics/other_border.c, ncurses_programs/README, ncurses_programs/JustForFun/life.c, ncurses_programs/JustForFun/queens.c, ncurses_programs/JustForFun/shuffle.c, ncurses_programs/JustForFun/tt.c, ncurses_programs/basics/acs_vars.c, ncurses_programs/basics/hello_world.c, ncurses_programs/basics/init_func_example.c, ncurses_programs/basics/key_code.c, ncurses_programs/basics/printw_example.c, ncurses_programs/basics/scanw_example.c, ncurses_programs/basics/simple_key.c, ncurses_programs/basics/temp_leave.c, ncurses_programs/basics/win_border.c, ncurses_programs/basics/with_chgat.c, ncurses_programs/forms/form_attrib.c, ncurses_programs/forms/form_options.c, ncurses_programs/forms/form_simple.c, ncurses_programs/forms/form_win.c, ncurses_programs/menus/menu_attrib.c, ncurses_programs/menus/menu_item_data.c, ncurses_programs/menus/menu_multi_column.c, ncurses_programs/menus/menu_scroll.c, ncurses_programs/menus/menu_simple.c, ncurses_programs/menus/menu_toggle.c, ncurses_programs/menus/menu_userptr.c, ncurses_programs/menus/menu_win.c, ncurses_programs/panels/panel_browse.c, ncurses_programs/panels/panel_hide.c, ncurses_programs/panels/panel_resize.c:
+	t20050620
+
 2002-06-25  Pradeep Padala <ppadala@gmail.com>
 
 	* ncurses_programs/menus/menu_win.c, ncurses_programs/menus/menu_simple.c, ncurses_programs/panels/panel_resize.c, ncurses_programs/basics/simple_color.c, ncurses_programs/basics/with_chgat.c, ncurses_programs/basics/init_func_example.c, ncurses_programs/basics/hello_world.c:

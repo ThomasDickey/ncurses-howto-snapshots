@@ -1,0 +1,1041 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+> Panel Library</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE=" NCURSES Programming HOWTO "
+HREF="index.html"><LINK
+REL="PREVIOUS"
+TITLE=" Other libraries "
+HREF="otherlib.html"><LINK
+REL="NEXT"
+TITLE=" Menus Library "
+HREF="menus.html"></HEAD
+><BODY
+CLASS="SECT1"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>NCURSES Programming HOWTO</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="otherlib.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="menus.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="PANELS"
+>16. Panel Library</A
+></H1
+><P
+>Now that you are proficient in curses, you wanted to do some thing big. You
+created a lot of overlapping windows to give a professional windows-type look.
+Unfortunately, it soon becomes difficult to manage these. The multiple
+refreshes, updates plunge you into a nightmare. The overlapping windows create
+blotches, whenever you forget to refresh the windows in the proper order. </P
+><P
+>Don't despair. There's an elegant solution provided in panels library. In the
+words of developers of ncurses </P
+><P
+><EM
+>When your interface design is such that windows may dive deeper into the
+visibility stack or pop to the top at runtime, the resulting book-keeping can be
+tedious and difficult to get right. Hence the panels library.</EM
+></P
+><P
+>If you have lot of overlapping windows, then panels library is the way to go. It
+obviates the need of doing series of wnoutrefresh(), doupdate() and relieves the
+burden of doing it correctly(bottom up). The library maintains information about
+the order of windows, their overlapping and update the screen properly. So why
+wait? Let's take a close peek into panels.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="PANELBASICS"
+>16.1. The Basics</A
+></H2
+><P
+>Panel object is a window that is implicitly treated as part of a deck including
+all other panel objects. The deck is treated as a stack with the top panel being
+completely visible and the other panels may or may not be obscured according to
+their positions. So the basic idea is to create a stack of overlapping panels
+and use panels library to display them correctly. There is a function similar to
+refresh() which, when called , displays panels in the correct order. Functions
+are provided to hide or show panels, move panels, change its size etc.. The
+overlapping problem is managed by the panels library during all the calls to
+these functions. </P
+><P
+>The general flow of a panel program goes like this:
+
+<P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Create the windows (with newwin()) to be attached to the panels.</P
+></LI
+><LI
+><P
+>Create panels with the chosen visibility order. Stack them up according to the 
+desired visibility. The function new_panel() is used to created panels.</P
+></LI
+><LI
+><P
+>Call update_panels() to write the panels to the virtual screen in correct
+visibility order. Do a doupdate() to show it on the screen. </P
+></LI
+><LI
+><P
+>Mainpulate the panels with show_panel(), hide_panel(), move_panel() etc. Make
+use of helper functions like panel_hidden() and panel_window(). Make use of user
+pointer to store custom data for a panel. Use the functions set_panel_userptr()
+and panel_userptr() to set and get the user pointer for a panel.</P
+></LI
+><LI
+><P
+>When you are done with the panel use del_panel() to delete the panel.</P
+></LI
+></OL
+></P
+><P
+>Let's make the concepts clear, with some programs.  The following is a simple
+program which creates 3 overlapping panels and shows them on the screen. </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="COMPILEPANELS"
+>16.2. Compiling With the Panels Library</A
+></H2
+><P
+>To use panels library functions, you have to include panel.h and to link the
+program with panels library the flag -lpanel should be added along with
+-lncurses in that order.</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>    #include &#60;panel.h&#62;
+    .
+    .
+    .
+
+    compile and link: gcc &#60;program file&#62; -lpanel -lncurses</PRE
+></FONT
+></TD
+></TR
+></TABLE
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="PPASI"
+></A
+><P
+><B
+>Example 14.  Panel basics</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+>#include &#60;panel.h&#62;
+
+int main()
+{	WINDOW *my_wins[3];
+	PANEL  *my_panels[3];
+	int lines = 10, cols = 40, y = 2, x = 4, i;
+
+	initscr();
+	cbreak();
+	noecho();
+
+	/* Create windows for the panels */
+	my_wins[0] = newwin(lines, cols, y, x);
+	my_wins[1] = newwin(lines, cols, y + 1, x + 5);
+	my_wins[2] = newwin(lines, cols, y + 2, x + 10);
+
+	/* 
+	 * Create borders around the windows so that you can see the effect
+	 * of panels
+	 */
+	for(i = 0; i &#60; 3; ++i)
+		box(my_wins[i], 0, 0);
+
+	/* Attach a panel to each window */ 	/* Order is bottom up */
+	my_panels[0] = new_panel(my_wins[0]); 	/* Push 0, order: stdscr-0 */
+	my_panels[1] = new_panel(my_wins[1]); 	/* Push 1, order: stdscr-0-1 */
+	my_panels[2] = new_panel(my_wins[2]); 	/* Push 2, order: stdscr-0-1-2 */
+
+	/* Update the stacking order. 2nd panel will be on top */
+	update_panels();
+
+	/* Show it on the screen */
+	doupdate();
+	
+	getch();
+	endwin();
+}
+</SPAN
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>As you can see, above program follows a simple flow as explained. The windows
+are created with newwin() and then they are attached to panels with new_panel().
+As we attach one panel after another, the stack of panels gets updated. To put
+them on screen update_panels() and doupdate() are called.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="PANELBROWSING"
+>16.3. Panel Window Browsing</A
+></H2
+><P
+>A slightly complicated example is given below. This program creates 3
+windows which can be cycled through using tab. Have a look at the code.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="PPABR"
+></A
+><P
+><B
+>Example 15.  Panel Window Browsing Example </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+>#include &#60;panel.h&#62;
+
+#define NLINES 10
+#define NCOLS 40
+
+void init_wins(WINDOW **wins, int n);
+void win_show(WINDOW *win, char *label, int label_color);
+void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color);
+
+int main()
+{	WINDOW *my_wins[3];
+	PANEL  *my_panels[3];
+	PANEL  *top;
+	int ch;
+
+	/* Initialize curses */
+	initscr();
+	start_color();
+	cbreak();
+	noecho();
+	keypad(stdscr, TRUE);
+
+	/* Initialize all the colors */
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_CYAN, COLOR_BLACK);
+
+	init_wins(my_wins, 3);
+	
+	/* Attach a panel to each window */ 	/* Order is bottom up */
+	my_panels[0] = new_panel(my_wins[0]); 	/* Push 0, order: stdscr-0 */
+	my_panels[1] = new_panel(my_wins[1]); 	/* Push 1, order: stdscr-0-1 */
+	my_panels[2] = new_panel(my_wins[2]); 	/* Push 2, order: stdscr-0-1-2 */
+
+	/* Set up the user pointers to the next panel */
+	set_panel_userptr(my_panels[0], my_panels[1]);
+	set_panel_userptr(my_panels[1], my_panels[2]);
+	set_panel_userptr(my_panels[2], my_panels[0]);
+
+	/* Update the stacking order. 2nd panel will be on top */
+	update_panels();
+
+	/* Show it on the screen */
+	attron(COLOR_PAIR(4));
+	mvprintw(LINES - 2, 0, "Use tab to browse through the windows (F1 to Exit)");
+	attroff(COLOR_PAIR(4));
+	doupdate();
+
+	top = my_panels[2];
+	while((ch = getch()) != KEY_F(1))
+	{	switch(ch)
+		{	case 9:
+				top = (PANEL *)panel_userptr(top);
+				top_panel(top);
+				break;
+		}
+		update_panels();
+		doupdate();
+	}
+	endwin();
+	return 0;
+}
+
+/* Put all the windows */
+void init_wins(WINDOW **wins, int n)
+{	int x, y, i;
+	char label[80];
+
+	y = 2;
+	x = 10;
+	for(i = 0; i &#60; n; ++i)
+	{	wins[i] = newwin(NLINES, NCOLS, y, x);
+		sprintf(label, "Window Number %d", i + 1);
+		win_show(wins[i], label, i + 1);
+		y += 3;
+		x += 7;
+	}
+}
+
+/* Show the window with a border and a label */
+void win_show(WINDOW *win, char *label, int label_color)
+{	int startx, starty, height, width;
+
+	getbegyx(win, starty, startx);
+	getmaxyx(win, height, width);
+
+	box(win, 0, 0);
+	mvwaddch(win, 2, 0, ACS_LTEE); 
+	mvwhline(win, 2, 1, ACS_HLINE, width - 2); 
+	mvwaddch(win, 2, width - 1, ACS_RTEE); 
+	
+	print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
+}
+
+void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
+{	int length, x, y;
+	float temp;
+
+	if(win == NULL)
+		win = stdscr;
+	getyx(win, y, x);
+	if(startx != 0)
+		x = startx;
+	if(starty != 0)
+		y = starty;
+	if(width == 0)
+		width = 80;
+
+	length = strlen(string);
+	temp = (width - length)/ 2;
+	x = startx + (int)temp;
+	wattron(win, color);
+	mvwprintw(win, y, x, "%s", string);
+	wattroff(win, color);
+	refresh();
+}</SPAN
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="USERPTRUSING"
+>16.4. Using User Pointers</A
+></H2
+><P
+>In the above example I used user pointers to find out the next window in the
+cycle.  We can attach custom information to the panel by specifying a user
+pointer, which can point to any information you want to store. In this case I
+stored the pointer to the next panel in the cycle. User pointer for a panel can
+be set with the function <VAR
+CLASS="LITERAL"
+> set_panel_userptr()</VAR
+>.
+It can be accessed using the function <VAR
+CLASS="LITERAL"
+>panel_userptr()</VAR
+> which will return the user pointer for the panel given as
+argument. After finding the next panel in the cycle It's brought to the top by
+the function top_panel().  This function brings the panel given as argument to
+the top of the panel stack.  </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="PANELMOVERESIZE"
+>16.5. Moving and Resizing Panels</A
+></H2
+><P
+>The function <VAR
+CLASS="LITERAL"
+>move_panel()</VAR
+> can be used to move a
+panel to the desired location. It does not change the position of the panel in
+the stack. Make sure that you use move_panel() instead mvwin() on the window
+associated with the panel.</P
+><P
+>Resizing a panel is slightly complex.  There is no straight forward function
+just to resize the window associated with a panel. A solution to resize a panel
+is to create a new window with the desired sizes, change the window associated
+with the panel using replace_panel(). Don't forget to delete the old window. The
+window associated with a panel can be found by using the function
+panel_window().</P
+><P
+>The following program shows these concepts, in supposedly simple program. You
+can cycle through the window with &#60;TAB&#62; as usual. To resize or move the
+active panel press 'r' for resize 'm' for moving. Then use arrow keys to resize
+or move it to the desired way and press enter to end your resizing or moving.
+This example makes use of user data to get the required data to do the
+operations. </P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="PPARE"
+></A
+><P
+><B
+>Example 16.  Panel Moving and Resizing example </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+>#include &#60;panel.h&#62;
+
+typedef struct _PANEL_DATA {
+	int x, y, w, h;
+	char label[80]; 
+	int label_color;
+	PANEL *next;
+}PANEL_DATA;
+
+#define NLINES 10
+#define NCOLS 40
+
+void init_wins(WINDOW **wins, int n);
+void win_show(WINDOW *win, char *label, int label_color);
+void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color);
+void set_user_ptrs(PANEL **panels, int n);
+
+int main()
+{	WINDOW *my_wins[3];
+	PANEL  *my_panels[3];
+	PANEL_DATA  *top;
+	PANEL *stack_top;
+	WINDOW *temp_win, *old_win;
+	int ch;
+	int newx, newy, neww, newh;
+	int size = FALSE, move = FALSE;
+
+	/* Initialize curses */
+	initscr();
+	start_color();
+	cbreak();
+	noecho();
+	keypad(stdscr, TRUE);
+
+	/* Initialize all the colors */
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_CYAN, COLOR_BLACK);
+
+	init_wins(my_wins, 3);
+	
+	/* Attach a panel to each window */ 	/* Order is bottom up */
+	my_panels[0] = new_panel(my_wins[0]); 	/* Push 0, order: stdscr-0 */
+	my_panels[1] = new_panel(my_wins[1]); 	/* Push 1, order: stdscr-0-1 */
+	my_panels[2] = new_panel(my_wins[2]); 	/* Push 2, order: stdscr-0-1-2 */
+
+	set_user_ptrs(my_panels, 3);
+	/* Update the stacking order. 2nd panel will be on top */
+	update_panels();
+
+	/* Show it on the screen */
+	attron(COLOR_PAIR(4));
+	mvprintw(LINES - 3, 0, "Use 'm' for moving, 'r' for resizing");
+	mvprintw(LINES - 2, 0, "Use tab to browse through the windows (F1 to Exit)");
+	attroff(COLOR_PAIR(4));
+	doupdate();
+
+	stack_top = my_panels[2];
+	top = (PANEL_DATA *)panel_userptr(stack_top);
+	newx = top-&#62;x;
+	newy = top-&#62;y;
+	neww = top-&#62;w;
+	newh = top-&#62;h;
+	while((ch = getch()) != KEY_F(1))
+	{	switch(ch)
+		{	case 9:		/* Tab */
+				top = (PANEL_DATA *)panel_userptr(stack_top);
+				top_panel(top-&#62;next);
+				stack_top = top-&#62;next;
+				top = (PANEL_DATA *)panel_userptr(stack_top);
+				newx = top-&#62;x;
+				newy = top-&#62;y;
+				neww = top-&#62;w;
+				newh = top-&#62;h;
+				break;
+			case 'r':	/* Re-Size*/
+				size = TRUE;
+				attron(COLOR_PAIR(4));
+				mvprintw(LINES - 4, 0, "Entered Resizing :Use Arrow Keys to resize and press &#60;ENTER&#62; to end resizing");
+				refresh();
+				attroff(COLOR_PAIR(4));
+				break;
+			case 'm':	/* Move */
+				attron(COLOR_PAIR(4));
+				mvprintw(LINES - 4, 0, "Entered Moving: Use Arrow Keys to Move and press &#60;ENTER&#62; to end moving");
+				refresh();
+				attroff(COLOR_PAIR(4));
+				move = TRUE;
+				break;
+			case KEY_LEFT:
+				if(size == TRUE)
+				{	--newx;
+					++neww;
+				}
+				if(move == TRUE)
+					--newx;
+				break;
+			case KEY_RIGHT:
+				if(size == TRUE)
+				{	++newx;
+					--neww;
+				}
+				if(move == TRUE)
+					++newx;
+				break;
+			case KEY_UP:
+				if(size == TRUE)
+				{	--newy;
+					++newh;
+				}
+				if(move == TRUE)
+					--newy;
+				break;
+			case KEY_DOWN:
+				if(size == TRUE)
+				{	++newy;
+					--newh;
+				}
+				if(move == TRUE)
+					++newy;
+				break;
+			case 10:	/* Enter */
+				move(LINES - 4, 0);
+				clrtoeol();
+				refresh();
+				if(size == TRUE)
+				{	old_win = panel_window(stack_top);
+					temp_win = newwin(newh, neww, newy, newx);
+					replace_panel(stack_top, temp_win);
+					win_show(temp_win, top-&#62;label, top-&#62;label_color); 
+					delwin(old_win);
+					size = FALSE;
+				}
+				if(move == TRUE)
+				{	move_panel(stack_top, newy, newx);
+					move = FALSE;
+				}
+				break;
+			
+		}
+		attron(COLOR_PAIR(4));
+		mvprintw(LINES - 3, 0, "Use 'm' for moving, 'r' for resizing");
+	    	mvprintw(LINES - 2, 0, "Use tab to browse through the windows (F1 to Exit)");
+	    	attroff(COLOR_PAIR(4));
+	        refresh();	
+		update_panels();
+		doupdate();
+	}
+	endwin();
+	return 0;
+}
+
+/* Put all the windows */
+void init_wins(WINDOW **wins, int n)
+{	int x, y, i;
+	char label[80];
+
+	y = 2;
+	x = 10;
+	for(i = 0; i &#60; n; ++i)
+	{	wins[i] = newwin(NLINES, NCOLS, y, x);
+		sprintf(label, "Window Number %d", i + 1);
+		win_show(wins[i], label, i + 1);
+		y += 3;
+		x += 7;
+	}
+}
+
+/* Set the PANEL_DATA structures for individual panels */
+void set_user_ptrs(PANEL **panels, int n)
+{	PANEL_DATA *ptrs;
+	WINDOW *win;
+	int x, y, w, h, i;
+	char temp[80];
+	
+	ptrs = (PANEL_DATA *)calloc(n, sizeof(PANEL_DATA));
+
+	for(i = 0;i &#60; n; ++i)
+	{	win = panel_window(panels[i]);
+		getbegyx(win, y, x);
+		getmaxyx(win, h, w);
+		ptrs[i].x = x;
+		ptrs[i].y = y;
+		ptrs[i].w = w;
+		ptrs[i].h = h;
+		sprintf(temp, "Window Number %d", i + 1);
+		strcpy(ptrs[i].label, temp);
+		ptrs[i].label_color = i + 1;
+		if(i + 1 == n)
+			ptrs[i].next = panels[0];
+		else
+			ptrs[i].next = panels[i + 1];
+		set_panel_userptr(panels[i], &#38;ptrs[i]);
+	}
+}
+
+/* Show the window with a border and a label */
+void win_show(WINDOW *win, char *label, int label_color)
+{	int startx, starty, height, width;
+
+	getbegyx(win, starty, startx);
+	getmaxyx(win, height, width);
+
+	box(win, 0, 0);
+	mvwaddch(win, 2, 0, ACS_LTEE); 
+	mvwhline(win, 2, 1, ACS_HLINE, width - 2); 
+	mvwaddch(win, 2, width - 1, ACS_RTEE); 
+	
+	print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
+}
+
+void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
+{	int length, x, y;
+	float temp;
+
+	if(win == NULL)
+		win = stdscr;
+	getyx(win, y, x);
+	if(startx != 0)
+		x = startx;
+	if(starty != 0)
+		y = starty;
+	if(width == 0)
+		width = 80;
+
+	length = strlen(string);
+	temp = (width - length)/ 2;
+	x = startx + (int)temp;
+	wattron(win, color);
+	mvwprintw(win, y, x, "%s", string);
+	wattroff(win, color);
+	refresh();
+}</SPAN
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>Concentrate on the main while loop. Once it finds out the type of key pressed,
+it takes appropriate action. If 'r' is pressed resizing mode is started. After
+this the new sizes are updated as the user presses the arrow keys. When the user
+presses &#60;ENTER&#62; present selection ends and panel is resized by using the
+concept explained.  While in resizing mode the program doesn't show how the
+window is getting resized.  It's left as an exercise to the reader to print a
+dotted border while it gets resized to a new position. </P
+><P
+>When the user presses 'm' the move mode starts. This is a bit simpler than
+resizing.  As the arrow keys are pressed the new position is updated and
+pressing of &#60;ENTER&#62; causes the panel to be moved by calling the function
+move_panel().</P
+><P
+>In this program the user data which is represented as PANEL_DATA, plays very
+important role in finding the associated information with a panel. As written in
+the comments, the PANEL_DATA stores the panel sizes, label, label color and a
+pointer to the next panel in the cycle.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="PANELSHOWHIDE"
+>16.6. Hiding and Showing Panels</A
+></H2
+><P
+>A Panel can be hidden by using the function hide_panel(). This function merely
+removes it form the stack of panels, thus hiding it on the screen once you do
+update_panels() and doupdate(). It doesn't destroy the PANEL structure
+associated with the hidden panel.  It can be shown again by using the
+show_panel() function.</P
+><P
+>The following program shows the hiding of panels. Press 'a' or 'b' or 'c' to
+show or hide first, second and third windows respectively. It uses a user data
+with a small variable hide, which keeps track of whether the window is hidden or
+not. For some reason the function
+<VAR
+CLASS="LITERAL"
+>panel_hidden()</VAR
+> which tells whether a panel is
+hidden or not is not working.  A bug report was also presented by Michael Andres
+<A
+HREF="http://www.geocrawler.com/archives/3/344/1999/9/0/2643549/"
+TARGET="_top"
+> here</A
+></P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="PPAHI"
+></A
+><P
+><B
+>Example 17.  Panel Hiding and Showing example </B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+><SPAN
+CLASS="INLINEMEDIAOBJECT"
+>#include &#60;panel.h&#62;
+
+typedef struct _PANEL_DATA {
+	int hide;	/* TRUE if panel is hidden */
+}PANEL_DATA;
+
+#define NLINES 10
+#define NCOLS 40
+
+void init_wins(WINDOW **wins, int n);
+void win_show(WINDOW *win, char *label, int label_color);
+void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color);
+
+int main()
+{	WINDOW *my_wins[3];
+	PANEL  *my_panels[3];
+	PANEL_DATA panel_datas[3];
+	PANEL_DATA *temp;
+	int ch;
+
+	/* Initialize curses */
+	initscr();
+	start_color();
+	cbreak();
+	noecho();
+	keypad(stdscr, TRUE);
+
+	/* Initialize all the colors */
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_CYAN, COLOR_BLACK);
+
+	init_wins(my_wins, 3);
+	
+	/* Attach a panel to each window */ 	/* Order is bottom up */
+	my_panels[0] = new_panel(my_wins[0]); 	/* Push 0, order: stdscr-0 */
+	my_panels[1] = new_panel(my_wins[1]); 	/* Push 1, order: stdscr-0-1 */
+	my_panels[2] = new_panel(my_wins[2]); 	/* Push 2, order: stdscr-0-1-2 */
+
+	/* Initialize panel datas saying that nothing is hidden */
+	panel_datas[0].hide = FALSE;
+	panel_datas[1].hide = FALSE;
+	panel_datas[2].hide = FALSE;
+
+	set_panel_userptr(my_panels[0], &#38;panel_datas[0]);
+	set_panel_userptr(my_panels[1], &#38;panel_datas[1]);
+	set_panel_userptr(my_panels[2], &#38;panel_datas[2]);
+
+	/* Update the stacking order. 2nd panel will be on top */
+	update_panels();
+
+	/* Show it on the screen */
+	attron(COLOR_PAIR(4));
+	mvprintw(LINES - 3, 0, "Show or Hide a window with 'a'(first window)  'b'(Second Window)  'c'(Third Window)");
+	mvprintw(LINES - 2, 0, "F1 to Exit");
+
+	attroff(COLOR_PAIR(4));
+	doupdate();
+	
+	while((ch = getch()) != KEY_F(1))
+	{	switch(ch)
+		{	case 'a':			
+				temp = (PANEL_DATA *)panel_userptr(my_panels[0]);
+				if(temp-&#62;hide == FALSE)
+				{	hide_panel(my_panels[0]);
+					temp-&#62;hide = TRUE;
+				}
+				else
+				{	show_panel(my_panels[0]);
+					temp-&#62;hide = FALSE;
+				}
+				break;
+			case 'b':
+				temp = (PANEL_DATA *)panel_userptr(my_panels[1]);
+				if(temp-&#62;hide == FALSE)
+				{	hide_panel(my_panels[1]);
+					temp-&#62;hide = TRUE;
+				}
+				else
+				{	show_panel(my_panels[1]);
+					temp-&#62;hide = FALSE;
+				}
+				break;
+			case 'c':
+				temp = (PANEL_DATA *)panel_userptr(my_panels[2]);
+				if(temp-&#62;hide == FALSE)
+				{	hide_panel(my_panels[2]);
+					temp-&#62;hide = TRUE;
+				}
+				else
+				{	show_panel(my_panels[2]);
+					temp-&#62;hide = FALSE;
+				}
+				break;
+		}
+		update_panels();
+		doupdate();
+	}
+	endwin();
+	return 0;
+}
+
+/* Put all the windows */
+void init_wins(WINDOW **wins, int n)
+{	int x, y, i;
+	char label[80];
+
+	y = 2;
+	x = 10;
+	for(i = 0; i &#60; n; ++i)
+	{	wins[i] = newwin(NLINES, NCOLS, y, x);
+		sprintf(label, "Window Number %d", i + 1);
+		win_show(wins[i], label, i + 1);
+		y += 3;
+		x += 7;
+	}
+}
+
+/* Show the window with a border and a label */
+void win_show(WINDOW *win, char *label, int label_color)
+{	int startx, starty, height, width;
+
+	getbegyx(win, starty, startx);
+	getmaxyx(win, height, width);
+
+	box(win, 0, 0);
+	mvwaddch(win, 2, 0, ACS_LTEE); 
+	mvwhline(win, 2, 1, ACS_HLINE, width - 2); 
+	mvwaddch(win, 2, width - 1, ACS_RTEE); 
+	
+	print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
+}
+
+void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
+{	int length, x, y;
+	float temp;
+
+	if(win == NULL)
+		win = stdscr;
+	getyx(win, y, x);
+	if(startx != 0)
+		x = startx;
+	if(starty != 0)
+		y = starty;
+	if(width == 0)
+		width = 80;
+
+	length = strlen(string);
+	temp = (width - length)/ 2;
+	x = startx + (int)temp;
+	wattron(win, color);
+	mvwprintw(win, y, x, "%s", string);
+	wattroff(win, color);
+	refresh();
+}</SPAN
+></PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="PANELABOVE"
+>16.7. panel_above() and panel_below() Functions</A
+></H2
+><P
+>The functions <VAR
+CLASS="LITERAL"
+>panel_above()</VAR
+> and
+<VAR
+CLASS="LITERAL"
+>panel_below()</VAR
+> can be used to find out the panel
+above and below a panel. If the argument to these functions is NULL, then they
+return a pointer to bottom panel and top panel respectively.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="otherlib.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="menus.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Other libraries</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Menus Library</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
