@@ -1,3 +1,13 @@
+2005-06-25  Pradeep Padala <ppadala@gmail.com>
+
+	* result/NCURSES-nochunks.html, NCURSES-Programming-HOWTO.sgml:
+	t20050620
+
+2005-06-20  Pradeep Padala <ppadala@gmail.com>
+
+	* ncurses_programs/perl/README, ncurses_programs/perl/COPYING, ncurses_programs/perl/01.pl, ncurses_programs/perl/02.pl, ncurses_programs/perl/03.pl, ncurses_programs/perl/04.pl, ncurses_programs/perl/05.pl, ncurses_programs/perl/06.pl, ncurses_programs/perl/07.pl, ncurses_programs/perl/08.pl, ncurses_programs/perl/09.pl, ncurses_programs/perl/10.pl:
+	t20050620
+
 2005-06-17  Pradeep Padala <ppadala@gmail.com>
 
 	* ncurses_programs/COPYING: t20050620
