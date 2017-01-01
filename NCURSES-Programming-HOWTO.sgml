@@ -1230,7 +1230,7 @@ policy and stick to it. You can always use <literal remap="tt"> standend()
 </para>
 </sect2>
 
-<sect2 id="attr_get"><title>attr_get()</title>
+<sect2 id="attrget"><title>attr_get()</title>
 
 <para>
 
@@ -1244,7 +1244,7 @@ desired effect.
 </para>
 </sect2>
 
-<sect2 id="attr_funcs"><title>attr_ functions</title>
+<sect2 id="attrfuncs"><title>attr_ functions</title>
 <para>
 There are series of functions like attr_set(), attr_on etc.. These are similar
 to above functions except that they take parameters of type
@@ -3200,7 +3200,7 @@ characters (this is checked at character-entry time).  It is set up with:
 <programlisting>
 int set_field_type(FIELD *field,          /* field to alter */
                    TYPE_ALPHA,            /* type to associate */
-                   int width);            /* maximum width of field */
+                   int width);            /* minimum width of field */
 </programlisting>
 
 <para>
@@ -3221,7 +3221,7 @@ characters (this is checked at character-entry time).  It is set up with:
 <programlisting>
 int set_field_type(FIELD *field,          /* field to alter */
                    TYPE_ALNUM,            /* type to associate */
-                   int width);            /* maximum width of field */
+                   int width);            /* minimum width of field */
 </programlisting>
 
 <para>

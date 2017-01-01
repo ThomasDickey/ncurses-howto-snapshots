@@ -1,0 +1,5 @@
+This is a snapshot of the NCURSES-HOWTO and associated sample programs written
+by Pradeep Padala from 2002-2005.
+
+The top-level makefile makes html files; use the makefile in ncurses_programs
+to compile the sample programs.

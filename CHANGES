@@ -1,3 +1,24 @@
+2016-12-31  Thomas E. Dickey  <dickey@invisible-island.net>
+
+	* result/NCURSES-nochunks.html, result/attrib.html, result/awordwindows.html, result/color.html, result/forms.html, result/gory.html, result/helloworld.html, result/init.html, result/justforfun.html, result/keys.html, result/menus.html, result/misc.html, result/mouse.html, result/otherlib.html, result/panels.html, result/printw.html, result/ref.html, result/scanw.html, result/screen.html, result/tools.html, result/windows.html:
+	used tidy on Debian 7 to indent generated html
+	tidy 20091223cvs-1.2+deb7u1
+
+	* result/intro.html, result/index.html, result/attrib.html, result/awordwindows.html, result/color.html, result/forms.html, result/gory.html, result/helloworld.html, result/init.html, result/justforfun.html, result/keys.html, result/menus.html, result/misc.html, result/mouse.html, result/otherlib.html, result/panels.html, result/printw.html, result/ref.html, result/scanw.html, result/screen.html, result/tools.html, result/windows.html, result/NCURSES-nochunks.html:
+	using top-level makefile on Debian 7, regenerate (using newer stylesheet 1.79
+	vs 1.7).  The intro.html and index.html don't map in the newer stylesheet.
+	Tweaked these manually (splitting the generated index.html) to correspond
+	to the older scheme.
+
+	* README: RCS_BASE
+
+	* NCURSES-Programming-HOWTO.sgml:
+	remove "_" from id's which openjade objects to
+
+	* Makefile: RCS_BASE
+
+	* NCURSES-Programming-HOWTO.sgml: errata reported by Damien Ruscoe
+
 2005-06-25  Pradeep Padala <ppadala@gmail.com>
 
 	* result/NCURSES-nochunks.html, NCURSES-Programming-HOWTO.sgml:
