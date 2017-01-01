@@ -1,518 +1,343 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<HTML
-><HEAD
-><TITLE
->Introduction</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE=" NCURSES Programming HOWTO "
-HREF="index.html"><LINK
-REL="PREVIOUS"
-TITLE=" NCURSES Programming HOWTO "
-HREF="index.html"><LINK
-REL="NEXT"
-TITLE="Hello World !!!"
-HREF="helloworld.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->NCURSES Programming HOWTO</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="index.html"
-ACCESSKEY="P"
->Prev</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
-></TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="helloworld.html"
-ACCESSKEY="N"
->Next</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="INTRO"
->1. Introduction</A
-></H1
-><P
->In the olden days of teletype terminals, terminals were away from computers and
-were connected to them through serial cables. The terminals could be configured
-by sending a series of bytes. All the capabilities (such as 
-moving the cursor to a new location, erasing part of the screen, scrolling the 
-screen, changing modes etc.) of terminals could be accessed through these 
-series of bytes. These control seeuqnces are usually called escape sequences, 
-because they start 
-with an escape(0x1B) character. Even today, with proper emulation, we can send 
-escape sequences to the emulator and achieve the same effect on a terminal 
-window.</P
-><P
->Suppose you wanted to print a line in color. Try typing this on your console.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->echo "^[[0;31;40mIn Color"</PRE
-></FONT
-></TD
-></TR
-></TABLE
-><P
->The first character is an escape character, which looks like two characters ^ 
-and [. To be able to print it, you have to press CTRL+V and then the ESC key. 
-All the others are normal printable characters. You should be able to see the 
-string "In Color" in red. It stays that way and to revert back to the original 
-mode type this.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->echo "^[[0;37;40m"</PRE
-></FONT
-></TD
-></TR
-></TABLE
-><P
->Now, what do these magic characters mean? Difficult to comprehend? They might
-even be different for different terminals. So the designers of UNIX invented a 
-mechanism named <VAR
-CLASS="LITERAL"
->termcap</VAR
->. It is a file that
-lists all the capabilities of a particular terminal, along with the escape
-sequences needed to achieve a particular effect. In the later years, this was 
-replaced by <VAR
-CLASS="LITERAL"
->terminfo</VAR
->. Without delving too 
-much into details, this mechanism allows application 
-programs to query the terminfo database and obtain the control characters to be 
-sent to a terminal or terminal emulator.</P
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="WHATIS"
->1.1. What is NCURSES?</A
-></H2
-><P
-> 
-You might be wondering, what the import of all this technical gibberish is.  In
-the above scenario, every application program is supposed to query the terminfo
-and perform the necessary stuff (sending control characters etc.).  It soon became
-difficult to manage this complexity and this gave birth to 'CURSES'.  Curses is
-a pun on the name "cursor optimization". The Curses library forms a wrapper
-over working with raw terminal codes, and provides highly flexible and
-efficient API (Application Programming Interface). It provides functions to
-move the cursor, create windows, produce colors, play with mouse etc.  The
-application programs need not worry about the underlying terminal capabilities.</P
-><P
->So what is NCURSES? NCURSES is a clone of the original System V Release 4.0
-(SVr4) curses. It is a freely distributable library, fully compatible with
-older version of curses.  In short, it is a library of functions that manages
-an application's display on character-cell terminals.  In the remainder of the
-document, the terms curses and ncurses are used interchangeably.  </P
-><P
->A detailed history of Ncurses can be found in the NEWS file from the source
-distribution. The current package is maintained by 
-<A
-HREF="mailto:dickey@herndon4.his.com"
-TARGET="_top"
->Thomas Dickey</A
->.  
-You can contact the maintainers at <A
-HREF="mailto:bug-ncurses@gnu.org"
-TARGET="_top"
->bug-ncurses@gnu.org</A
->.</P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="WHATCANWEDO"
->1.2. What we can do with NCURSES</A
-></H2
-><P
->Ncurses not only creates a wrapper over terminal capabilities, but also gives a
-robust framework to create nice looking UI (User Interface)s in text mode.  It
-provides functions to create windows etc.  Its sister libraries panel, menu and
-form provide an extension to the basic curses library. These libraries usually
-come along with curses. One can create applications that contain multiple
-windows, menus, panels and forms. Windows can be managed independently, can
-provide 'scrollability' and even can be hidden.</P
-><P
-> 
-Menus provide the user with an easy command selection option.  Forms allow the
-creation of easy-to-use data entry and display windows.  Panels extend the
-capabilities of ncurses to deal with overlapping and stacked windows.</P
-><P
->These are just some of the basic things we can do with ncurses. As we move
-along, We will see all the capabilities of these libraries. </P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="WHERETOGETIT"
->1.3. Where to get it</A
-></H2
-><P
->All right, now that you know what you can do with ncurses, you must be rearing
-to get started. Ncurses is usually shipped with your installation. In case
-you don't have the library or want to compile it on your own, read on.</P
-><P
-><EM
->Compiling the package</EM
-> </P
-><P
->Ncurses can be obtained from <A
-HREF="ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz"
-TARGET="_top"
->ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz</A
-> or any of the ftp 
-sites mentioned in <A
-HREF="http://www.gnu.org/order/ftp.html"
-TARGET="_top"
->http://www.gnu.org/order/ftp.html</A
->. </P
-><P
->Read the README and INSTALL files for details on to how to install it. It 
-usually involves the following operations.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->    tar zxvf ncurses&#60;version&#62;.tar.gz  # unzip and untar the archive
-    cd ncurses&#60;version&#62;               # cd to the directory
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
+
+  <title>NCURSES Programming HOWTO</title>
+  <meta name="GENERATOR" content=
+  "Modular DocBook HTML Stylesheet Version 1.79">
+  <link rel="NEXT" title="Hello World !!!" href="helloworld.html">
+</head>
+
+<body class="ARTICLE" bgcolor="#FFFFFF" text="#000000" link=
+"#0000FF" vlink="#840084" alink="#0000FF">
+  <div class="ARTICLE">
+    <div class="SECT1">
+      <h1 class="SECT1"><a name="INTRO" id="INTRO">1.
+      Introduction</a></h1>
+
+      <p>In the olden days of teletype terminals, terminals were
+      away from computers and were connected to them through serial
+      cables. The terminals could be configured by sending a series
+      of bytes. All the capabilities (such as moving the cursor to
+      a new location, erasing part of the screen, scrolling the
+      screen, changing modes etc.) of terminals could be accessed
+      through these series of bytes. These control seeuqnces are
+      usually called escape sequences, because they start with an
+      escape(0x1B) character. Even today, with proper emulation, we
+      can send escape sequences to the emulator and achieve the
+      same effect on a terminal window.</p>
+
+      <p>Suppose you wanted to print a line in color. Try typing
+      this on your console.</p>
+      <pre class="PROGRAMLISTING">
+echo "^[[0;31;40mIn Color"
+</pre>
+
+      <p>The first character is an escape character, which looks
+      like two characters ^ and [. To be able to print it, you have
+      to press CTRL+V and then the ESC key. All the others are
+      normal printable characters. You should be able to see the
+      string "In Color" in red. It stays that way and to revert
+      back to the original mode type this.</p>
+      <pre class="PROGRAMLISTING">
+echo "^[[0;37;40m"
+</pre>
+
+      <p>Now, what do these magic characters mean? Difficult to
+      comprehend? They might even be different for different
+      terminals. So the designers of UNIX invented a mechanism
+      named <tt class="LITERAL">termcap</tt>. It is a file that
+      lists all the capabilities of a particular terminal, along
+      with the escape sequences needed to achieve a particular
+      effect. In the later years, this was replaced by <tt class=
+      "LITERAL">terminfo</tt>. Without delving too much into
+      details, this mechanism allows application programs to query
+      the terminfo database and obtain the control characters to be
+      sent to a terminal or terminal emulator.</p>
+
+      <div class="SECT2">
+        <h2 class="SECT2"><a name="WHATIS" id="WHATIS">1.1. What is
+        NCURSES?</a></h2>
+
+        <p>You might be wondering, what the import of all this
+        technical gibberish is. In the above scenario, every
+        application program is supposed to query the terminfo and
+        perform the necessary stuff (sending control characters
+        etc.). It soon became difficult to manage this complexity
+        and this gave birth to 'CURSES'. Curses is a pun on the
+        name "cursor optimization". The Curses library forms a
+        wrapper over working with raw terminal codes, and provides
+        highly flexible and efficient API (Application Programming
+        Interface). It provides functions to move the cursor,
+        create windows, produce colors, play with mouse etc. The
+        application programs need not worry about the underlying
+        terminal capabilities.</p>
+
+        <p>So what is NCURSES? NCURSES is a clone of the original
+        System V Release 4.0 (SVr4) curses. It is a freely
+        distributable library, fully compatible with older version
+        of curses. In short, it is a library of functions that
+        manages an application's display on character-cell
+        terminals. In the remainder of the document, the terms
+        curses and ncurses are used interchangeably.</p>
+
+        <p>A detailed history of NCURSES can be found in the NEWS
+        file from the source distribution. The current package is
+        maintained by <a href="mailto:dickey@his.com" target=
+        "_top">Thomas Dickey</a>. You can contact the maintainers
+        at <a href="mailto:bug-ncurses@gnu.org" target=
+        "_top">bug-ncurses@gnu.org</a>.</p>
+      </div>
+
+      <div class="SECT2">
+        <h2 class="SECT2"><a name="WHATCANWEDO" id=
+        "WHATCANWEDO">1.2. What we can do with NCURSES</a></h2>
+
+        <p>NCURSES not only creates a wrapper over terminal
+        capabilities, but also gives a robust framework to create
+        nice looking UI (User Interface)s in text mode. It provides
+        functions to create windows etc. Its sister libraries
+        panel, menu and form provide an extension to the basic
+        curses library. These libraries usually come along with
+        curses. One can create applications that contain multiple
+        windows, menus, panels and forms. Windows can be managed
+        independently, can provide 'scrollability' and even can be
+        hidden.</p>
+
+        <p>Menus provide the user with an easy command selection
+        option. Forms allow the creation of easy-to-use data entry
+        and display windows. Panels extend the capabilities of
+        ncurses to deal with overlapping and stacked windows.</p>
+
+        <p>These are just some of the basic things we can do with
+        ncurses. As we move along, We will see all the capabilities
+        of these libraries.</p>
+      </div>
+
+      <div class="SECT2">
+        <h2 class="SECT2"><a name="WHERETOGETIT" id=
+        "WHERETOGETIT">1.3. Where to get it</a></h2>
+
+        <p>All right, now that you know what you can do with
+        ncurses, you must be rearing to get started. NCURSES is
+        usually shipped with your installation. In case you don't
+        have the library or want to compile it on your own, read
+        on.</p>
+
+        <p><span class="emphasis"><i class="EMPHASIS">Compiling the
+        package</i></span></p>
+
+        <p>NCURSES can be obtained from <a href=
+        "ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz" target=
+        "_top">ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz</a>
+        or any of the ftp sites mentioned in <a href=
+        "http://www.gnu.org/order/ftp.html" target=
+        "_top">http://www.gnu.org/order/ftp.html</a>.</p>
+
+        <p>Read the README and INSTALL files for details on to how
+        to install it. It usually involves the following
+        operations.</p>
+        <pre class="PROGRAMLISTING">
+    tar zxvf ncurses&lt;version&gt;.tar.gz  # unzip and untar the archive
+    cd ncurses&lt;version&gt;               # cd to the directory
     ./configure                             # configure the build according to your 
                                             # environment
     make                                    # make it
     su root                                 # become root
-    make install                            # install it</PRE
-></FONT
-></TD
-></TR
-></TABLE
-><P
-><EM
->Using the RPM </EM
-></P
-><P
->Ncurses RPM can be found and downloaded from <A
-HREF="http://rpmfind.net"
-TARGET="_top"
->http://rpmfind.net </A
->. The RPM can be installed with the following 
-command after becoming root.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->    rpm -i &#60;downloaded rpm&#62;</PRE
-></FONT
-></TD
-></TR
-></TABLE
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="PURPOSE"
->1.4. Purpose/Scope of the document</A
-></H2
-><P
->This document is intended to be a "All in One" guide for programming with
-ncurses and its sister libraries. We graduate from a simple "Hello World"
-program to more complex form manipulation. No prior experience in ncurses is
-assumed. The writing is informal, but a lot of detail is provided for
-each of the examples.</P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="ABOUTPROGRAMS"
->1.5. About the Programs</A
-></H2
-><P
->All the programs in the document are available in zipped form
-<A
-HREF="http://www.tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs.tar.gz"
-TARGET="_top"
->here</A
->. Unzip and untar it. The directory structure looks like this.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->ncurses
+    make install                            # install it
+</pre>
+
+        <p><span class="emphasis"><i class="EMPHASIS">Using the
+        RPM</i></span></p>
+
+        <p>NCURSES RPM can be found and downloaded from <a href=
+        "http://rpmfind.net" target="_top">http://rpmfind.net</a> .
+        The RPM can be installed with the following command after
+        becoming root.</p>
+        <pre class="PROGRAMLISTING">
+    rpm -i &lt;downloaded rpm&gt;
+</pre>
+      </div>
+
+      <div class="SECT2">
+        <h2 class="SECT2"><a name="PURPOSE" id="PURPOSE">1.4.
+        Purpose/Scope of the document</a></h2>
+
+        <p>This document is intended to be a "All in One" guide for
+        programming with ncurses and its sister libraries. We
+        graduate from a simple "Hello World" program to more
+        complex form manipulation. No prior experience in ncurses
+        is assumed. The writing is informal, but a lot of detail is
+        provided for each of the examples.</p>
+      </div>
+
+      <div class="SECT2">
+        <h2 class="SECT2"><a name="ABOUTPROGRAMS" id=
+        "ABOUTPROGRAMS">1.5. About the Programs</a></h2>
+
+        <p>All the programs in the document are available in zipped
+        form <a href=
+        "http://www.tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs.tar.gz"
+        target="_top">here</a>. Unzip and untar it. The directory
+        structure looks like this.</p>
+        <pre class="PROGRAMLISTING">
+ncurses
    |
-   |----&#62; JustForFun     -- just for fun programs
-   |----&#62; basics         -- basic programs
-   |----&#62; demo           -- output files go into this directory after make
+   |----&gt; JustForFun     -- just for fun programs
+   |----&gt; basics         -- basic programs
+   |----&gt; demo           -- output files go into this directory after make
    |          |
-   |          |----&#62; exe -- exe files of all example programs
-   |----&#62; forms          -- programs related to form library
-   |----&#62; menus          -- programs related to menus library
-   |----&#62; panels         -- programs related to panels library
-   |----&#62; perl           -- perl equivalents of the examples (contributed
+   |          |----&gt; exe -- exe files of all example programs
+   |----&gt; forms          -- programs related to form library
+   |----&gt; menus          -- programs related to menus library
+   |----&gt; panels         -- programs related to panels library
+   |----&gt; perl           -- perl equivalents of the examples (contributed
    |                            by Anuradha Ratnaweera)
-   |----&#62; Makefile       -- the top level Makefile
-   |----&#62; README         -- the top level README file. contains instructions
-   |----&#62; COPYING        -- copyright notice</PRE
-></FONT
-></TD
-></TR
-></TABLE
-><P
->The individual directories contain the following files.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->Description of files in each directory
+   |----&gt; Makefile       -- the top level Makefile
+   |----&gt; README         -- the top level README file. contains instructions
+   |----&gt; COPYING        -- copyright notice
+</pre>
+
+        <p>The individual directories contain the following
+        files.</p>
+        <pre class="PROGRAMLISTING">
+Description of files in each directory
 --------------------------------------
 JustForFun
     |
-    |----&#62; hanoi.c   -- The Towers of Hanoi Solver
-    |----&#62; life.c    -- The Game of Life demo
-    |----&#62; magic.c   -- An Odd Order Magic Square builder 
-    |----&#62; queens.c  -- The famous N-Queens Solver
-    |----&#62; shuffle.c -- A fun game, if you have time to kill
-    |----&#62; tt.c      -- A very trivial typing tutor
+    |----&gt; hanoi.c   -- The Towers of Hanoi Solver
+    |----&gt; life.c    -- The Game of Life demo
+    |----&gt; magic.c   -- An Odd Order Magic Square builder 
+    |----&gt; queens.c  -- The famous N-Queens Solver
+    |----&gt; shuffle.c -- A fun game, if you have time to kill
+    |----&gt; tt.c      -- A very trivial typing tutor
 
   basics
     |
-    |----&#62; acs_vars.c            -- ACS_ variables example
-    |----&#62; hello_world.c         -- Simple "Hello World" Program
-    |----&#62; init_func_example.c   -- Initialization functions example
-    |----&#62; key_code.c            -- Shows the scan code of the key pressed
-    |----&#62; mouse_menu.c          -- A menu accessible by mouse
-    |----&#62; other_border.c        -- Shows usage of other border functions apa
+    |----&gt; acs_vars.c            -- ACS_ variables example
+    |----&gt; hello_world.c         -- Simple "Hello World" Program
+    |----&gt; init_func_example.c   -- Initialization functions example
+    |----&gt; key_code.c            -- Shows the scan code of the key pressed
+    |----&gt; mouse_menu.c          -- A menu accessible by mouse
+    |----&gt; other_border.c        -- Shows usage of other border functions apa
     |                               -- rt from box()
-    |----&#62; printw_example.c      -- A very simple printw() example
-    |----&#62; scanw_example.c       -- A very simple getstr() example
-    |----&#62; simple_attr.c         -- A program that can print a c file with 
+    |----&gt; printw_example.c      -- A very simple printw() example
+    |----&gt; scanw_example.c       -- A very simple getstr() example
+    |----&gt; simple_attr.c         -- A program that can print a c file with 
     |                               -- comments in attribute
-    |----&#62; simple_color.c        -- A simple example demonstrating colors
-    |----&#62; simple_key.c          -- A menu accessible with keyboard UP, DOWN 
+    |----&gt; simple_color.c        -- A simple example demonstrating colors
+    |----&gt; simple_key.c          -- A menu accessible with keyboard UP, DOWN 
     |                               -- arrows
-    |----&#62; temp_leave.c          -- Demonstrates temporarily leaving curses mode
-    |----&#62; win_border.c          -- Shows Creation of windows and borders
-    |----&#62; with_chgat.c          -- chgat() usage example
+    |----&gt; temp_leave.c          -- Demonstrates temporarily leaving curses mode
+    |----&gt; win_border.c          -- Shows Creation of windows and borders
+    |----&gt; with_chgat.c          -- chgat() usage example
 
   forms 
     |
-    |----&#62; form_attrib.c     -- Usage of field attributes
-    |----&#62; form_options.c    -- Usage of field options
-    |----&#62; form_simple.c     -- A simple form example
-    |----&#62; form_win.c        -- Demo of windows associated with forms
+    |----&gt; form_attrib.c     -- Usage of field attributes
+    |----&gt; form_options.c    -- Usage of field options
+    |----&gt; form_simple.c     -- A simple form example
+    |----&gt; form_win.c        -- Demo of windows associated with forms
 
   menus 
     |
-    |----&#62; menu_attrib.c     -- Usage of menu attributes
-    |----&#62; menu_item_data.c  -- Usage of item_name() etc.. functions
-    |----&#62; menu_multi_column.c    -- Creates multi columnar menus
-    |----&#62; menu_scroll.c     -- Demonstrates scrolling capability of menus
-    |----&#62; menu_simple.c     -- A simple menu accessed by arrow keys
-    |----&#62; menu_toggle.c     -- Creates multi valued menus and explains
+    |----&gt; menu_attrib.c     -- Usage of menu attributes
+    |----&gt; menu_item_data.c  -- Usage of item_name() etc.. functions
+    |----&gt; menu_multi_column.c    -- Creates multi columnar menus
+    |----&gt; menu_scroll.c     -- Demonstrates scrolling capability of menus
+    |----&gt; menu_simple.c     -- A simple menu accessed by arrow keys
+    |----&gt; menu_toggle.c     -- Creates multi valued menus and explains
     |                           -- REQ_TOGGLE_ITEM
-    |----&#62; menu_userptr.c    -- Usage of user pointer
-    |----&#62; menu_win.c        -- Demo of windows associated with menus
+    |----&gt; menu_userptr.c    -- Usage of user pointer
+    |----&gt; menu_win.c        -- Demo of windows associated with menus
 
   panels 
     |
-    |----&#62; panel_browse.c    -- Panel browsing through tab. Usage of user 
+    |----&gt; panel_browse.c    -- Panel browsing through tab. Usage of user 
     |                           -- pointer
-    |----&#62; panel_hide.c      -- Hiding and Un hiding of panels
-    |----&#62; panel_resize.c    -- Moving and resizing of panels
-    |----&#62; panel_simple.c    -- A simple panel example
+    |----&gt; panel_hide.c      -- Hiding and Un hiding of panels
+    |----&gt; panel_resize.c    -- Moving and resizing of panels
+    |----&gt; panel_simple.c    -- A simple panel example
 
   perl
-    |----&#62; 01-10.pl          -- Perl equivalents of first ten example programs</PRE
-></FONT
-></TD
-></TR
-></TABLE
-><P
->There is a top level Makefile included in the main directory. It builds all the 
-files and puts the ready-to-use exes in demo/exe directory. You can also 
-do selective make by going into the corresponding directory. Each directory 
-contains a README file explaining the purpose of each c file in the directory.</P
-><P
->For every example, I have included path name for the file relative to the 
-examples directory. </P
-><P
-> If you prefer you can browse individual programs at <A
-HREF="http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/"
-TARGET="_top"
->http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/</A
-></P
-><P
->All the programs are released under <A
-HREF="http://www.gnu.org/copyleft/gpl.txt"
-TARGET="_top"
->GPL</A
->.</P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="OTHERFORMATS"
->1.6. Other Formats of the document</A
-></H2
-><P
->This howto is also availabe in various other formats on the tldp.org site.
-Here are the links to other formats of this document.</P
-><DIV
-CLASS="SECT3"
-><H3
-CLASS="SECT3"
-><A
-NAME="LISTFORMATS"
->1.6.1. Readily available formats from tldp.org</A
-></H3
-><P
-></P
-><UL
-><LI
-><P
-><A
-HREF="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/pdf/NCURSES-Programming-HOWTO.pdf"
-TARGET="_top"
->Acrobat PDF Format</A
-></P
-></LI
-><LI
-><P
-><A
-HREF="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/ps/NCURSES-Programming-HOWTO.ps.gz"
-TARGET="_top"
->PostScript Format</A
-></P
-></LI
-><LI
-><P
-><A
-HREF="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html/NCURSES-Programming-HOWTO-html.tar.gz"
-TARGET="_top"
->In Multiple HTML pages</A
-></P
-></LI
-><LI
-><P
-><A
-HREF="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/NCURSES-Programming-HOWTO.html"
-TARGET="_top"
->In One big HTML format</A
-></P
-></LI
-></UL
-></DIV
-><DIV
-CLASS="SECT3"
-><H3
-CLASS="SECT3"
-><A
-NAME="BUILDSOURCE"
->1.6.2. Building from source</A
-></H3
-><P
->If above links are broken or if you want to experiment with sgml read on.
-<TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->&#13;    Get both the source and the tar,gzipped programs, available at
+    |----&gt; 01-10.pl          -- Perl equivalents of first ten example programs
+</pre>
+
+        <p>There is a top level Makefile included in the main
+        directory. It builds all the files and puts the
+        ready-to-use exes in demo/exe directory. You can also do
+        selective make by going into the corresponding directory.
+        Each directory contains a README file explaining the
+        purpose of each c file in the directory.</p>
+
+        <p>For every example, I have included path name for the
+        file relative to the examples directory.</p>
+
+        <p>If you prefer browsing individual programs, point your
+        browser to <a href=
+        "http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/"
+        target=
+        "_top">http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/</a></p>
+
+        <p>All the programs are released under the same license
+        that is used by ncurses (MIT-style). This gives you the
+        ability to do pretty much anything other than claiming them
+        as yours. Feel free to use them in your programs as
+        appropriate.</p>
+      </div>
+
+      <div class="SECT2">
+        <h2 class="SECT2"><a name="OTHERFORMATS" id=
+        "OTHERFORMATS">1.6. Other Formats of the document</a></h2>
+
+        <p>This howto is also availabe in various other formats on
+        the tldp.org site. Here are the links to other formats of
+        this document.</p>
+
+        <div class="SECT3">
+          <h3 class="SECT3"><a name="LISTFORMATS" id=
+          "LISTFORMATS">1.6.1. Readily available formats from
+          tldp.org</a></h3>
+
+          <ul>
+            <li>
+              <p><a href=
+              "http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/pdf/NCURSES-Programming-HOWTO.pdf"
+              target="_top">Acrobat PDF Format</a></p>
+            </li>
+
+            <li>
+              <p><a href=
+              "http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/ps/NCURSES-Programming-HOWTO.ps.gz"
+              target="_top">PostScript Format</a></p>
+            </li>
+
+            <li>
+              <p><a href=
+              "http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html/NCURSES-Programming-HOWTO-html.tar.gz"
+              target="_top">In Multiple HTML pages</a></p>
+            </li>
+
+            <li>
+              <p><a href=
+              "http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/NCURSES-Programming-HOWTO.html"
+              target="_top">In One big HTML format</a></p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="SECT3">
+          <h3 class="SECT3"><a name="BUILDSOURCE" id=
+          "BUILDSOURCE">1.6.2. Building from source</a></h3>
+
+          <p>If above links are broken or if you want to experiment
+          with sgml read on.</p>
+          <pre class="PROGRAMLISTING">
+&#13;    Get both the source and the tar,gzipped programs, available at
         http://cvsview.tldp.org/index.cgi/LDP/howto/docbook/
         NCURSES-HOWTO/NCURSES-Programming-HOWTO.sgml
         http://cvsview.tldp.org/index.cgi/LDP/howto/docbook/
@@ -523,201 +348,150 @@ CLASS="PROGRAMLISTING"
 
     Use jade to create various formats. For example if you just want to create
     the multiple html files, you would use
-        jade -t sgml -i html -d &#60;path to docbook html stylesheet&#62;
+        jade -t sgml -i html -d &lt;path to docbook html stylesheet&gt;
         NCURSES-Programming-HOWTO.sgml
     to get pdf, first create a single html file of the HOWTO with 
-        jade -t sgml -i html -d &#60;path to docbook html stylesheet&#62; -V nochunks
-        NCURSES-Programming-HOWTO.sgml &#62; NCURSES-ONE-BIG-FILE.html
+        jade -t sgml -i html -d &lt;path to docbook html stylesheet&gt; -V nochunks
+        NCURSES-Programming-HOWTO.sgml &gt; NCURSES-ONE-BIG-FILE.html
     then use htmldoc to get pdf file with
-        htmldoc --size universal -t pdf --firstpage p1 -f &#60;output file name.pdf&#62;
+        htmldoc --size universal -t pdf --firstpage p1 -f &lt;output file name.pdf&gt;
         NCURSES-ONE-BIG-FILE.html
     for ps, you would use
-        htmldoc --size universal -t ps --firstpage p1 -f &#60;output file name.ps&#62;
-        NCURSES-ONE-BIG-FILE.html</PRE
-></FONT
-></TD
-></TR
-></TABLE
-></P
-><P
->See <A
-HREF="http://www.tldp.org/LDP/LDP-Author-Guide/"
-TARGET="_top"
->LDP Author guide</A
-> for more details. If all else failes, mail me at 
-<A
-HREF="ppadala@gmail.com"
-TARGET="_top"
->ppadala@gmail.com</A
-></P
-></DIV
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="CREDITS"
->1.7. Credits</A
-></H2
-><P
->I thank <A
-HREF="mailto:sharath_1@usa.net"
-TARGET="_top"
->Sharath</A
-> and Emre Akbas for
-helping me with few sections. The introduction was initially written by sharath.
-I rewrote it with few excerpts taken from his initial work. Emre helped in
-writing printw and scanw sections.</P
-><P
->Perl equivalents of the example programs are contributed by <A
-HREF="mailto:Aratnaweera@virtusa.com"
-TARGET="_top"
->Anuradha Ratnaweera</A
->. </P
-><P
->Then comes <A
-HREF="mailto:parimi@ece.arizona.edu"
-TARGET="_top"
->Ravi Parimi</A
->, my
-dearest friend, who has been on this project before even one line was written.
-He constantly bombarded me with suggestions and patiently reviewed the whole
-text.  He also checked each program on Linux and Solaris. </P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="WISHLIST"
->1.8. Wish List</A
-></H2
-><P
->This is the wish list, in the order of priority. If you have a wish or you want
-to work on completing the wish, mail <A
-HREF="mailto:ppadala@gmail.com"
-TARGET="_top"
->me</A
->. </P
-><P
-></P
-><UL
-><LI
-><P
->Add examples to last parts of forms section.</P
-></LI
-><LI
-><P
->Prepare a Demo showing all the programs and allow the user to browse through
-description of each program. Let the user compile and see the program in action.
-A dialog based interface is preferred.</P
-></LI
-><LI
-><P
->Add debug info. _tracef, _tracemouse stuff.</P
-></LI
-><LI
-><P
->Accessing termcap, terminfo using functions provided by ncurses
-package.</P
-></LI
-><LI
-><P
->Working on two terminals simultaneously.</P
-></LI
-><LI
-><P
->Add more stuff to miscellaneous section.</P
-></LI
-></UL
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="COPYRIGHT"
->1.9. Copyright</A
-></H2
-><P
->Copyright © 2001 by Pradeep Padala. This document may be distributed under the
-terms set forth in the LDP license at <A
-HREF="http://www.tldp.org/COPYRIGHT.html"
-TARGET="_top"
->tldp.org/COPYRIGHT.html</A
->.</P
-><P
->This HOWTO is free documentation; you can redistribute it and/or modify it under
-the terms of the LDP license. This document is distributed in the hope that it
-will be useful, but <EM
->without any warranty</EM
->;
-without even the implied warranty of <EM
->merchantability</EM
-> or <EM
->fitness for a particular purpose</EM
->. See the LDP license for more details.</P
-></DIV
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="index.html"
-ACCESSKEY="P"
->Prev</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="index.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="helloworld.html"
-ACCESSKEY="N"
->Next</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->NCURSES Programming HOWTO</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
->&nbsp;</TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Hello World !!!</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+        htmldoc --size universal -t ps --firstpage p1 -f &lt;output file name.ps&gt;
+        NCURSES-ONE-BIG-FILE.html
+</pre>
+
+          <p>See <a href=
+          "http://www.tldp.org/LDP/LDP-Author-Guide/" target=
+          "_top">LDP Author guide</a> for more details. If all else
+          failes, mail me at <a href="ppadala@gmail.com" target=
+          "_top">ppadala@gmail.com</a></p>
+        </div>
+      </div>
+
+      <div class="SECT2">
+        <h2 class="SECT2"><a name="CREDITS" id="CREDITS">1.7.
+        Credits</a></h2>
+
+        <p>I thank <a href="mailto:sharath_1@usa.net" target=
+        "_top">Sharath</a> and Emre Akbas for helping me with few
+        sections. The introduction was initially written by
+        sharath. I rewrote it with few excerpts taken from his
+        initial work. Emre helped in writing printw and scanw
+        sections.</p>
+
+        <p>Perl equivalents of the example programs are contributed
+        by <a href="mailto:Aratnaweera@virtusa.com" target=
+        "_top">Anuradha Ratnaweera</a>.</p>
+
+        <p>Then comes <a href="mailto:parimi@ece.arizona.edu"
+        target="_top">Ravi Parimi</a>, my dearest friend, who has
+        been on this project before even one line was written. He
+        constantly bombarded me with suggestions and patiently
+        reviewed the whole text. He also checked each program on
+        Linux and Solaris.</p>
+      </div>
+
+      <div class="SECT2">
+        <h2 class="SECT2"><a name="WISHLIST" id="WISHLIST">1.8.
+        Wish List</a></h2>
+
+        <p>This is the wish list, in the order of priority. If you
+        have a wish or you want to work on completing the wish,
+        mail <a href="mailto:ppadala@gmail.com" target=
+        "_top">me</a>.</p>
+
+        <ul>
+          <li>
+            <p>Add examples to last parts of forms section.</p>
+          </li>
+
+          <li>
+            <p>Prepare a Demo showing all the programs and allow
+            the user to browse through description of each program.
+            Let the user compile and see the program in action. A
+            dialog based interface is preferred.</p>
+          </li>
+
+          <li>
+            <p>Add debug info. _tracef, _tracemouse stuff.</p>
+          </li>
+
+          <li>
+            <p>Accessing termcap, terminfo using functions provided
+            by ncurses package.</p>
+          </li>
+
+          <li>
+            <p>Working on two terminals simultaneously.</p>
+          </li>
+
+          <li>
+            <p>Add more stuff to miscellaneous section.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="SECT2">
+        <h2 class="SECT2"><a name="COPYRIGHT" id="COPYRIGHT">1.9.
+        Copyright</a></h2>
+
+        <p>Copyright &copy; 2001 by Pradeep Padala.</p>
+
+        <p>Permission is hereby granted, free of charge, to any
+        person obtaining a copy of this software and associated
+        documentation files (the "Software"), to deal in the
+        Software without restriction, including without limitation
+        the rights to use, copy, modify, merge, publish,
+        distribute, distribute with modifications, sublicense,
+        and/or sell copies of the Software, and to permit persons
+        to whom the Software is furnished to do so, subject to the
+        following conditions:</p>
+
+        <p>The above copyright notice and this permission notice
+        shall be included in all copies or substantial portions of
+        the Software.</p>
+
+        <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+        ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO
+        THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+        PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE ABOVE
+        COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+        OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+        SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+        <p>Except as contained in this notice, the name(s) of the
+        above copyright holders shall not be used in advertising or
+        otherwise to promote the sale, use or other dealings in
+        this Software without prior written authorization.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="NAVFOOTER">
+    <hr align="left" width="100%">
+
+    <table summary="Footer navigation table" width="100%" border=
+    "0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="33%" align="left" valign="top">&nbsp;</td>
+
+        <td width="34%" align="center" valign="top">&nbsp;</td>
+
+        <td width="33%" align="right" valign="top"><a href=
+        "helloworld.html" accesskey="N">Next</a></td>
+      </tr>
+
+      <tr>
+        <td width="33%" align="left" valign="top">&nbsp;</td>
+
+        <td width="34%" align="center" valign="top">&nbsp;</td>
+
+        <td width="33%" align="right" valign="top">Hello World
+        !!!</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

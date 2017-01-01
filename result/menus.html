@@ -1,210 +1,147 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<HTML
-><HEAD
-><TITLE
-> Menus Library </TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE=" NCURSES Programming HOWTO "
-HREF="index.html"><LINK
-REL="PREVIOUS"
-TITLE=" Panel Library"
-HREF="panels.html"><LINK
-REL="NEXT"
-TITLE=" Forms Library "
-HREF="forms.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->NCURSES Programming HOWTO</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="panels.html"
-ACCESSKEY="P"
->Prev</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
-></TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="forms.html"
-ACCESSKEY="N"
->Next</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="MENUS"
->17. Menus Library</A
-></H1
-><P
->The menus library provides a nice extension to basic curses, through which you
-can create menus. It provides a set of functions to create menus. But they have
-to be customized to give a nicer look, with colors etc. Let's get into the
-details.</P
-><P
->A menu is a screen display that assists the user to choose some subset of a
-given set of items. To put it simple, a menu is a collection of items from which
-one or more items can be chosen. Some readers might not be aware of multiple
-item selection capability.  Menu library provides functionality to write menus
-from which the user can chose more than one item as the preferred choice. This
-is dealt with in a later section. Now it is time for some rudiments.</P
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="MENUBASICS"
->17.1. The Basics</A
-></H2
-><P
->To create menus, you first create items, and then post the menu to the display.
-After that, all the processing of user responses is done in an elegant function
-menu_driver() which is the work horse of any menu program. </P
-><P
->The general flow of control of a menu program looks like this.
-<P
-></P
-><OL
-TYPE="1"
-><LI
-><P
->Initialize curses</P
-></LI
-><LI
-><P
->Create items using new_item(). You can specify a name and description for the
-items.</P
-></LI
-><LI
-><P
->Create the menu with new_menu() by specifying the items to be attached with.</P
-></LI
-><LI
-><P
->Post the menu with menu_post() and refresh the screen.</P
-></LI
-><LI
-><P
->Process the user requests with a loop and do necessary updates to menu with
-menu_driver.</P
-></LI
-><LI
-><P
->Unpost the menu with menu_unpost()</P
-></LI
-><LI
-><P
->Free the memory allocated to menu by free_menu()</P
-></LI
-><LI
-><P
->Free the memory allocated to the items with free_item() </P
-></LI
-><LI
-><P
->End curses </P
-></LI
-></OL
-></P
-><P
->Let's see a program which prints a simple menu and updates the current selection
-with up, down arrows. </P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="COMPILEMENUS"
->17.2. Compiling With the Menu Library</A
-></H2
-><P
->To use menu library functions, you have to include menu.h and to link the
-program with menu library the flag -lmenu should be added along with -lncurses
-in that order.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->    #include &#60;menu.h&#62;
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
+
+  <title>Menus Library</title>
+  <meta name="GENERATOR" content=
+  "Modular DocBook HTML Stylesheet Version 1.79">
+  <link rel="HOME" title=" NCURSES Programming HOWTO " href=
+  "index.html">
+  <link rel="PREVIOUS" title=" Panel Library" href="panels.html">
+  <link rel="NEXT" title=" Forms Library " href="forms.html">
+</head>
+
+<body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
+vlink="#840084" alink="#0000FF">
+  <div class="NAVHEADER">
+    <table summary="Header navigation table" width="100%" border=
+    "0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th colspan="3" align="center">NCURSES Programming
+        HOWTO</th>
+      </tr>
+
+      <tr>
+        <td width="10%" align="left" valign="bottom"><a href=
+        "panels.html" accesskey="P">Prev</a></td>
+
+        <td width="80%" align="center" valign="bottom"></td>
+
+        <td width="10%" align="right" valign="bottom"><a href=
+        "forms.html" accesskey="N">Next</a></td>
+      </tr>
+    </table>
+    <hr align="left" width="100%">
+  </div>
+
+  <div class="SECT1">
+    <h1 class="SECT1"><a name="MENUS" id="MENUS">17. Menus
+    Library</a></h1>
+
+    <p>The menus library provides a nice extension to basic curses,
+    through which you can create menus. It provides a set of
+    functions to create menus. But they have to be customized to
+    give a nicer look, with colors etc. Let's get into the
+    details.</p>
+
+    <p>A menu is a screen display that assists the user to choose
+    some subset of a given set of items. To put it simple, a menu
+    is a collection of items from which one or more items can be
+    chosen. Some readers might not be aware of multiple item
+    selection capability. Menu library provides functionality to
+    write menus from which the user can chose more than one item as
+    the preferred choice. This is dealt with in a later section.
+    Now it is time for some rudiments.</p>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="MENUBASICS" id="MENUBASICS">17.1.
+      The Basics</a></h2>
+
+      <p>To create menus, you first create items, and then post the
+      menu to the display. After that, all the processing of user
+      responses is done in an elegant function menu_driver() which
+      is the work horse of any menu program.</p>
+
+      <p>The general flow of control of a menu program looks like
+      this.</p>
+
+      <ol type="1">
+        <li>
+          <p>Initialize curses</p>
+        </li>
+
+        <li>
+          <p>Create items using new_item(). You can specify a name
+          and description for the items.</p>
+        </li>
+
+        <li>
+          <p>Create the menu with new_menu() by specifying the
+          items to be attached with.</p>
+        </li>
+
+        <li>
+          <p>Post the menu with menu_post() and refresh the
+          screen.</p>
+        </li>
+
+        <li>
+          <p>Process the user requests with a loop and do necessary
+          updates to menu with menu_driver.</p>
+        </li>
+
+        <li>
+          <p>Unpost the menu with menu_unpost()</p>
+        </li>
+
+        <li>
+          <p>Free the memory allocated to menu by free_menu()</p>
+        </li>
+
+        <li>
+          <p>Free the memory allocated to the items with
+          free_item()</p>
+        </li>
+
+        <li>
+          <p>End curses</p>
+        </li>
+      </ol>
+
+      <p>Let's see a program which prints a simple menu and updates
+      the current selection with up, down arrows.</p>
+    </div>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="COMPILEMENUS" id=
+      "COMPILEMENUS">17.2. Compiling With the Menu Library</a></h2>
+
+      <p>To use menu library functions, you have to include menu.h
+      and to link the program with menu library the flag -lmenu
+      should be added along with -lncurses in that order.</p>
+      <pre class="PROGRAMLISTING">
+    #include &lt;menu.h&gt;
     .
     .
     .
 
-    compile and link: gcc &#60;program file&#62; -lmenu -lncurses</PRE
-></FONT
-></TD
-></TR
-></TABLE
-><DIV
-CLASS="EXAMPLE"
-><A
-NAME="MMESI"
-></A
-><P
-><B
->Example 18. Menu Basics </B
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
->#include &#60;curses.h&#62;
-#include &#60;menu.h&#62;
+    compile and link: gcc &lt;program file&gt; -lmenu -lncurses
+</pre>
+
+      <div class="EXAMPLE">
+        <a name="MMESI" id="MMESI"></a>
+
+        <p><b>Example 18. Menu Basics</b></p>
+        <pre class="PROGRAMLISTING">
+<span class="INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+#include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define CTRLD 	4
+#define CTRLD   4
 
 char *choices[] = {
                         "Choice 1",
@@ -215,76 +152,67 @@ char *choices[] = {
                   };
 
 int main()
-{	ITEM **my_items;
-	int c;				
-	MENU *my_menu;
-	int n_choices, i;
-	ITEM *cur_item;
-	
-	
-	initscr();
-	cbreak();
-	noecho();
-	keypad(stdscr, TRUE);
-	
-	n_choices = ARRAY_SIZE(choices);
-	my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
+{       ITEM **my_items;
+        int c;                          
+        MENU *my_menu;
+        int n_choices, i;
+        ITEM *cur_item;
+        
+        
+        initscr();
+        cbreak();
+        noecho();
+        keypad(stdscr, TRUE);
+        
+        n_choices = ARRAY_SIZE(choices);
+        my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
 
-	for(i = 0; i &#60; n_choices; ++i)
-	        my_items[i] = new_item(choices[i], choices[i]);
-	my_items[n_choices] = (ITEM *)NULL;
+        for(i = 0; i &lt; n_choices; ++i)
+                my_items[i] = new_item(choices[i], choices[i]);
+        my_items[n_choices] = (ITEM *)NULL;
 
-	my_menu = new_menu((ITEM **)my_items);
-	mvprintw(LINES - 2, 0, "F1 to Exit");
-	post_menu(my_menu);
-	refresh();
+        my_menu = new_menu((ITEM **)my_items);
+        mvprintw(LINES - 2, 0, "F1 to Exit");
+        post_menu(my_menu);
+        refresh();
 
-	while((c = getch()) != KEY_F(1))
-	{   switch(c)
-	    {	case KEY_DOWN:
-		        menu_driver(my_menu, REQ_DOWN_ITEM);
-				break;
-			case KEY_UP:
-				menu_driver(my_menu, REQ_UP_ITEM);
-				break;
-		}
-	}	
+        while((c = getch()) != KEY_F(1))
+        {   switch(c)
+            {   case KEY_DOWN:
+                        menu_driver(my_menu, REQ_DOWN_ITEM);
+                                break;
+                        case KEY_UP:
+                                menu_driver(my_menu, REQ_UP_ITEM);
+                                break;
+                }
+        }       
 
-	free_item(my_items[0]);
-	free_item(my_items[1]);
-	free_menu(my_menu);
-	endwin();
+        free_item(my_items[0]);
+        free_item(my_items[1]);
+        free_menu(my_menu);
+        endwin();
 }
-	</SPAN
-></PRE
-></FONT
-></TD
-></TR
-></TABLE
-></DIV
-><P
->This program demonstrates the basic concepts involved in creating a menu using
-menus library.  First we create the items using new_item() and then attach them
-to the menu with new_menu() function. After posting the menu and refreshing the
-screen, the main processing loop starts. It reads user input and takes
-corresponding action. The function menu_driver() is the main work horse of the
-menu system. The second parameter to this function tells what's to be done with
-the menu. According to the parameter, menu_driver() does the corresponding task.
-The value can be either a menu navigational request, an ascii character, or a
-KEY_MOUSE special key associated with a mouse event.</P
-><P
->The menu_driver accepts following navigational requests. 
-<TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->&#13;     REQ_LEFT_ITEM         Move left to an item.
+        </span>
+</pre>
+      </div>
+
+      <p>This program demonstrates the basic concepts involved in
+      creating a menu using menus library. First we create the
+      items using new_item() and then attach them to the menu with
+      new_menu() function. After posting the menu and refreshing
+      the screen, the main processing loop starts. It reads user
+      input and takes corresponding action. The function
+      menu_driver() is the main work horse of the menu system. The
+      second parameter to this function tells what's to be done
+      with the menu. According to the parameter, menu_driver() does
+      the corresponding task. The value can be either a menu
+      navigational request, an ascii character, or a KEY_MOUSE
+      special key associated with a mouse event.</p>
+
+      <p>The menu_driver accepts following navigational
+      requests.</p>
+      <pre class="PROGRAMLISTING">
+&#13;     REQ_LEFT_ITEM         Move left to an item.
      REQ_RIGHT_ITEM      Move right to an item.
      REQ_UP_ITEM         Move up to an item.
      REQ_DOWN_ITEM       Move down to an item.
@@ -300,128 +228,115 @@ CLASS="PROGRAMLISTING"
      REQ_CLEAR_PATTERN     Clear the menu pattern buffer.
      REQ_BACK_PATTERN      Delete the previous character from the pattern buffer.
      REQ_NEXT_MATCH     Move to the next item matching the pattern match.
-     REQ_PREV_MATCH     Move to the previous item matching the pattern match.&#13;</PRE
-></FONT
-></TD
-></TR
-></TABLE
-></P
-><P
->Don't get overwhelmed by the number of options. We will see them slowly one
-after another. The options of interest in this example are REQ_UP_ITEM and
-REQ_DOWN_ITEM.  These two options when passed to menu_driver, menu driver
-updates the current item to one item up or down respectively.</P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="MENUDRIVER"
->17.3. Menu Driver: The work horse of the menu system</A
-></H2
-><P
->As you have seen in the above example, menu_driver plays an important role in
-updating the menu. It is very important to understand various options it takes
-and what they do.  As explained above, the second parameter to menu_driver() can
-be either a navigational request, a printable character or a KEY_MOUSE key.
-Let's dissect the different navigational requests.</P
-><P
-></P
-><UL
-><LI
-><P
-><EM
->REQ_LEFT_ITEM and REQ_RIGHT_ITEM</EM
-></P
-><P
->A Menu can be displayed with multiple columns for more than one item. This can
-be done by using the <VAR
-CLASS="LITERAL"
->menu_format()</VAR
->function.
-When a multi columnar menu is displayed these requests cause the menu driver to
-move the current selection to left or right.</P
-></LI
-><LI
-><P
-><EM
->REQ_UP_ITEM and REQ_DOWN_ITEM </EM
-> </P
-><P
->These two options you have seen in the above example. These options when given,
-makes the menu_driver to move the current selection to an item up or down.</P
-></LI
-><LI
-><P
-> <EM
->REQ_SCR_* options</EM
-> </P
-><P
->The four options REQ_SCR_ULINE, REQ_SCR_DLINE, REQ_SCR_DPAGE, REQ_SCR_UPAGE are
-related to scrolling. If all the items in the menu cannot be displayed in the
-menu sub window, then the menu is scrollable. These requests can be given to the
-menu_driver to do the scrolling either one line up, down or one page down or up
-respectively. </P
-></LI
-><LI
-><P
-><EM
->REQ_FIRST_ITEM, REQ_LAST_ITEM, REQ_NEXT_ITEM and
-REQ_PREV_ITEM </EM
-> </P
-><P
->These requests are self explanatory.</P
-></LI
-><LI
-><P
-> <EM
->REQ_TOGGLE_ITEM</EM
-> </P
-><P
->This request when given, toggles the present selection. This option is to be
-used only in a multi valued menu. So to use this request the option O_ONEVALUE
-must be off. This option can be made off or on with set_menu_opts().</P
-></LI
-><LI
-><P
-> <EM
->Pattern Requests </EM
-></P
-><P
->Every menu has an associated pattern buffer, which is used to find the nearest
-match to the ascii characters entered by the user. Whenever ascii characters are
-given to menu_driver, it puts in to the pattern buffer. It also tries to find
-the nearest match to the pattern in the items list and moves current selection
-to that item. The request REQ_CLEAR_PATTERN clears the pattern buffer. The
-request REQ_BACK_PATTERN deletes the previous character in the pattern buffer.
-In case the pattern matches more than one item then the matched items can be
-cycled through REQ_NEXT_MATCH and REQ_PREV_MATCH which move the current
-selection to the next and previous matches respectively.</P
-></LI
-><LI
-><P
-> <EM
->Mouse Requests</EM
-></P
-><P
->In case of KEY_MOUSE requests, according to the mouse position an action is
-taken accordingly. The action to be taken is explained in the man page as, </P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="90%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
-><EM
->       If  the  second argument is the KEY_MOUSE special key, the
+     REQ_PREV_MATCH     Move to the previous item matching the pattern match.&#13;
+</pre>
+
+      <p>Don't get overwhelmed by the number of options. We will
+      see them slowly one after another. The options of interest in
+      this example are REQ_UP_ITEM and REQ_DOWN_ITEM. These two
+      options when passed to menu_driver, menu driver updates the
+      current item to one item up or down respectively.</p>
+    </div>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="MENUDRIVER" id="MENUDRIVER">17.3.
+      Menu Driver: The work horse of the menu system</a></h2>
+
+      <p>As you have seen in the above example, menu_driver plays
+      an important role in updating the menu. It is very important
+      to understand various options it takes and what they do. As
+      explained above, the second parameter to menu_driver() can be
+      either a navigational request, a printable character or a
+      KEY_MOUSE key. Let's dissect the different navigational
+      requests.</p>
+
+      <ul>
+        <li>
+          <p><span class="emphasis"><i class=
+          "EMPHASIS">REQ_LEFT_ITEM and
+          REQ_RIGHT_ITEM</i></span></p>
+
+          <p>A Menu can be displayed with multiple columns for more
+          than one item. This can be done by using the <tt class=
+          "LITERAL">menu_format()</tt>function. When a multi
+          columnar menu is displayed these requests cause the menu
+          driver to move the current selection to left or
+          right.</p>
+        </li>
+
+        <li>
+          <p><span class="emphasis"><i class="EMPHASIS">REQ_UP_ITEM
+          and REQ_DOWN_ITEM</i></span></p>
+
+          <p>These two options you have seen in the above example.
+          These options when given, makes the menu_driver to move
+          the current selection to an item up or down.</p>
+        </li>
+
+        <li>
+          <p><span class="emphasis"><i class="EMPHASIS">REQ_SCR_*
+          options</i></span></p>
+
+          <p>The four options REQ_SCR_ULINE, REQ_SCR_DLINE,
+          REQ_SCR_DPAGE, REQ_SCR_UPAGE are related to scrolling. If
+          all the items in the menu cannot be displayed in the menu
+          sub window, then the menu is scrollable. These requests
+          can be given to the menu_driver to do the scrolling
+          either one line up, down or one page down or up
+          respectively.</p>
+        </li>
+
+        <li>
+          <p><span class="emphasis"><i class=
+          "EMPHASIS">REQ_FIRST_ITEM, REQ_LAST_ITEM, REQ_NEXT_ITEM
+          and REQ_PREV_ITEM</i></span></p>
+
+          <p>These requests are self explanatory.</p>
+        </li>
+
+        <li>
+          <p><span class="emphasis"><i class=
+          "EMPHASIS">REQ_TOGGLE_ITEM</i></span></p>
+
+          <p>This request when given, toggles the present
+          selection. This option is to be used only in a multi
+          valued menu. So to use this request the option O_ONEVALUE
+          must be off. This option can be made off or on with
+          set_menu_opts().</p>
+        </li>
+
+        <li>
+          <p><span class="emphasis"><i class="EMPHASIS">Pattern
+          Requests</i></span></p>
+
+          <p>Every menu has an associated pattern buffer, which is
+          used to find the nearest match to the ascii characters
+          entered by the user. Whenever ascii characters are given
+          to menu_driver, it puts in to the pattern buffer. It also
+          tries to find the nearest match to the pattern in the
+          items list and moves current selection to that item. The
+          request REQ_CLEAR_PATTERN clears the pattern buffer. The
+          request REQ_BACK_PATTERN deletes the previous character
+          in the pattern buffer. In case the pattern matches more
+          than one item then the matched items can be cycled
+          through REQ_NEXT_MATCH and REQ_PREV_MATCH which move the
+          current selection to the next and previous matches
+          respectively.</p>
+        </li>
+
+        <li>
+          <p><span class="emphasis"><i class="EMPHASIS">Mouse
+          Requests</i></span></p>
+
+          <p>In case of KEY_MOUSE requests, according to the mouse
+          position an action is taken accordingly. The action to be
+          taken is explained in the man page as,</p>
+          <pre class="PROGRAMLISTING">
+<span class="emphasis"><i class=
+"EMPHASIS">       If  the  second argument is the KEY_MOUSE special key, the
        associated mouse event is translated into one of the above
        pre-defined  requests.   Currently only clicks in the user
-       window (e.g. inside the menu display area or  the  decora­
+       window (e.g. inside the menu display area or  the  decora&shy;
        tion  window)  are handled. If you click above the display
        region of the menu, a REQ_SCR_ULINE is generated,  if  you
        doubleclick  a  REQ_SCR_UPAGE  is  generated  and  if  you
@@ -430,60 +345,40 @@ CLASS="PROGRAMLISTING"
        generated, if you doubleclick a REQ_SCR_DPAGE is generated
        and  if  you  tripleclick a REQ_LAST_ITEM is generated. If
        you click at an item inside the display area of the  menu,
-       the menu cursor is positioned to that item.</EM
-></PRE
-></FONT
-></TD
-></TR
-></TABLE
-></LI
-></UL
-><P
->Each of the above requests will be explained in the following lines with several
-examples whenever appropriate.</P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="MENUWINDOWS"
->17.4. Menu Windows</A
-></H2
-><P
->Every menu created is associated with a window and a sub window. The menu window
-displays any title or border associated with the menu. The menu sub window
-displays the menu items currently available for selection. But we didn't specify
-any window or sub window in the simple example. When a window is not specified,
-stdscr is taken as the main window, and then menu system calculates the sub
-window size required for the display of items. Then items are displayed in the
-calculated sub window. So let's play with these windows and display a menu with
-a border and a title.</P
-><DIV
-CLASS="EXAMPLE"
-><A
-NAME="MMEWI"
-></A
-><P
-><B
->Example 19.  Menu Windows Usage example </B
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
->#include &#60;menu.h&#62;
+       the menu cursor is positioned to that item.</i></span>
+</pre>
+        </li>
+      </ul>
+
+      <p>Each of the above requests will be explained in the
+      following lines with several examples whenever
+      appropriate.</p>
+    </div>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="MENUWINDOWS" id=
+      "MENUWINDOWS">17.4. Menu Windows</a></h2>
+
+      <p>Every menu created is associated with a window and a sub
+      window. The menu window displays any title or border
+      associated with the menu. The menu sub window displays the
+      menu items currently available for selection. But we didn't
+      specify any window or sub window in the simple example. When
+      a window is not specified, stdscr is taken as the main
+      window, and then menu system calculates the sub window size
+      required for the display of items. Then items are displayed
+      in the calculated sub window. So let's play with these
+      windows and display a menu with a border and a title.</p>
+
+      <div class="EXAMPLE">
+        <a name="MMEWI" id="MMEWI"></a>
+
+        <p><b>Example 19. Menu Windows Usage example</b></p>
+        <pre class="PROGRAMLISTING">
+<span class="INLINEMEDIAOBJECT">#include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define CTRLD 	4
+#define CTRLD   4
 
 char *choices[] = {
                         "Choice 1",
@@ -496,439 +391,389 @@ char *choices[] = {
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color);
 
 int main()
-{	ITEM **my_items;
-	int c;				
-	MENU *my_menu;
+{       ITEM **my_items;
+        int c;                          
+        MENU *my_menu;
         WINDOW *my_menu_win;
         int n_choices, i;
-	
-	/* Initialize curses */
-	initscr();
-	start_color();
+        
+        /* Initialize curses */
+        initscr();
+        start_color();
         cbreak();
         noecho();
-	keypad(stdscr, TRUE);
-	init_pair(1, COLOR_RED, COLOR_BLACK);
+        keypad(stdscr, TRUE);
+        init_pair(1, COLOR_RED, COLOR_BLACK);
 
-	/* Create items */
+        /* Create items */
         n_choices = ARRAY_SIZE(choices);
         my_items = (ITEM **)calloc(n_choices, sizeof(ITEM *));
-        for(i = 0; i &#60; n_choices; ++i)
+        for(i = 0; i &lt; n_choices; ++i)
                 my_items[i] = new_item(choices[i], choices[i]);
 
-	/* Crate menu */
-	my_menu = new_menu((ITEM **)my_items);
+        /* Crate menu */
+        my_menu = new_menu((ITEM **)my_items);
 
-	/* Create the window to be associated with the menu */
+        /* Create the window to be associated with the menu */
         my_menu_win = newwin(10, 40, 4, 4);
         keypad(my_menu_win, TRUE);
      
-	/* Set main window and sub window */
+        /* Set main window and sub window */
         set_menu_win(my_menu, my_menu_win);
         set_menu_sub(my_menu, derwin(my_menu_win, 6, 38, 3, 1));
 
-	/* Set menu mark to the string " * " */
+        /* Set menu mark to the string " * " */
         set_menu_mark(my_menu, " * ");
 
-	/* Print a border around the main window and print a title */
+        /* Print a border around the main window and print a title */
         box(my_menu_win, 0, 0);
-	print_in_middle(my_menu_win, 1, 0, 40, "My Menu", COLOR_PAIR(1));
-	mvwaddch(my_menu_win, 2, 0, ACS_LTEE);
-	mvwhline(my_menu_win, 2, 1, ACS_HLINE, 38);
-	mvwaddch(my_menu_win, 2, 39, ACS_RTEE);
-	mvprintw(LINES - 2, 0, "F1 to exit");
-	refresh();
+        print_in_middle(my_menu_win, 1, 0, 40, "My Menu", COLOR_PAIR(1));
+        mvwaddch(my_menu_win, 2, 0, ACS_LTEE);
+        mvwhline(my_menu_win, 2, 1, ACS_HLINE, 38);
+        mvwaddch(my_menu_win, 2, 39, ACS_RTEE);
+        mvprintw(LINES - 2, 0, "F1 to exit");
+        refresh();
         
-	/* Post the menu */
-	post_menu(my_menu);
-	wrefresh(my_menu_win);
+        /* Post the menu */
+        post_menu(my_menu);
+        wrefresh(my_menu_win);
 
-	while((c = wgetch(my_menu_win)) != KEY_F(1))
-	{       switch(c)
-	        {	case KEY_DOWN:
-				menu_driver(my_menu, REQ_DOWN_ITEM);
-				break;
-			case KEY_UP:
-				menu_driver(my_menu, REQ_UP_ITEM);
-				break;
-		}
+        while((c = wgetch(my_menu_win)) != KEY_F(1))
+        {       switch(c)
+                {       case KEY_DOWN:
+                                menu_driver(my_menu, REQ_DOWN_ITEM);
+                                break;
+                        case KEY_UP:
+                                menu_driver(my_menu, REQ_UP_ITEM);
+                                break;
+                }
                 wrefresh(my_menu_win);
-	}	
+        }       
 
-	/* Unpost and free all the memory taken up */
+        /* Unpost and free all the memory taken up */
         unpost_menu(my_menu);
         free_menu(my_menu);
-        for(i = 0; i &#60; n_choices; ++i)
+        for(i = 0; i &lt; n_choices; ++i)
                 free_item(my_items[i]);
-	endwin();
+        endwin();
 }
 
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
-{	int length, x, y;
-	float temp;
+{       int length, x, y;
+        float temp;
 
-	if(win == NULL)
-		win = stdscr;
-	getyx(win, y, x);
-	if(startx != 0)
-		x = startx;
-	if(starty != 0)
-		y = starty;
-	if(width == 0)
-		width = 80;
+        if(win == NULL)
+                win = stdscr;
+        getyx(win, y, x);
+        if(startx != 0)
+                x = startx;
+        if(starty != 0)
+                y = starty;
+        if(width == 0)
+                width = 80;
 
-	length = strlen(string);
-	temp = (width - length)/ 2;
-	x = startx + (int)temp;
-	wattron(win, color);
-	mvwprintw(win, y, x, "%s", string);
-	wattroff(win, color);
-	refresh();
-}</SPAN
-></PRE
-></FONT
-></TD
-></TR
-></TABLE
-></DIV
-><P
->This example creates a menu with a title, border, a fancy line separating title
-and the items. As you can see, in order to attach a window to a menu the
-function set_menu_win() has to be used. Then we attach the sub window also. This
-displays the items in the sub window.  You can also set the mark string which
-gets displayed to the left of the selected item with set_menu_mark().</P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="SCROLLMENUS"
->17.5. Scrolling Menus</A
-></H2
-><P
->If the sub window given for a window is not big enough to show all the items,
-then the menu will be scrollable. When you are on the last item in the present
-list, if you send REQ_DOWN_ITEM, it gets translated into REQ_SCR_DLINE and the
-menu scrolls by one item.  You can manually give REQ_SCR_ operations to do
-scrolling. Let's see how it can be done.</P
-><DIV
-CLASS="EXAMPLE"
-><A
-NAME="MMESC"
-></A
-><P
-><B
->Example 20.  Scrolling Menus example </B
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
->#include &#60;curses.h&#62;
-#include &#60;menu.h&#62;
+        length = strlen(string);
+        temp = (width - length)/ 2;
+        x = startx + (int)temp;
+        wattron(win, color);
+        mvwprintw(win, y, x, "%s", string);
+        wattroff(win, color);
+        refresh();
+}</span>
+</pre>
+      </div>
+
+      <p>This example creates a menu with a title, border, a fancy
+      line separating title and the items. As you can see, in order
+      to attach a window to a menu the function set_menu_win() has
+      to be used. Then we attach the sub window also. This displays
+      the items in the sub window. You can also set the mark string
+      which gets displayed to the left of the selected item with
+      set_menu_mark().</p>
+    </div>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="SCROLLMENUS" id=
+      "SCROLLMENUS">17.5. Scrolling Menus</a></h2>
+
+      <p>If the sub window given for a window is not big enough to
+      show all the items, then the menu will be scrollable. When
+      you are on the last item in the present list, if you send
+      REQ_DOWN_ITEM, it gets translated into REQ_SCR_DLINE and the
+      menu scrolls by one item. You can manually give REQ_SCR_
+      operations to do scrolling. Let's see how it can be done.</p>
+
+      <div class="EXAMPLE">
+        <a name="MMESC" id="MMESC"></a>
+
+        <p><b>Example 20. Scrolling Menus example</b></p>
+        <pre class="PROGRAMLISTING">
+<span class="INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+#include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define CTRLD 	4
+#define CTRLD   4
 
 char *choices[] = {
                         "Choice 1",
                         "Choice 2",
                         "Choice 3",
                         "Choice 4",
-			"Choice 5",
-			"Choice 6",
-			"Choice 7",
-			"Choice 8",
-			"Choice 9",
-			"Choice 10",
+                        "Choice 5",
+                        "Choice 6",
+                        "Choice 7",
+                        "Choice 8",
+                        "Choice 9",
+                        "Choice 10",
                         "Exit",
                         (char *)NULL,
                   };
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color);
 
 int main()
-{	ITEM **my_items;
-	int c;				
-	MENU *my_menu;
+{       ITEM **my_items;
+        int c;                          
+        MENU *my_menu;
         WINDOW *my_menu_win;
         int n_choices, i;
-	
-	/* Initialize curses */
-	initscr();
-	start_color();
+        
+        /* Initialize curses */
+        initscr();
+        start_color();
         cbreak();
         noecho();
-	keypad(stdscr, TRUE);
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_CYAN, COLOR_BLACK);
+        keypad(stdscr, TRUE);
+        init_pair(1, COLOR_RED, COLOR_BLACK);
+        init_pair(2, COLOR_CYAN, COLOR_BLACK);
 
-	/* Create items */
+        /* Create items */
         n_choices = ARRAY_SIZE(choices);
         my_items = (ITEM **)calloc(n_choices, sizeof(ITEM *));
-        for(i = 0; i &#60; n_choices; ++i)
+        for(i = 0; i &lt; n_choices; ++i)
                 my_items[i] = new_item(choices[i], choices[i]);
 
-	/* Crate menu */
-	my_menu = new_menu((ITEM **)my_items);
+        /* Crate menu */
+        my_menu = new_menu((ITEM **)my_items);
 
-	/* Create the window to be associated with the menu */
+        /* Create the window to be associated with the menu */
         my_menu_win = newwin(10, 40, 4, 4);
         keypad(my_menu_win, TRUE);
      
-	/* Set main window and sub window */
+        /* Set main window and sub window */
         set_menu_win(my_menu, my_menu_win);
         set_menu_sub(my_menu, derwin(my_menu_win, 6, 38, 3, 1));
-	set_menu_format(my_menu, 5, 1);
-			
-	/* Set menu mark to the string " * " */
+        set_menu_format(my_menu, 5, 1);
+                        
+        /* Set menu mark to the string " * " */
         set_menu_mark(my_menu, " * ");
 
-	/* Print a border around the main window and print a title */
+        /* Print a border around the main window and print a title */
         box(my_menu_win, 0, 0);
-	print_in_middle(my_menu_win, 1, 0, 40, "My Menu", COLOR_PAIR(1));
-	mvwaddch(my_menu_win, 2, 0, ACS_LTEE);
-	mvwhline(my_menu_win, 2, 1, ACS_HLINE, 38);
-	mvwaddch(my_menu_win, 2, 39, ACS_RTEE);
+        print_in_middle(my_menu_win, 1, 0, 40, "My Menu", COLOR_PAIR(1));
+        mvwaddch(my_menu_win, 2, 0, ACS_LTEE);
+        mvwhline(my_menu_win, 2, 1, ACS_HLINE, 38);
+        mvwaddch(my_menu_win, 2, 39, ACS_RTEE);
         
-	/* Post the menu */
-	post_menu(my_menu);
-	wrefresh(my_menu_win);
-	
-	attron(COLOR_PAIR(2));
-	mvprintw(LINES - 2, 0, "Use PageUp and PageDown to scoll down or up a page of items");
-	mvprintw(LINES - 1, 0, "Arrow Keys to navigate (F1 to Exit)");
-	attroff(COLOR_PAIR(2));
-	refresh();
+        /* Post the menu */
+        post_menu(my_menu);
+        wrefresh(my_menu_win);
+        
+        attron(COLOR_PAIR(2));
+        mvprintw(LINES - 2, 0, "Use PageUp and PageDown to scoll down or up a page of items");
+        mvprintw(LINES - 1, 0, "Arrow Keys to navigate (F1 to Exit)");
+        attroff(COLOR_PAIR(2));
+        refresh();
 
-	while((c = wgetch(my_menu_win)) != KEY_F(1))
-	{       switch(c)
-	        {	case KEY_DOWN:
-				menu_driver(my_menu, REQ_DOWN_ITEM);
-				break;
-			case KEY_UP:
-				menu_driver(my_menu, REQ_UP_ITEM);
-				break;
-			case KEY_NPAGE:
-				menu_driver(my_menu, REQ_SCR_DPAGE);
-				break;
-			case KEY_PPAGE:
-				menu_driver(my_menu, REQ_SCR_UPAGE);
-				break;
-		}
+        while((c = wgetch(my_menu_win)) != KEY_F(1))
+        {       switch(c)
+                {       case KEY_DOWN:
+                                menu_driver(my_menu, REQ_DOWN_ITEM);
+                                break;
+                        case KEY_UP:
+                                menu_driver(my_menu, REQ_UP_ITEM);
+                                break;
+                        case KEY_NPAGE:
+                                menu_driver(my_menu, REQ_SCR_DPAGE);
+                                break;
+                        case KEY_PPAGE:
+                                menu_driver(my_menu, REQ_SCR_UPAGE);
+                                break;
+                }
                 wrefresh(my_menu_win);
-	}	
+        }       
 
-	/* Unpost and free all the memory taken up */
+        /* Unpost and free all the memory taken up */
         unpost_menu(my_menu);
         free_menu(my_menu);
-        for(i = 0; i &#60; n_choices; ++i)
+        for(i = 0; i &lt; n_choices; ++i)
                 free_item(my_items[i]);
-	endwin();
+        endwin();
 }
 
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color)
-{	int length, x, y;
-	float temp;
+{       int length, x, y;
+        float temp;
 
-	if(win == NULL)
-		win = stdscr;
-	getyx(win, y, x);
-	if(startx != 0)
-		x = startx;
-	if(starty != 0)
-		y = starty;
-	if(width == 0)
-		width = 80;
+        if(win == NULL)
+                win = stdscr;
+        getyx(win, y, x);
+        if(startx != 0)
+                x = startx;
+        if(starty != 0)
+                y = starty;
+        if(width == 0)
+                width = 80;
 
-	length = strlen(string);
-	temp = (width - length)/ 2;
-	x = startx + (int)temp;
-	wattron(win, color);
-	mvwprintw(win, y, x, "%s", string);
-	wattroff(win, color);
-	refresh();
-}</SPAN
-></PRE
-></FONT
-></TD
-></TR
-></TABLE
-></DIV
-><P
->This program is self-explanatory. In this example the number of choices has been
-increased to ten, which is larger than our sub window size which can hold 6
-items.  This message has to be explicitly conveyed to the menu system with the
-function set_menu_format(). In here we specify the number of rows and columns we
-want to be displayed for a single page. We can specify any number of items to be
-shown, in the rows variables, if it is less than the height of the sub window.
-If the key pressed by the user is a PAGE UP or PAGE DOWN, the menu is scrolled a
-page due to the requests (REQ_SCR_DPAGE and REQ_SCR_UPAGE) given to
-menu_driver().</P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="MULTICOLUMN"
->17.6. Multi Columnar Menus</A
-></H2
-><P
->In the above example you have seen how to use the function set_menu_format(). I
-didn't mention what the cols variable (third parameter) does. Well, If your sub
-window is wide enough, you can opt to display more than one item per row. This
-can be specified in the cols variable. To make things simpler, the following
-example doesn't show descriptions for the items.</P
-><DIV
-CLASS="EXAMPLE"
-><A
-NAME="MMEMUCO"
-></A
-><P
-><B
->Example 21.  Milt Columnar Menus Example </B
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
->#include &#60;curses.h&#62;
-#include &#60;menu.h&#62;
+        length = strlen(string);
+        temp = (width - length)/ 2;
+        x = startx + (int)temp;
+        wattron(win, color);
+        mvwprintw(win, y, x, "%s", string);
+        wattroff(win, color);
+        refresh();
+}</span>
+</pre>
+      </div>
+
+      <p>This program is self-explanatory. In this example the
+      number of choices has been increased to ten, which is larger
+      than our sub window size which can hold 6 items. This message
+      has to be explicitly conveyed to the menu system with the
+      function set_menu_format(). In here we specify the number of
+      rows and columns we want to be displayed for a single page.
+      We can specify any number of items to be shown, in the rows
+      variables, if it is less than the height of the sub window.
+      If the key pressed by the user is a PAGE UP or PAGE DOWN, the
+      menu is scrolled a page due to the requests (REQ_SCR_DPAGE
+      and REQ_SCR_UPAGE) given to menu_driver().</p>
+    </div>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="MULTICOLUMN" id=
+      "MULTICOLUMN">17.6. Multi Columnar Menus</a></h2>
+
+      <p>In the above example you have seen how to use the function
+      set_menu_format(). I didn't mention what the cols variable
+      (third parameter) does. Well, If your sub window is wide
+      enough, you can opt to display more than one item per row.
+      This can be specified in the cols variable. To make things
+      simpler, the following example doesn't show descriptions for
+      the items.</p>
+
+      <div class="EXAMPLE">
+        <a name="MMEMUCO" id="MMEMUCO"></a>
+
+        <p><b>Example 21. Milt Columnar Menus Example</b></p>
+        <pre class="PROGRAMLISTING">
+<span class="INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+#include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define CTRLD 	4
+#define CTRLD   4
 
 char *choices[] = {
                         "Choice 1", "Choice 2", "Choice 3", "Choice 4", "Choice 5",
-			"Choice 6", "Choice 7", "Choice 8", "Choice 9", "Choice 10",
-			"Choice 11", "Choice 12", "Choice 13", "Choice 14", "Choice 15",
-			"Choice 16", "Choice 17", "Choice 18", "Choice 19", "Choice 20",
+                        "Choice 6", "Choice 7", "Choice 8", "Choice 9", "Choice 10",
+                        "Choice 11", "Choice 12", "Choice 13", "Choice 14", "Choice 15",
+                        "Choice 16", "Choice 17", "Choice 18", "Choice 19", "Choice 20",
                         "Exit",
                         (char *)NULL,
                   };
 
 int main()
-{	ITEM **my_items;
-	int c;				
-	MENU *my_menu;
+{       ITEM **my_items;
+        int c;                          
+        MENU *my_menu;
         WINDOW *my_menu_win;
         int n_choices, i;
-	
-	/* Initialize curses */
-	initscr();
-	start_color();
+        
+        /* Initialize curses */
+        initscr();
+        start_color();
         cbreak();
         noecho();
-	keypad(stdscr, TRUE);
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_CYAN, COLOR_BLACK);
+        keypad(stdscr, TRUE);
+        init_pair(1, COLOR_RED, COLOR_BLACK);
+        init_pair(2, COLOR_CYAN, COLOR_BLACK);
 
-	/* Create items */
+        /* Create items */
         n_choices = ARRAY_SIZE(choices);
         my_items = (ITEM **)calloc(n_choices, sizeof(ITEM *));
-        for(i = 0; i &#60; n_choices; ++i)
+        for(i = 0; i &lt; n_choices; ++i)
                 my_items[i] = new_item(choices[i], choices[i]);
 
-	/* Crate menu */
-	my_menu = new_menu((ITEM **)my_items);
+        /* Crate menu */
+        my_menu = new_menu((ITEM **)my_items);
 
-	/* Set menu option not to show the description */
-	menu_opts_off(my_menu, O_SHOWDESC);
+        /* Set menu option not to show the description */
+        menu_opts_off(my_menu, O_SHOWDESC);
 
-	/* Create the window to be associated with the menu */
+        /* Create the window to be associated with the menu */
         my_menu_win = newwin(10, 70, 4, 4);
         keypad(my_menu_win, TRUE);
      
-	/* Set main window and sub window */
+        /* Set main window and sub window */
         set_menu_win(my_menu, my_menu_win);
         set_menu_sub(my_menu, derwin(my_menu_win, 6, 68, 3, 1));
-	set_menu_format(my_menu, 5, 3);
-	set_menu_mark(my_menu, " * ");
+        set_menu_format(my_menu, 5, 3);
+        set_menu_mark(my_menu, " * ");
 
-	/* Print a border around the main window and print a title */
+        /* Print a border around the main window and print a title */
         box(my_menu_win, 0, 0);
-	
-	attron(COLOR_PAIR(2));
-	mvprintw(LINES - 3, 0, "Use PageUp and PageDown to scroll");
-	mvprintw(LINES - 2, 0, "Use Arrow Keys to navigate (F1 to Exit)");
-	attroff(COLOR_PAIR(2));
-	refresh();
+        
+        attron(COLOR_PAIR(2));
+        mvprintw(LINES - 3, 0, "Use PageUp and PageDown to scroll");
+        mvprintw(LINES - 2, 0, "Use Arrow Keys to navigate (F1 to Exit)");
+        attroff(COLOR_PAIR(2));
+        refresh();
 
-	/* Post the menu */
-	post_menu(my_menu);
-	wrefresh(my_menu_win);
-	
-	while((c = wgetch(my_menu_win)) != KEY_F(1))
-	{       switch(c)
-	        {	case KEY_DOWN:
-				menu_driver(my_menu, REQ_DOWN_ITEM);
-				break;
-			case KEY_UP:
-				menu_driver(my_menu, REQ_UP_ITEM);
-				break;
-			case KEY_LEFT:
-				menu_driver(my_menu, REQ_LEFT_ITEM);
-				break;
-			case KEY_RIGHT:
-				menu_driver(my_menu, REQ_RIGHT_ITEM);
-				break;
-			case KEY_NPAGE:
-				menu_driver(my_menu, REQ_SCR_DPAGE);
-				break;
-			case KEY_PPAGE:
-				menu_driver(my_menu, REQ_SCR_UPAGE);
-				break;
-		}
+        /* Post the menu */
+        post_menu(my_menu);
+        wrefresh(my_menu_win);
+        
+        while((c = wgetch(my_menu_win)) != KEY_F(1))
+        {       switch(c)
+                {       case KEY_DOWN:
+                                menu_driver(my_menu, REQ_DOWN_ITEM);
+                                break;
+                        case KEY_UP:
+                                menu_driver(my_menu, REQ_UP_ITEM);
+                                break;
+                        case KEY_LEFT:
+                                menu_driver(my_menu, REQ_LEFT_ITEM);
+                                break;
+                        case KEY_RIGHT:
+                                menu_driver(my_menu, REQ_RIGHT_ITEM);
+                                break;
+                        case KEY_NPAGE:
+                                menu_driver(my_menu, REQ_SCR_DPAGE);
+                                break;
+                        case KEY_PPAGE:
+                                menu_driver(my_menu, REQ_SCR_UPAGE);
+                                break;
+                }
                 wrefresh(my_menu_win);
-	}	
+        }       
 
-	/* Unpost and free all the memory taken up */
+        /* Unpost and free all the memory taken up */
         unpost_menu(my_menu);
         free_menu(my_menu);
-        for(i = 0; i &#60; n_choices; ++i)
+        for(i = 0; i &lt; n_choices; ++i)
                 free_item(my_items[i]);
-	endwin();
-}</SPAN
-></PRE
-></FONT
-></TD
-></TR
-></TABLE
-></DIV
-><P
->Watch the function call to set_menu_format(). It specifies the number of columns
-to be 3, thus displaying 3 items per row. We have also switched off the showing
-descriptions with the function menu_opts_off(). There are couple of functions
-set_menu_opts(),  menu_opts_on() and menu_opts() which can be used to manipulate
-menu options. The following menu options can be specified.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->       O_ONEVALUE
+        endwin();
+}</span>
+</pre>
+      </div>
+
+      <p>Watch the function call to set_menu_format(). It specifies
+      the number of columns to be 3, thus displaying 3 items per
+      row. We have also switched off the showing descriptions with
+      the function menu_opts_off(). There are couple of functions
+      set_menu_opts(), menu_opts_on() and menu_opts() which can be
+      used to manipulate menu options. The following menu options
+      can be specified.</p>
+      <pre class="PROGRAMLISTING">
+       O_ONEVALUE
             Only one item can be selected for this menu.
 
        O_SHOWDESC
@@ -942,483 +787,388 @@ CLASS="PROGRAMLISTING"
             Ignore the case when pattern-matching.
 
        O_SHOWMATCH
-            Move the cursor to within the item  name  while  pat­
+            Move the cursor to within the item  name  while  pat&shy;
             tern-matching.
 
        O_NONCYCLIC
             Don't   wrap   around  next-item  and  previous-item,
-            requests to the other end of the menu.</PRE
-></FONT
-></TD
-></TR
-></TABLE
-><P
->All options are on by default. You can switch specific attributes on or off with
-menu_opts_on() and menu_opts_off() functions. You can also use set_menu_opts()
-to directly specify the options. The argument to this function should be a OR ed
-value of some of those above constants. The function menu_opts() can be used to
-find out a menu's present options. </P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="MULTIVALUEMENUS"
->17.7. Multi Valued Menus</A
-></H2
-><P
->You might be wondering what if you switch off the option O_ONEVALUE. Then the
-menu becomes multi-valued. That means you can select more than one item. This
-brings us to the request REQ_TOGGLE_ITEM. Let's see it in action.</P
-><DIV
-CLASS="EXAMPLE"
-><A
-NAME="MMETO"
-></A
-><P
-><B
->Example 22.  Multi Valued Menus example </B
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
->#include &#60;curses.h&#62;
-#include &#60;menu.h&#62;
+            requests to the other end of the menu.
+</pre>
+
+      <p>All options are on by default. You can switch specific
+      attributes on or off with menu_opts_on() and menu_opts_off()
+      functions. You can also use set_menu_opts() to directly
+      specify the options. The argument to this function should be
+      a OR ed value of some of those above constants. The function
+      menu_opts() can be used to find out a menu's present
+      options.</p>
+    </div>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="MULTIVALUEMENUS" id=
+      "MULTIVALUEMENUS">17.7. Multi Valued Menus</a></h2>
+
+      <p>You might be wondering what if you switch off the option
+      O_ONEVALUE. Then the menu becomes multi-valued. That means
+      you can select more than one item. This brings us to the
+      request REQ_TOGGLE_ITEM. Let's see it in action.</p>
+
+      <div class="EXAMPLE">
+        <a name="MMETO" id="MMETO"></a>
+
+        <p><b>Example 22. Multi Valued Menus example</b></p>
+        <pre class="PROGRAMLISTING">
+<span class="INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+#include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define CTRLD 	4
+#define CTRLD   4
 
 char *choices[] = {
                         "Choice 1",
                         "Choice 2",
                         "Choice 3",
                         "Choice 4",
-			"Choice 5",
-			"Choice 6",
-			"Choice 7",
+                        "Choice 5",
+                        "Choice 6",
+                        "Choice 7",
                         "Exit",
                   };
 
 int main()
-{	ITEM **my_items;
-	int c;				
-	MENU *my_menu;
+{       ITEM **my_items;
+        int c;                          
+        MENU *my_menu;
         int n_choices, i;
-	ITEM *cur_item;
-	
-	/* Initialize curses */	
-	initscr();
+        ITEM *cur_item;
+        
+        /* Initialize curses */ 
+        initscr();
         cbreak();
         noecho();
-	keypad(stdscr, TRUE);
+        keypad(stdscr, TRUE);
 
-	/* Initialize items */
+        /* Initialize items */
         n_choices = ARRAY_SIZE(choices);
         my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
-        for(i = 0; i &#60; n_choices; ++i)
+        for(i = 0; i &lt; n_choices; ++i)
                 my_items[i] = new_item(choices[i], choices[i]);
-	my_items[n_choices] = (ITEM *)NULL;
+        my_items[n_choices] = (ITEM *)NULL;
 
-	my_menu = new_menu((ITEM **)my_items);
+        my_menu = new_menu((ITEM **)my_items);
 
-	/* Make the menu multi valued */
-	menu_opts_off(my_menu, O_ONEVALUE);
+        /* Make the menu multi valued */
+        menu_opts_off(my_menu, O_ONEVALUE);
 
-	mvprintw(LINES - 3, 0, "Use &#60;SPACE&#62; to select or unselect an item.");
-	mvprintw(LINES - 2, 0, "&#60;ENTER&#62; to see presently selected items(F1 to Exit)");
-	post_menu(my_menu);
-	refresh();
+        mvprintw(LINES - 3, 0, "Use &lt;SPACE&gt; to select or unselect an item.");
+        mvprintw(LINES - 2, 0, "&lt;ENTER&gt; to see presently selected items(F1 to Exit)");
+        post_menu(my_menu);
+        refresh();
 
-	while((c = getch()) != KEY_F(1))
-	{       switch(c)
-	        {	case KEY_DOWN:
-				menu_driver(my_menu, REQ_DOWN_ITEM);
-				break;
-			case KEY_UP:
-				menu_driver(my_menu, REQ_UP_ITEM);
-				break;
-			case ' ':
-				menu_driver(my_menu, REQ_TOGGLE_ITEM);
-				break;
-			case 10:	/* Enter */
-			{	char temp[200];
-				ITEM **items;
+        while((c = getch()) != KEY_F(1))
+        {       switch(c)
+                {       case KEY_DOWN:
+                                menu_driver(my_menu, REQ_DOWN_ITEM);
+                                break;
+                        case KEY_UP:
+                                menu_driver(my_menu, REQ_UP_ITEM);
+                                break;
+                        case ' ':
+                                menu_driver(my_menu, REQ_TOGGLE_ITEM);
+                                break;
+                        case 10:        /* Enter */
+                        {       char temp[200];
+                                ITEM **items;
 
-				items = menu_items(my_menu);
-				temp[0] = '\0';
-				for(i = 0; i &#60; item_count(my_menu); ++i)
-					if(item_value(items[i]) == TRUE)
-					{	strcat(temp, item_name(items[i]));
-						strcat(temp, " ");
-					}
-				move(20, 0);
-				clrtoeol();
-				mvprintw(20, 0, temp);
-				refresh();
-			}
-			break;
-		}
-	}	
+                                items = menu_items(my_menu);
+                                temp[0] = '\0';
+                                for(i = 0; i &lt; item_count(my_menu); ++i)
+                                        if(item_value(items[i]) == TRUE)
+                                        {       strcat(temp, item_name(items[i]));
+                                                strcat(temp, " ");
+                                        }
+                                move(20, 0);
+                                clrtoeol();
+                                mvprintw(20, 0, temp);
+                                refresh();
+                        }
+                        break;
+                }
+        }       
 
-	free_item(my_items[0]);
+        free_item(my_items[0]);
         free_item(my_items[1]);
-	free_menu(my_menu);
-	endwin();
+        free_menu(my_menu);
+        endwin();
 }
-	</SPAN
-></PRE
-></FONT
-></TD
-></TR
-></TABLE
-></DIV
-><P
->Whew, A lot of new functions. Let's take them one after another. Firstly, the
-REQ_TOGGLE_ITEM.  In a multi-valued menu, the user should be allowed to select
-or un select more than one item. The request REQ_TOGGLE_ITEM toggles the present
-selection. In this case when space is pressed REQ_TOGGLE_ITEM request is sent to
-menu_driver to achieve the result.</P
-><P
->Now when the user presses &#60;ENTER&#62; we show the items he presently selected.
-First we find out the items associated with the menu using the function
-menu_items(). Then we loop through the items to find out if the item is selected
-or not. The function item_value() returns TRUE if an item is selected. The
-function item_count() returns the number of items in the menu. The item name can
-be found with item_name(). You can also find the description associated with an
-item using item_description().</P
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="MENUOPT"
->17.8. Menu Options</A
-></H2
-><P
->Well, by this time you must be itching for some difference in your menu, with
-lots of functionality. I know. You want Colors !!!. You want to create nice
-menus similar to those text mode <A
-HREF="http://www.jersey.net/~debinjoe/games/"
-TARGET="_top"
->dos games</A
->. The functions
-set_menu_fore() and set_menu_back() can be used to change the attribute of the
-selected item and unselected item. The names are misleading. They don't change
-menu's foreground or background which would have been useless. </P
-><P
->The function set_menu_grey() can be used to set the display attribute for the
-non-selectable items in the menu. This brings us to the interesting option for
-an item the one and only O_SELECTABLE. We can turn it off by the function
-item_opts_off() and after that that item is not selectable. It's like a grayed
-item in those fancy windows menus. Let's put these concepts in practice with
-this example</P
-><DIV
-CLASS="EXAMPLE"
-><A
-NAME="MMEAT"
-></A
-><P
-><B
->Example 23.  Menu Options example </B
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
->#include &#60;menu.h&#62;
+        </span>
+</pre>
+      </div>
+
+      <p>Whew, A lot of new functions. Let's take them one after
+      another. Firstly, the REQ_TOGGLE_ITEM. In a multi-valued
+      menu, the user should be allowed to select or un select more
+      than one item. The request REQ_TOGGLE_ITEM toggles the
+      present selection. In this case when space is pressed
+      REQ_TOGGLE_ITEM request is sent to menu_driver to achieve the
+      result.</p>
+
+      <p>Now when the user presses &lt;ENTER&gt; we show the items
+      he presently selected. First we find out the items associated
+      with the menu using the function menu_items(). Then we loop
+      through the items to find out if the item is selected or not.
+      The function item_value() returns TRUE if an item is
+      selected. The function item_count() returns the number of
+      items in the menu. The item name can be found with
+      item_name(). You can also find the description associated
+      with an item using item_description().</p>
+    </div>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="MENUOPT" id="MENUOPT">17.8. Menu
+      Options</a></h2>
+
+      <p>Well, by this time you must be itching for some difference
+      in your menu, with lots of functionality. I know. You want
+      Colors !!!. You want to create nice menus similar to those
+      text mode <a href="http://www.jersey.net/~debinjoe/games/"
+      target="_top">dos games</a>. The functions set_menu_fore()
+      and set_menu_back() can be used to change the attribute of
+      the selected item and unselected item. The names are
+      misleading. They don't change menu's foreground or background
+      which would have been useless.</p>
+
+      <p>The function set_menu_grey() can be used to set the
+      display attribute for the non-selectable items in the menu.
+      This brings us to the interesting option for an item the one
+      and only O_SELECTABLE. We can turn it off by the function
+      item_opts_off() and after that that item is not selectable.
+      It's like a grayed item in those fancy windows menus. Let's
+      put these concepts in practice with this example</p>
+
+      <div class="EXAMPLE">
+        <a name="MMEAT" id="MMEAT"></a>
+
+        <p><b>Example 23. Menu Options example</b></p>
+        <pre class="PROGRAMLISTING">
+<span class="INLINEMEDIAOBJECT">#include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define CTRLD 	4
+#define CTRLD   4
 
 char *choices[] = {
                         "Choice 1",
                         "Choice 2",
                         "Choice 3",
                         "Choice 4",
-			"Choice 5",
-			"Choice 6",
-			"Choice 7",
+                        "Choice 5",
+                        "Choice 6",
+                        "Choice 7",
                         "Exit",
                   };
 
 int main()
-{	ITEM **my_items;
-	int c;				
-	MENU *my_menu;
+{       ITEM **my_items;
+        int c;                          
+        MENU *my_menu;
         int n_choices, i;
-	ITEM *cur_item;
-	
-	/* Initialize curses */	
-	initscr();
-	start_color();
+        ITEM *cur_item;
+        
+        /* Initialize curses */ 
+        initscr();
+        start_color();
         cbreak();
         noecho();
-	keypad(stdscr, TRUE);
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
+        keypad(stdscr, TRUE);
+        init_pair(1, COLOR_RED, COLOR_BLACK);
+        init_pair(2, COLOR_GREEN, COLOR_BLACK);
+        init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
 
-	/* Initialize items */
+        /* Initialize items */
         n_choices = ARRAY_SIZE(choices);
         my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
-        for(i = 0; i &#60; n_choices; ++i)
+        for(i = 0; i &lt; n_choices; ++i)
                 my_items[i] = new_item(choices[i], choices[i]);
-	my_items[n_choices] = (ITEM *)NULL;
-	item_opts_off(my_items[3], O_SELECTABLE);
-	item_opts_off(my_items[6], O_SELECTABLE);
+        my_items[n_choices] = (ITEM *)NULL;
+        item_opts_off(my_items[3], O_SELECTABLE);
+        item_opts_off(my_items[6], O_SELECTABLE);
 
-	/* Create menu */
-	my_menu = new_menu((ITEM **)my_items);
+        /* Create menu */
+        my_menu = new_menu((ITEM **)my_items);
 
-	/* Set fore ground and back ground of the menu */
-	set_menu_fore(my_menu, COLOR_PAIR(1) | A_REVERSE);
-	set_menu_back(my_menu, COLOR_PAIR(2));
-	set_menu_grey(my_menu, COLOR_PAIR(3));
+        /* Set fore ground and back ground of the menu */
+        set_menu_fore(my_menu, COLOR_PAIR(1) | A_REVERSE);
+        set_menu_back(my_menu, COLOR_PAIR(2));
+        set_menu_grey(my_menu, COLOR_PAIR(3));
 
-	/* Post the menu */
-	mvprintw(LINES - 3, 0, "Press &#60;ENTER&#62; to see the option selected");
-	mvprintw(LINES - 2, 0, "Up and Down arrow keys to naviage (F1 to Exit)");
-	post_menu(my_menu);
-	refresh();
+        /* Post the menu */
+        mvprintw(LINES - 3, 0, "Press &lt;ENTER&gt; to see the option selected");
+        mvprintw(LINES - 2, 0, "Up and Down arrow keys to naviage (F1 to Exit)");
+        post_menu(my_menu);
+        refresh();
 
-	while((c = getch()) != KEY_F(1))
-	{       switch(c)
-	        {	case KEY_DOWN:
-				menu_driver(my_menu, REQ_DOWN_ITEM);
-				break;
-			case KEY_UP:
-				menu_driver(my_menu, REQ_UP_ITEM);
-				break;
-			case 10: /* Enter */
-				move(20, 0);
-				clrtoeol();
-				mvprintw(20, 0, "Item selected is : %s", 
-						item_name(current_item(my_menu)));
-				pos_menu_cursor(my_menu);
-				break;
-		}
-	}	
-	unpost_menu(my_menu);
-	for(i = 0; i &#60; n_choices; ++i)
-		free_item(my_items[i]);
-	free_menu(my_menu);
-	endwin();
+        while((c = getch()) != KEY_F(1))
+        {       switch(c)
+                {       case KEY_DOWN:
+                                menu_driver(my_menu, REQ_DOWN_ITEM);
+                                break;
+                        case KEY_UP:
+                                menu_driver(my_menu, REQ_UP_ITEM);
+                                break;
+                        case 10: /* Enter */
+                                move(20, 0);
+                                clrtoeol();
+                                mvprintw(20, 0, "Item selected is : %s", 
+                                                item_name(current_item(my_menu)));
+                                pos_menu_cursor(my_menu);
+                                break;
+                }
+        }       
+        unpost_menu(my_menu);
+        for(i = 0; i &lt; n_choices; ++i)
+                free_item(my_items[i]);
+        free_menu(my_menu);
+        endwin();
 }
-	</SPAN
-></PRE
-></FONT
-></TD
-></TR
-></TABLE
-></DIV
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="MENUUSERPTR"
->17.9. The useful User Pointer</A
-></H2
-><P
->We can associate a user pointer with each item in the menu. It works the same
-way as user pointer in panels. It's not touched by menu system. You can store
-any thing you like in that. I usually use it to store the function to be
-executed when the menu option is chosen (It's selected and may be the user
-pressed &#60;ENTER&#62;);</P
-><DIV
-CLASS="EXAMPLE"
-><A
-NAME="MMEUS"
-></A
-><P
-><B
->Example 24.  Menu User Pointer Usage </B
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
->#include &#60;curses.h&#62;
-#include &#60;menu.h&#62;
+        </span>
+</pre>
+      </div>
+    </div>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="MENUUSERPTR" id=
+      "MENUUSERPTR">17.9. The useful User Pointer</a></h2>
+
+      <p>We can associate a user pointer with each item in the
+      menu. It works the same way as user pointer in panels. It's
+      not touched by menu system. You can store any thing you like
+      in that. I usually use it to store the function to be
+      executed when the menu option is chosen (It's selected and
+      may be the user pressed &lt;ENTER&gt;);</p>
+
+      <div class="EXAMPLE">
+        <a name="MMEUS" id="MMEUS"></a>
+
+        <p><b>Example 24. Menu User Pointer Usage</b></p>
+        <pre class="PROGRAMLISTING">
+<span class="INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+#include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-#define CTRLD 	4
+#define CTRLD   4
 
 char *choices[] = {
                         "Choice 1",
                         "Choice 2",
                         "Choice 3",
                         "Choice 4",
-			"Choice 5",
-			"Choice 6",
-			"Choice 7",
+                        "Choice 5",
+                        "Choice 6",
+                        "Choice 7",
                         "Exit",
                   };
 void func(char *name);
 
 int main()
-{	ITEM **my_items;
-	int c;				
-	MENU *my_menu;
+{       ITEM **my_items;
+        int c;                          
+        MENU *my_menu;
         int n_choices, i;
-	ITEM *cur_item;
-	
-	/* Initialize curses */	
-	initscr();
-	start_color();
+        ITEM *cur_item;
+        
+        /* Initialize curses */ 
+        initscr();
+        start_color();
         cbreak();
         noecho();
-	keypad(stdscr, TRUE);
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
+        keypad(stdscr, TRUE);
+        init_pair(1, COLOR_RED, COLOR_BLACK);
+        init_pair(2, COLOR_GREEN, COLOR_BLACK);
+        init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
 
-	/* Initialize items */
+        /* Initialize items */
         n_choices = ARRAY_SIZE(choices);
         my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
-        for(i = 0; i &#60; n_choices; ++i)
-	{       my_items[i] = new_item(choices[i], choices[i]);
-		/* Set the user pointer */
-		set_item_userptr(my_items[i], func);
-	}
-	my_items[n_choices] = (ITEM *)NULL;
+        for(i = 0; i &lt; n_choices; ++i)
+        {       my_items[i] = new_item(choices[i], choices[i]);
+                /* Set the user pointer */
+                set_item_userptr(my_items[i], func);
+        }
+        my_items[n_choices] = (ITEM *)NULL;
 
-	/* Create menu */
-	my_menu = new_menu((ITEM **)my_items);
+        /* Create menu */
+        my_menu = new_menu((ITEM **)my_items);
 
-	/* Post the menu */
-	mvprintw(LINES - 3, 0, "Press &#60;ENTER&#62; to see the option selected");
-	mvprintw(LINES - 2, 0, "Up and Down arrow keys to naviage (F1 to Exit)");
-	post_menu(my_menu);
-	refresh();
+        /* Post the menu */
+        mvprintw(LINES - 3, 0, "Press &lt;ENTER&gt; to see the option selected");
+        mvprintw(LINES - 2, 0, "Up and Down arrow keys to naviage (F1 to Exit)");
+        post_menu(my_menu);
+        refresh();
 
-	while((c = getch()) != KEY_F(1))
-	{       switch(c)
-	        {	case KEY_DOWN:
-				menu_driver(my_menu, REQ_DOWN_ITEM);
-				break;
-			case KEY_UP:
-				menu_driver(my_menu, REQ_UP_ITEM);
-				break;
-			case 10: /* Enter */
-			{	ITEM *cur;
-				void (*p)(char *);
+        while((c = getch()) != KEY_F(1))
+        {       switch(c)
+                {       case KEY_DOWN:
+                                menu_driver(my_menu, REQ_DOWN_ITEM);
+                                break;
+                        case KEY_UP:
+                                menu_driver(my_menu, REQ_UP_ITEM);
+                                break;
+                        case 10: /* Enter */
+                        {       ITEM *cur;
+                                void (*p)(char *);
 
-				cur = current_item(my_menu);
-				p = item_userptr(cur);
-				p((char *)item_name(cur));
-				pos_menu_cursor(my_menu);
-				break;
-			}
-			break;
-		}
-	}	
-	unpost_menu(my_menu);
-	for(i = 0; i &#60; n_choices; ++i)
-		free_item(my_items[i]);
-	free_menu(my_menu);
-	endwin();
+                                cur = current_item(my_menu);
+                                p = item_userptr(cur);
+                                p((char *)item_name(cur));
+                                pos_menu_cursor(my_menu);
+                                break;
+                        }
+                        break;
+                }
+        }       
+        unpost_menu(my_menu);
+        for(i = 0; i &lt; n_choices; ++i)
+                free_item(my_items[i]);
+        free_menu(my_menu);
+        endwin();
 }
 
 void func(char *name)
-{	move(20, 0);
-	clrtoeol();
-	mvprintw(20, 0, "Item selected is : %s", name);
-}	</SPAN
-></PRE
-></FONT
-></TD
-></TR
-></TABLE
-></DIV
-></DIV
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="panels.html"
-ACCESSKEY="P"
->Prev</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="index.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="forms.html"
-ACCESSKEY="N"
->Next</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Panel Library</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
->&nbsp;</TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->Forms Library</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+{       move(20, 0);
+        clrtoeol();
+        mvprintw(20, 0, "Item selected is : %s", name);
+}       </span>
+</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="NAVFOOTER">
+    <hr align="left" width="100%">
+
+    <table summary="Footer navigation table" width="100%" border=
+    "0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="33%" align="left" valign="top"><a href=
+        "panels.html" accesskey="P">Prev</a></td>
+
+        <td width="34%" align="center" valign="top"><a href=
+        "index.html" accesskey="H">Home</a></td>
+
+        <td width="33%" align="right" valign="top"><a href=
+        "forms.html" accesskey="N">Next</a></td>
+      </tr>
+
+      <tr>
+        <td width="33%" align="left" valign="top">Panel
+        Library</td>
+
+        <td width="34%" align="center" valign="top">&nbsp;</td>
+
+        <td width="33%" align="right" valign="top">Forms
+        Library</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

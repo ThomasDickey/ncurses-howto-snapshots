@@ -1,298 +1,192 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<HTML
-><HEAD
-><TITLE
->Hello World !!!</TITLE
-><META
-NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
-REL="HOME"
-TITLE=" NCURSES Programming HOWTO "
-HREF="index.html"><LINK
-REL="PREVIOUS"
-TITLE="Introduction"
-HREF="intro.html"><LINK
-REL="NEXT"
-TITLE="The Gory Details "
-HREF="gory.html"></HEAD
-><BODY
-CLASS="SECT1"
-BGCOLOR="#FFFFFF"
-TEXT="#000000"
-LINK="#0000FF"
-VLINK="#840084"
-ALINK="#0000FF"
-><DIV
-CLASS="NAVHEADER"
-><TABLE
-SUMMARY="Header navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TH
-COLSPAN="3"
-ALIGN="center"
->NCURSES Programming HOWTO</TH
-></TR
-><TR
-><TD
-WIDTH="10%"
-ALIGN="left"
-VALIGN="bottom"
-><A
-HREF="intro.html"
-ACCESSKEY="P"
->Prev</A
-></TD
-><TD
-WIDTH="80%"
-ALIGN="center"
-VALIGN="bottom"
-></TD
-><TD
-WIDTH="10%"
-ALIGN="right"
-VALIGN="bottom"
-><A
-HREF="gory.html"
-ACCESSKEY="N"
->Next</A
-></TD
-></TR
-></TABLE
-><HR
-ALIGN="LEFT"
-WIDTH="100%"></DIV
-><DIV
-CLASS="SECT1"
-><H1
-CLASS="SECT1"
-><A
-NAME="HELLOWORLD"
->2. Hello World !!!</A
-></H1
-><P
->Welcome to the world of curses. Before we plunge into the library and look into
-its various features, let's write a simple program and say
-hello to the world. </P
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="COMPILECURSES"
->2.1. Compiling With the Ncurses Library</A
-></H2
-><P
->To use ncurses library functions, you have to include ncurses.h in your
-programs. To link the
-program with ncurses the flag -lncurses should be added.</P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
->    #include &#60;ncurses.h&#62;
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
+
+  <title>Hello World !!!</title>
+  <meta name="GENERATOR" content=
+  "Modular DocBook HTML Stylesheet Version 1.79">
+  <link rel="HOME" title=" NCURSES Programming HOWTO " href=
+  "index.html">
+  <link rel="PREVIOUS" title=" NCURSES Programming HOWTO " href=
+  "index.html">
+  <link rel="NEXT" title="The Gory Details " href="gory.html">
+</head>
+
+<body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
+vlink="#840084" alink="#0000FF">
+  <div class="NAVHEADER">
+    <table summary="Header navigation table" width="100%" border=
+    "0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th colspan="3" align="center">NCURSES Programming
+        HOWTO</th>
+      </tr>
+
+      <tr>
+        <td width="10%" align="left" valign="bottom"><a href=
+        "index.html" accesskey="P">Prev</a></td>
+
+        <td width="80%" align="center" valign="bottom"></td>
+
+        <td width="10%" align="right" valign="bottom"><a href=
+        "gory.html" accesskey="N">Next</a></td>
+      </tr>
+    </table>
+    <hr align="left" width="100%">
+  </div>
+
+  <div class="SECT1">
+    <h1 class="SECT1"><a name="HELLOWORLD" id="HELLOWORLD">2. Hello
+    World !!!</a></h1>
+
+    <p>Welcome to the world of curses. Before we plunge into the
+    library and look into its various features, let's write a
+    simple program and say hello to the world.</p>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="COMPILECURSES" id=
+      "COMPILECURSES">2.1. Compiling With the NCURSES
+      Library</a></h2>
+
+      <p>To use ncurses library functions, you have to include
+      ncurses.h in your programs. To link the program with ncurses
+      the flag -lncurses should be added.</p>
+      <pre class="PROGRAMLISTING">
+    #include &lt;ncurses.h&gt;
     .
     .
     .
 
-    compile and link: gcc &#60;program file&#62; -lncurses</PRE
-></FONT
-></TD
-></TR
-></TABLE
-><DIV
-CLASS="EXAMPLE"
-><A
-NAME="BHW"
-></A
-><P
-><B
->Example 1.  The Hello World !!! Program </B
-></P
-><TABLE
-BORDER="0"
-BGCOLOR="#E0E0E0"
-WIDTH="100%"
-><TR
-><TD
-><FONT
-COLOR="#000000"
-><PRE
-CLASS="PROGRAMLISTING"
-><SPAN
-CLASS="INLINEMEDIAOBJECT"
->#include &#60;ncurses.h&#62;
+    compile and link: gcc &lt;program file&gt; -lncurses
+</pre>
+
+      <div class="EXAMPLE">
+        <a name="BHW" id="BHW"></a>
+
+        <p><b>Example 1. The Hello World !!! Program</b></p>
+        <pre class="PROGRAMLISTING">
+<span class="INLINEMEDIAOBJECT">#include &lt;ncurses.h&gt;
 
 int main()
-{	
-	initscr();			/* Start curses mode 		  */
-	printw("Hello World !!!");	/* Print Hello World		  */
-	refresh();			/* Print it on to the real screen */
-	getch();			/* Wait for user input */
-	endwin();			/* End curses mode		  */
+{       
+        initscr();                      /* Start curses mode              */
+        printw("Hello World !!!");      /* Print Hello World              */
+        refresh();                      /* Print it on to the real screen */
+        getch();                        /* Wait for user input */
+        endwin();                       /* End curses mode                */
 
-	return 0;
-}</SPAN
-></PRE
-></FONT
-></TD
-></TR
-></TABLE
-></DIV
-></DIV
-><DIV
-CLASS="SECT2"
-><H2
-CLASS="SECT2"
-><A
-NAME="DISSECTION"
->2.2. Dissection</A
-></H2
-><P
-> 
-The above program prints "Hello World !!!" to the screen and exits. This 
-program shows how to initialize curses and do screen manipulation and 
-end curses mode. Let's dissect it line by line. </P
-><DIV
-CLASS="SECT3"
-><H3
-CLASS="SECT3"
-><A
-NAME="ABOUT-INITSCR"
->2.2.1. About initscr()</A
-></H3
-><P
->The function initscr() initializes the terminal in curses mode.  In some 
-implementations, it clears the screen and presents a blank screen. To do any 
-screen manipulation using curses package this has to be called first. This
-function initializes the curses system and allocates memory for our present
-window (called <VAR
-CLASS="LITERAL"
->stdscr</VAR
->) and some other data-structures. Under extreme
-cases this function might fail due to insufficient memory to allocate memory
-for curses library's data structures. </P
-><P
-> 
-After this is done, we can do a variety of initializations to customize
-our curses settings. These details will be explained <A
-HREF="init.html"
->later </A
->.</P
-></DIV
-><DIV
-CLASS="SECT3"
-><H3
-CLASS="SECT3"
-><A
-NAME="MYST-REFRESH"
->2.2.2. The mysterious refresh()</A
-></H3
-><P
->The next line printw prints the string "Hello World !!!" on to the screen. This
-function is analogous to normal printf in all respects except that it prints
-the data on a window called stdscr at the current (y,x) co-ordinates. Since our
-present co-ordinates are at 0,0 the string is printed at the left hand corner
-of the window.</P
-><P
->This brings us to that mysterious refresh(). Well, when we called printw 
-the data is actually written to an imaginary window, which is not updated 
-on the screen yet. The job of printw is to update a few flags
-and data structures and write the data to a buffer corresponding to stdscr.
-In order to show it on the screen, we need to call refresh() and tell the
-curses system to dump the contents on the screen.</P
-><P
->The philosophy behind all this is to allow the programmer to do multiple updates
-on the imaginary screen or windows and do a refresh once all his screen update
-is done. refresh() checks the window and updates only the portion which has been
-changed. This improves performance and offers greater flexibility too. But, it is
-sometimes frustrating to beginners. A common mistake committed by beginners is
-to forget to call refresh() after they did some update through printw() class of
-functions. I still forget to add it sometimes :-) </P
-></DIV
-><DIV
-CLASS="SECT3"
-><H3
-CLASS="SECT3"
-><A
-NAME="ABOUT-ENDWIN"
->2.2.3. About endwin()</A
-></H3
-><P
->And finally don't forget to end the curses mode. Otherwise your terminal might
-behave strangely after the program quits. endwin() frees the memory taken by 
-curses sub-system and its data structures and puts the terminal in normal 
-mode. This function must be called after you are done with the curses mode. </P
-></DIV
-></DIV
-></DIV
-><DIV
-CLASS="NAVFOOTER"
-><HR
-ALIGN="LEFT"
-WIDTH="100%"><TABLE
-SUMMARY="Footer navigation table"
-WIDTH="100%"
-BORDER="0"
-CELLPADDING="0"
-CELLSPACING="0"
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
-><A
-HREF="intro.html"
-ACCESSKEY="P"
->Prev</A
-></TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
-><A
-HREF="index.html"
-ACCESSKEY="H"
->Home</A
-></TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
-><A
-HREF="gory.html"
-ACCESSKEY="N"
->Next</A
-></TD
-></TR
-><TR
-><TD
-WIDTH="33%"
-ALIGN="left"
-VALIGN="top"
->Introduction</TD
-><TD
-WIDTH="34%"
-ALIGN="center"
-VALIGN="top"
->&nbsp;</TD
-><TD
-WIDTH="33%"
-ALIGN="right"
-VALIGN="top"
->The Gory Details</TD
-></TR
-></TABLE
-></DIV
-></BODY
-></HTML
->
+        return 0;
+}</span>
+</pre>
+      </div>
+    </div>
+
+    <div class="SECT2">
+      <h2 class="SECT2"><a name="DISSECTION" id="DISSECTION">2.2.
+      Dissection</a></h2>
+
+      <p>The above program prints "Hello World !!!" to the screen
+      and exits. This program shows how to initialize curses and do
+      screen manipulation and end curses mode. Let's dissect it
+      line by line.</p>
+
+      <div class="SECT3">
+        <h3 class="SECT3"><a name="ABOUT-INITSCR" id=
+        "ABOUT-INITSCR">2.2.1. About initscr()</a></h3>
+
+        <p>The function initscr() initializes the terminal in
+        curses mode. In some implementations, it clears the screen
+        and presents a blank screen. To do any screen manipulation
+        using curses package this has to be called first. This
+        function initializes the curses system and allocates memory
+        for our present window (called <tt class=
+        "LITERAL">stdscr</tt>) and some other data-structures.
+        Under extreme cases this function might fail due to
+        insufficient memory to allocate memory for curses library's
+        data structures.</p>
+
+        <p>After this is done, we can do a variety of
+        initializations to customize our curses settings. These
+        details will be explained <a href="init.html">later</a>
+        .</p>
+      </div>
+
+      <div class="SECT3">
+        <h3 class="SECT3"><a name="MYST-REFRESH" id=
+        "MYST-REFRESH">2.2.2. The mysterious refresh()</a></h3>
+
+        <p>The next line printw prints the string "Hello World !!!"
+        on to the screen. This function is analogous to normal
+        printf in all respects except that it prints the data on a
+        window called stdscr at the current (y,x) co-ordinates.
+        Since our present co-ordinates are at 0,0 the string is
+        printed at the left hand corner of the window.</p>
+
+        <p>This brings us to that mysterious refresh(). Well, when
+        we called printw the data is actually written to an
+        imaginary window, which is not updated on the screen yet.
+        The job of printw is to update a few flags and data
+        structures and write the data to a buffer corresponding to
+        stdscr. In order to show it on the screen, we need to call
+        refresh() and tell the curses system to dump the contents
+        on the screen.</p>
+
+        <p>The philosophy behind all this is to allow the
+        programmer to do multiple updates on the imaginary screen
+        or windows and do a refresh once all his screen update is
+        done. refresh() checks the window and updates only the
+        portion which has been changed. This improves performance
+        and offers greater flexibility too. But, it is sometimes
+        frustrating to beginners. A common mistake committed by
+        beginners is to forget to call refresh() after they did
+        some update through printw() class of functions. I still
+        forget to add it sometimes :-)</p>
+      </div>
+
+      <div class="SECT3">
+        <h3 class="SECT3"><a name="ABOUT-ENDWIN" id=
+        "ABOUT-ENDWIN">2.2.3. About endwin()</a></h3>
+
+        <p>And finally don't forget to end the curses mode.
+        Otherwise your terminal might behave strangely after the
+        program quits. endwin() frees the memory taken by curses
+        sub-system and its data structures and puts the terminal in
+        normal mode. This function must be called after you are
+        done with the curses mode.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="NAVFOOTER">
+    <hr align="left" width="100%">
+
+    <table summary="Footer navigation table" width="100%" border=
+    "0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="33%" align="left" valign="top"><a href=
+        "index.html" accesskey="P">Prev</a></td>
+
+        <td width="34%" align="center" valign="top"><a href=
+        "index.html" accesskey="H">Home</a></td>
+
+        <td width="33%" align="right" valign="top"><a href=
+        "gory.html" accesskey="N">Next</a></td>
+      </tr>
+
+      <tr>
+        <td width="33%" align="left" valign="top">NCURSES
+        Programming HOWTO</td>
+
+        <td width="34%" align="center" valign="top">&nbsp;</td>
+
+        <td width="33%" align="right" valign="top">The Gory
+        Details</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>
