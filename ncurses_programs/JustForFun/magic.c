@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	int **a,n,i;
 
 	if(argc != 2)
-	{	printf("Usage: %s <magic sqaure order>\n", argv[0]);
+	{	printf("Usage: %s <magic square order>\n", argv[0]);
 		exit(0);
 	}
 	n = atoi(argv[1]);
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 	getch();
 	endwin();
 
-	return;
+	return EXIT_SUCCESS;
 }
 
 void magic(int **a, int n)

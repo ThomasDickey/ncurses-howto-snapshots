@@ -1,4 +1,4 @@
-#include <ncurses.h>
+#include <curses.h>
 
 typedef struct _win_border_struct {
 	chtype 	ls, rs, ts, bs, 

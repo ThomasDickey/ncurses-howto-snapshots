@@ -19,6 +19,14 @@
     <revhistory>
     
     <revision>
+        <revnumber>2.0</revnumber>
+        <date>2022-12-03</date>
+        <authorinitials>dickey</authorinitials>
+        <revremark>Fixes for the sample programs,  Correct documentation errata.
+        </revremark>
+    </revision>
+   
+    <revision>
         <revnumber>1.9</revnumber>
         <date>2005-06-20</date>
         <authorinitials>ppadala</authorinitials>
@@ -135,7 +143,7 @@ In the olden days of teletype terminals, terminals were away from computers and
 were connected to them through serial cables. The terminals could be configured
 by sending a series of bytes. All the capabilities (such as 
 moving the cursor to a new location, erasing part of the screen, scrolling the 
-screen, changing modes etc.) of terminals could be accessed through these 
+screen, changing modes, etc.) of terminals could be accessed through these 
 series of bytes. These control seeuqnces are usually called escape sequences, 
 because they start 
 with an escape(0x1B) character. Even today, with proper emulation, we can send 
@@ -179,12 +187,12 @@ sent to a terminal or terminal emulator.
 <para> 
 You might be wondering, what the import of all this technical gibberish is.  In
 the above scenario, every application program is supposed to query the terminfo
-and perform the necessary stuff (sending control characters etc.).  It soon became
+and perform the necessary stuff (sending control characters, etc.).  It soon became
 difficult to manage this complexity and this gave birth to 'CURSES'.  Curses is
 a pun on the name "cursor optimization". The Curses library forms a wrapper
 over working with raw terminal codes, and provides highly flexible and
 efficient API (Application Programming Interface). It provides functions to
-move the cursor, create windows, produce colors, play with mouse etc.  The
+move the cursor, create windows, produce colors, play with mouse, etc.  The
 application programs need not worry about the underlying terminal capabilities.
 </para>
 
@@ -199,7 +207,7 @@ document, the terms curses and ncurses are used interchangeably.
 <para>
 A detailed history of NCURSES can be found in the NEWS file from the source
 distribution. The current package is maintained by 
-<ulink url="mailto:dickey@his.com">Thomas Dickey</ulink>.  
+<ulink url="mailto:dickey@invisible-island.net">Thomas Dickey</ulink>.  
 You can contact the maintainers at <ulink url="mailto:bug-ncurses@gnu.org">bug-ncurses@gnu.org</ulink>.
 </para>
 
@@ -210,7 +218,7 @@ You can contact the maintainers at <ulink url="mailto:bug-ncurses@gnu.org">bug-n
 <para>
 NCURSES not only creates a wrapper over terminal capabilities, but also gives a
 robust framework to create nice looking UI (User Interface)s in text mode.  It
-provides functions to create windows etc.  Its sister libraries panel, menu and
+provides functions to create windows, etc.  Its sister libraries panel, menu and
 form provide an extension to the basic curses library. These libraries usually
 come along with curses. One can create applications that contain multiple
 windows, menus, panels and forms. Windows can be managed independently, can
@@ -243,8 +251,8 @@ you don't have the library or want to compile it on your own, read on.
 NCURSES can be obtained from <ulink url=
 "ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz">
 ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz</ulink> or any of the ftp 
-sites mentioned in <ulink url="http://www.gnu.org/order/ftp.html">
-http://www.gnu.org/order/ftp.html</ulink>. 
+sites mentioned in <ulink url="https://www.gnu.org/order/ftp.html">
+https://www.gnu.org/order/ftp.html</ulink>. 
 </para>
 
 <para>
@@ -265,8 +273,8 @@ usually involves the following operations.
 <para><emphasis>Using the RPM </emphasis></para>
 
 <para>
-NCURSES RPM can be found and downloaded from <ulink url="http://rpmfind.net">
-http://rpmfind.net </ulink>. The RPM can be installed with the following 
+NCURSES RPM can be found and downloaded from <ulink url="https://rpmfind.net">
+https://rpmfind.net </ulink>. The RPM can be installed with the following 
 command after becoming root.
 </para>
 
@@ -288,7 +296,7 @@ each of the examples.
 <sect2 id="aboutprograms"><title>About the Programs</title>
 <para>
 All the programs in the document are available in zipped form
-<ulink url="http://www.tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs.tar.gz">
+<ulink url="https://www.tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs.tar.gz">
 here</ulink>. Unzip and untar it. The directory structure looks like this.
 </para>
 
@@ -356,7 +364,7 @@ JustForFun
   menus 
     |
     |----&gt; menu_attrib.c     -- Usage of menu attributes
-    |----&gt; menu_item_data.c  -- Usage of item_name() etc.. functions
+    |----&gt; menu_item_data.c  -- Usage of item_name(), etc. functions
     |----&gt; menu_multi_column.c    -- Creates multi columnar menus
     |----&gt; menu_scroll.c     -- Demonstrates scrolling capability of menus
     |----&gt; menu_simple.c     -- A simple menu accessed by arrow keys
@@ -391,8 +399,8 @@ examples directory.
 
 <simpara> If you prefer browsing individual programs, point your browser to 
 <ulink 
-url="http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/">
-http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/
+url="https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/">
+https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/
 </ulink></simpara>
 
 <para>
@@ -405,7 +413,7 @@ claiming them as yours. Feel free to use them in your programs as appropriate.
 <sect2 id="otherformats"><title>Other Formats of the document </title> 
 
 <para>
-This howto is also availabe in various other formats on the tldp.org site.
+This howto is also available in various other formats on the tldp.org site.
 Here are the links to other formats of this document.
 </para>
 
@@ -414,25 +422,25 @@ Here are the links to other formats of this document.
 <itemizedlist>
 <listitem>
 <para>
-<ulink url="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/pdf/NCURSES-Programming-HOWTO.pdf">Acrobat PDF Format</ulink>
+<ulink url="https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/pdf/NCURSES-Programming-HOWTO.pdf">Acrobat PDF Format</ulink>
 </para>
 </listitem>
 
 <listitem>
 <para>
-<ulink url="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/ps/NCURSES-Programming-HOWTO.ps.gz">PostScript Format</ulink>
+<ulink url="https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/ps/NCURSES-Programming-HOWTO.ps.gz">PostScript Format</ulink>
 </para>
 </listitem>
 
 <listitem>
 <para>
-<ulink url="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html/NCURSES-Programming-HOWTO-html.tar.gz">In Multiple HTML pages</ulink>
+<ulink url="https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html/NCURSES-Programming-HOWTO-html.tar.gz">In Multiple HTML pages</ulink>
 </para>
 </listitem>
 
 <listitem>
 <para>
-<ulink url="http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/NCURSES-Programming-HOWTO.html">In One big HTML format</ulink>
+<ulink url="https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/NCURSES-Programming-HOWTO.html">In One big HTML format</ulink>
 </para>
 </listitem>
 </itemizedlist>
@@ -470,8 +478,8 @@ If above links are broken or if you want to experiment with sgml read on.
 </para>
 
 <para>
-See <ulink url="http://www.tldp.org/LDP/LDP-Author-Guide/">
-LDP Author guide</ulink> for more details. If all else failes, mail me at 
+See <ulink url="https://www.tldp.org/LDP/LDP-Author-Guide/">
+LDP Author guide</ulink> for more details. If all else fails, mail me at 
 <ulink url= "ppadala@gmail.com">ppadala@gmail.com</ulink>
 </para>
 </sect3>
@@ -690,7 +698,7 @@ many features which can be put to full use.
 We now know that to initialize curses system the function initscr() has to be
 called.  There are functions which can be called after this initialization to
 customize our curses session. We may ask the curses system to set the terminal
-in raw mode or initialize color or initialize the mouse etc.. Let's discuss some
+in raw mode or initialize color or initialize the mouse, etc. Let's discuss some
 of the functions that are normally called immediately after initscr();
 </para>
 
@@ -719,7 +727,7 @@ These functions control the echoing of characters typed by the user to the
 terminal. <literal remap="tt">noecho()</literal> switches off echoing. The
 reason you might want to do this is to gain more control over echoing or to
 suppress unnecessary echoing while taking input from the user through the
-getch() etc. functions. Most of the interactive programs call
+getch(), etc. functions. Most of the interactive programs call
 <literal remap="tt">noecho()</literal> at initialization and do the echoing
 of characters in a controlled manner. It gives the programmer the flexibility
 of echoing characters at any place in the window without updating current (y,x)
@@ -730,7 +738,7 @@ co-ordinates.
 <sect2 id="keypad"><title>keypad()</title>
 <para>
 This is my favorite initialization function. It enables the reading of function
-keys like F1, F2, arrow keys etc. Almost every interactive program enables this,
+keys like F1, F2, arrow keys, etc. Almost every interactive program enables this,
 as arrow keys are a major part of any User Interface. Do
 <literal remap="tt">keypad(stdscr, TRUE) </literal> to enable this feature
 for the regular screen (stdscr). You will learn more about key management in
@@ -800,7 +808,7 @@ a bordered window which you usually see on Win9X platforms. When curses is
 initialized, it creates a default window named
 <literal remap="tt">stdscr</literal> which represents your 80x25 (or the size
 of window in which you are running) screen.  If you are doing simple tasks like
-printing few strings, reading input etc., you can safely use this single window
+printing few strings, reading input, etc., you can safely use this single window
 for all of your purposes. You can also create windows and call functions which
 explicitly work on the specified window.
 </para>
@@ -869,7 +877,7 @@ There are three classes of functions which you can use to do output on screen.
 </para>
 
 <para>
-These functions can be used interchangeably and it's a matter of style as to
+These functions can be used interchangeably and it is a matter of style as to
 which class is used. Let's see each one in detail.
 </para>
 
@@ -916,7 +924,7 @@ with the attributes until it is turned off.
 <para>
 Additionally, <literal remap="tt">curses</literal> provides some special
 characters for character-based graphics. You can draw tables, horizontal or
-vertical lines, etc. You can find all avaliable characters in the header file
+vertical lines, etc. You can find all available characters in the header file
 <literal remap="tt">ncurses.h</literal>.  Try looking for macros beginning
 with <literal remap="tt">ACS_</literal> in this file. 
 </para>
@@ -986,7 +994,7 @@ corresponding window given as argument.
 </para>
 </sect3>
 
-<sect3 id="vwprintw"><title>vwprintw()</title>
+<sect3 id="vwprintw"><title>vw_printw()</title>
 <para>
 This function is similar to <literal remap="tt">vprintf()</literal>. This can
 be used when variable number of arguments are to be printed.
@@ -1098,7 +1106,7 @@ which is supplied as one of the arguments to these functions.
 </para>
 </sect3>
 
-<sect3 id="vwscanw"><title>vwscanw()</title>
+<sect3 id="vwscanw"><title>vw_scanw()</title>
 <para>
 This function is similar to <literal remap="tt">vscanf()</literal>. This can
 be used when a variable number of arguments are to be scanned.
@@ -1171,7 +1179,7 @@ it in different colors. One could even extend it to other languages as well.
 <para>
 Let's get into more details of attributes. The functions <literal remap="tt">
 attron(), attroff(), attrset() </literal>, and their sister functions
-<literal remap="tt"> attr_get()</literal> etc..  can be used to switch
+<literal remap="tt"> attr_get()</literal>, etc.  can be used to switch
 attributes on/off , get attributes and produce a colorful display.
 </para>
 
@@ -1246,7 +1254,7 @@ desired effect.
 
 <sect2 id="attrfuncs"><title>attr_ functions</title>
 <para>
-There are series of functions like attr_set(), attr_on etc.. These are similar
+There are series of functions like attr_set(), attr_on, etc. These are similar
 to above functions except that they take parameters of type
 <literal remap="tt">attr_t</literal>.
 </para>
@@ -1325,11 +1333,11 @@ this is of pivotal importance before you start doing anything.
 A Window can be created by calling the function
 <literal remap="tt">newwin()</literal>. It doesn't create any thing on the
 screen actually. It allocates memory for a structure to manipulate the window
-and updates the structure with data regarding the window like it's size, beginy,
-beginx etc.. Hence in curses, a window is just an abstraction of an imaginary
+and updates the structure with data regarding the window such as its size, beginy,
+beginx, etc. Hence in curses, a window is just an abstraction of an imaginary
 window, which can be manipulated independent of other parts of screen. The
 function newwin() returns a pointer to structure WINDOW, which can be passed to
-window related functions like wprintw() etc.. Finally the window can be
+window related functions such as wprintw(), etc. Finally the window can be
 destroyed with delwin(). It will deallocate the memory associated with the
 window structure.
 </para>
@@ -1355,7 +1363,7 @@ window. Let's explore these functions in more detail in this example.
 <sect2 id="borderexexpl"><title>Explanation</title>
 
 <para>
-Don't scream. I know it's a big example. But I have to explain some important
+Don't scream. I know it is a big example. But I have to explain some important
 things here :-). This program creates a rectangular window that can be moved 
 with left, right, up, down arrow keys. It repeatedly creates and destroys
 windows as user press a key. Don't go beyond the screen limits. Checking for
@@ -1383,7 +1391,7 @@ points and the 4 lines. To put it clearly, if you have called wborder as below:
 </para>
 
 <para>
-it produces some thing like 
+it produces something like 
 </para>
 
 <programlisting>
@@ -1457,7 +1465,7 @@ the terminal does not support color.
 <para>
 Curses initializes all the colors supported by terminal when start_color() is
 called. These can be accessed by the define constants like
-<literal remap="tt">COLOR_BLACK </literal> etc. Now to actually start using
+<literal remap="tt">COLOR_BLACK </literal>, etc. Now to actually start using
 colors, you have to define pairs. Colors are always used in pairs. That means
 you have to use the function <literal remap="tt">init_pair() </literal> to
 define the foreground and background for the pair number you give.  After that
@@ -1531,12 +1539,12 @@ done by the user. Let's deal with the keys first.
 </para>
 
 <para>
-As you have seen in almost all of the above examples, it's very easy to get key
+As you have seen in almost all of the above examples, it is very easy to get key
 input from the user. A simple way of getting key presses is to use
 <literal remap="tt">getch()</literal> function. The cbreak mode should be
 enabled to read keys when you are interested in reading individual key hits
 rather than complete lines of text (which usually end with a carriage return).
-keypad should be enabled to get the Functions keys, arrow keys etc.  See the
+keypad should be enabled to get the Functions keys, arrow keys, etc.  See the
 initialization section for details.
 </para>
 
@@ -1675,7 +1683,7 @@ The code approximately looks like this:
 </programlisting>
 
 <para> 
-getmouse() returns the event into the pointer given to it. It's a structure
+getmouse() returns the event into the pointer given to it. It is a structure
 which contains
 </para>
 
@@ -1761,7 +1769,7 @@ the address of the variables. It can be called as
 The function getparyx() gets the beginning co-ordinates of the sub window
 relative to the main window. This is some times useful to update a sub window.
 When designing fancy stuff like writing multiple menus, it becomes difficult to
-store the menu positions, their first option co-ordinates etc. A simple solution
+store the menu positions, their first option co-ordinates, etc. A simple solution
 to this problem, is to create menus in sub windows and later find the starting
 co-ordinates of the menus by using getparyx().
 </para>
@@ -1796,7 +1804,7 @@ the present window state into a file, which can be later restored by
 The function <literal remap="tt">copywin()</literal> can be used to copy a
 window completely onto another window. It takes the source and destination
 windows as parameters and according to the rectangle specified, it copies the
-rectangular region from source to destination window.  It's last parameter
+rectangular region from source to destination window.  Its last parameter
 specifies whether to overwrite or just overlay the contents on to the
 destination window. If this argument is true, then the copying is
 non-destructive.
@@ -1854,7 +1862,7 @@ If you have ever programmed in DOS, you know about those nifty characters in
 extended character set. They are printable only on some terminals. NCURSES 
 functions like <literal remap="tt">box()</literal> use these characters. All
 these variables start with ACS meaning alternative character set. You might have 
-noticed me using these characters in some of the programs above. Here's an example 
+noticed me using these characters in some of the programs above. Here is an example 
 showing all the characters.
 </para>
 
@@ -1887,7 +1895,7 @@ blotches, whenever you forget to refresh the windows in the proper order.
 </para>
 
 <para>
-Don't despair. There's an elegant solution provided in panels library. In the
+Don't despair. There is an elegant solution provided in panels library. In the
 words of developers of ncurses 
 </para>
 
@@ -1915,7 +1923,7 @@ completely visible and the other panels may or may not be obscured according to
 their positions. So the basic idea is to create a stack of overlapping panels
 and use panels library to display them correctly. There is a function similar to
 refresh() which, when called , displays panels in the correct order. Functions
-are provided to hide or show panels, move panels, change its size etc.. The
+are provided to hide or show panels, move panels, change its size, etc. The
 overlapping problem is managed by the panels library during all the calls to
 these functions. 
 </para>
@@ -1944,7 +1952,7 @@ visibility order. Do a doupdate() to show it on the screen.
 
 <listitem>
 <para>
-Mainpulate the panels with show_panel(), hide_panel(), move_panel() etc. Make
+Mainpulate the panels with show_panel(), hide_panel(), move_panel(), etc. Make
 use of helper functions like panel_hidden() and panel_window(). Make use of user
 pointer to store custom data for a panel. Use the functions set_panel_userptr()
 and panel_userptr() to set and get the user pointer for a panel.
@@ -2020,7 +2028,7 @@ stored the pointer to the next panel in the cycle. User pointer for a panel can
 be set with the function <literal remap="tt"> set_panel_userptr()</literal>.
 It can be accessed using the function <literal remap="tt">panel_userptr()
 </literal> which will return the user pointer for the panel given as
-argument. After finding the next panel in the cycle It's brought to the top by
+argument. After finding the next panel in the cycle, it is brought to the top by
 the function top_panel().  This function brings the panel given as argument to
 the top of the panel stack.  
 </para>
@@ -2065,7 +2073,7 @@ it takes appropriate action. If 'r' is pressed resizing mode is started. After
 this the new sizes are updated as the user presses the arrow keys. When the user
 presses &lt;ENTER&gt; present selection ends and panel is resized by using the
 concept explained.  While in resizing mode the program doesn't show how the
-window is getting resized.  It's left as an exercise to the reader to print a
+window is getting resized.  It is left as an exercise to the reader to print a
 dotted border while it gets resized to a new position. 
 </para>
 
@@ -2127,7 +2135,7 @@ return a pointer to bottom panel and top panel respectively.
 <para>
 The menus library provides a nice extension to basic curses, through which you
 can create menus. It provides a set of functions to create menus. But they have
-to be customized to give a nicer look, with colors etc. Let's get into the
+to be customized to give a nicer look, with colors, etc. Let's get into the
 details.
 </para>
 
@@ -2517,7 +2525,7 @@ menu's foreground or background which would have been useless.
 The function set_menu_grey() can be used to set the display attribute for the
 non-selectable items in the menu. This brings us to the interesting option for
 an item the one and only O_SELECTABLE. We can turn it off by the function
-item_opts_off() and after that that item is not selectable. It's like a grayed
+item_opts_off() and after that that item is not selectable. It is like a grayed
 item in those fancy windows menus. Let's put these concepts in practice with
 this example
 </para>
@@ -2533,9 +2541,9 @@ this example
 <sect2 id="menuuserptr"><title> The useful User Pointer </title>
 <para>
 We can associate a user pointer with each item in the menu. It works the same
-way as user pointer in panels. It's not touched by menu system. You can store
+way as user pointer in panels. It is not touched by menu system. You can store
 any thing you like in that. I usually use it to store the function to be
-executed when the menu option is chosen (It's selected and may be the user
+executed when the menu option is chosen (It is selected and may be the user
 pressed &lt;ENTER&gt;);
 </para>
 
@@ -2553,10 +2561,10 @@ pressed &lt;ENTER&gt;);
 <para>
 Well. If you have seen those forms on web pages which take input from users and
 do various kinds of things, you might be wondering how would any one create such
-forms in text mode display. It's quite difficult to write those nifty forms in
+forms in text mode display. It is quite difficult to write those nifty forms in
 plain ncurses. Forms library tries to provide a basic frame work to build and
 maintain forms with ease. It has lot of features(functions) which manage
-validation, dynamic expansion of fields etc.. Let's see it in full flow.
+validation, dynamic expansion of fields, etc. Let's see it in full flow.
 </para>
 
 <para>
@@ -2571,11 +2579,11 @@ forms into multiple pages.
 Forms are created in much the same way as menus. First the fields related to the
 form are created with new_field(). You can set options for the fields, so that
 they can be displayed with some fancy attributes, validated before the field
-looses focus etc.. Then the fields are attached to form. After this, the form
+looses focus, etc. Then the fields are attached to form. After this, the form
 can be posted to display and is ready to receive inputs. On the similar lines to
 menu_driver(), the form is manipulated with form_driver(). We can send requests
 to form_driver to move focus to a certain field, move cursor to end of the field
-etc..  After the user enters values in the fields and validation done, form can
+etc.  After the user enters values in the fields and validation done, form can
 be unposted and memory allocated can be freed.
 </para>
 
@@ -2972,7 +2980,7 @@ int field_status(FIELD *field);         /* fetch status of field */
 </programlisting>
 
 <para>
-It's better to check the field's status only after after leaving the field, as
+It is better to check the field's status only after after leaving the field, as
 data buffer might not have been updated yet as the validation is still due. To
 guarantee that right status is returned, call field_status() either (1) in the
 field's exit validation check routine, (2) from the field's or form's
@@ -3016,7 +3024,7 @@ This can be done with a
 </para>
 
 <para>
-But it's usually not advisable to allow a field to grow infinitely. You can set
+But it is usually not advisable to allow a field to grow infinitely. You can set
 a maximum limit to the growth of the field with 
 <programlisting>
 int set_max_field(FIELD *field,    /* Field on which to operate */
@@ -3188,7 +3196,7 @@ they are linked
 
 <para>
 The following are the pre-defined validation types. You can also specify custom
-validation, though it's a bit tricky and cumbersome.
+validation, though it is a bit tricky and cumbersome.
 </para>
 
 <bridgehead>TYPE_ALPHA</bridgehead>
@@ -3206,7 +3214,7 @@ int set_field_type(FIELD *field,          /* field to alter */
 <para>
 The width argument sets a minimum width of data. The user has to enter at-least
 width number of characters before he can leave the field. Typically
-you'll want to set this to the field width; if it's greater than the
+you'll want to set this to the field width; if it is greater than the
 field width, the validation check will always fail.  A minimum width
 of zero makes field completion optional. 
 </para>
@@ -3226,7 +3234,7 @@ int set_field_type(FIELD *field,          /* field to alter */
 
 <para>
 The width argument sets a minimum width of data.  As with
-TYPE_ALPHA, typically you'll want to set this to the field width; if it's
+TYPE_ALPHA, typically you'll want to set this to the field width; if it is
 greater than the field width, the validation check will always fail.  A
 minimum width of zero makes field completion optional. 
 </para>
@@ -3361,7 +3369,7 @@ int form_driver(FORM *form,     /* form on which to operate     */
 
 <para>
 As you have seen some of the examples above, you have to be in a loop looking
-for user input and then decide whether it's a field data or a form request. The
+for user input and then decide whether it is a field data or a form request. The
 form requests are then passed to form_driver() to do the work.
 </para>
 
@@ -3710,10 +3718,10 @@ curses programs.
 
 <para>
 The kit provides some useful widgets, which can be used in your programs
-directly. It's pretty well written and the documentation is very good. The
+directly. It is pretty well written and the documentation is very good. The
 examples in the examples directory can be a good place to start for beginners.
 The CDK can be downloaded from <ulink
-url="http://invisible-island.net/cdk/">http://invisible-island.net/cdk/</ulink>
+url="https://invisible-island.net/cdk/">https://invisible-island.net/cdk/</ulink>
 . Follow the instructions in 
 README file to install it.
 </para>
@@ -3796,7 +3804,7 @@ background.&lt;!1&gt;"
 <para>
 given as a parameter to newCDKLabel(), it prints the line with yellow foreground
 and blue background. There are other tags available for justifying string,
-embedding special drawing characters etc.. Please refer to the man page
+embedding special drawing characters, etc. Please refer to the man page
 cdk_display(3X) for details. The man page explains the usage with nice examples.
 </para>
 </sect3>
@@ -3829,14 +3837,14 @@ examples of how and where it can be used
 
 <para> 
 As he explains, dialog is a real gem in making professional-looking dialog boxes
-with ease. It creates a variety of dialog boxes, menus, check lists etc.. It is
+with ease. It creates a variety of dialog boxes, menus, check lists, etc. It is
 usually installed by default. If not, you can download it from <ulink
-url="http://invisible-island.net/dialog/">Thomas Dickey</ulink>'s site. 
+url="https://invisible-island.net/dialog/">Thomas Dickey</ulink>'s site. 
 </para>
 
 <para>
 The above-mentioned article gives a very good overview of its uses and
-capabilites.  The man page has more details. It can be used in variety of
+capabilities.  The man page has more details. It can be used in variety of
 situations. One good example is building of linux kernel in text mode. Linux
 kernel uses a modified version of dialog tailored for its needs. 
 </para>
@@ -3911,7 +3919,7 @@ This program starts with a simple inverted U pattern and shows how wonderful
 life works. There is a lot of room for improvement in the program. You can let
 the user enter pattern of his choice or even take input from a file. You can
 also change rules and play with a lot of variations. Search on <ulink
-url="http://www.google.com">google</ulink> for interesting information on game
+url="https://www.google.com">google</ulink> for interesting information on game
 of life.
 </para>
 
@@ -3924,7 +3932,7 @@ of life.
 <para>
 Magic Square, another wonder of math, is very simple to understand but very
 difficult to make. In a magic square sum of the numbers in each row, each column
-is equal.  Even diagnol sum can be equal. There are many variations which have
+is equal.  Even diagonal sum can be equal. There are many variations which have
 special properties.
 </para>
 
@@ -3992,13 +4000,13 @@ can be helpful.
 <itemizedlist>
 <listitem><para>NCURSES man pages </para> </listitem>
 <listitem><para>NCURSES FAQ at <ulink
-url="http://invisible-island.net/ncurses/ncurses.faq.html">
-http://invisible-island.net/ncurses/ncurses.faq.html</ulink>
+url="https://invisible-island.net/ncurses/ncurses.faq.html">
+https://invisible-island.net/ncurses/ncurses.faq.html</ulink>
     </para> </listitem>
 <listitem><para>Writing programs with NCURSES by Eric Raymond and Zeyd M.
 Ben-Halim at 
 <ulink
-url="http://invisible-island.net/ncurses/ncurses-intro.html">http://invisible-island.net/ncurses/ncurses-intro.html</ulink> - somewhat
+url="https://invisible-island.net/ncurses/ncurses-intro.html">https://invisible-island.net/ncurses/ncurses-intro.html</ulink> - somewhat
 obsolete. I was inspired by this document and the structure of this HOWTO
 follows from the original document</para></listitem>
 </itemizedlist>

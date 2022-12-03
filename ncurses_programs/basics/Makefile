@@ -24,6 +24,7 @@ EXES = \
 	${EXE_DIR}/with_chgat
 
 ${EXE_DIR}/%: %.o
+	@mkdir -p ${EXE_DIR}
 	${CC} -o $@ $< ${LIBS}
 
 %.o: ${SRC_DIR}/%.c

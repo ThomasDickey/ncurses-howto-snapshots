@@ -19,3 +19,4 @@ clean:
 	cd forms	&& $(MAKE) clean
 	cd menus	&& $(MAKE) clean
 	cd panels	&& $(MAKE) clean
+	rm -rf demo

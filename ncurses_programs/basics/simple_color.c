@@ -1,4 +1,6 @@
-#include <ncurses.h>
+#include <stdlib.h>
+#include <string.h>
+#include <curses.h>
 
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string);
 int main(int argc, char *argv[])

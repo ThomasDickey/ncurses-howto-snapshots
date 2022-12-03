@@ -1,10 +1,98 @@
+2022-12-03  Thomas E. Dickey  <dickey@invisible-island.net>
+
+	* ncurses_programs/COPYING: update copyright
+
+	* ncurses_programs/basics/mouse_menu.c:
+	enable keypad on the menu-window (needed for reading mouse events)
+
+	* NCURSES-Programming-HOWTO.sgml: fix spelling/grammatical issues
+	update some URLs
+
+	* ncurses_programs/basics/win_border.c: fix spelling
+
+	* NCURSES-Programming-HOWTO.sgml: spelling fixes, per codespell
+
+	* ncurses_programs/panels/panel_hide.c,
+	  ncurses_programs/menus/menu_scroll.c,
+	  ncurses_programs/JustForFun/queens.c,
+	  ncurses_programs/basics/simple_key.c,
+	  ncurses_programs/basics/with_chgat.c,
+	  ncurses_programs/basics/printw_example.c,
+	  ncurses_programs/basics/init_func_example.c,
+	  ncurses_programs/basics/simple_attr.c,
+	  ncurses_programs/basics/scanw_example.c, ncurses_programs/README,
+	  ncurses_programs/JustForFun/magic.c:
+	spelling fixes, found with codespell
+
+	* ncurses_programs/JustForFun/hanoi.c:
+	corrected confusion between number of pegs and the number of disks
+
+	* ncurses_programs/JustForFun/Makefile,
+	  ncurses_programs/basics/Makefile, ncurses_programs/forms/Makefile,
+	  ncurses_programs/menus/Makefile, ncurses_programs/panels/Makefile:
+	ensure that the output-directory exists
+
+	* ncurses_programs/JustForFun/queens.c,
+	  ncurses_programs/JustForFun/tt.c, ncurses_programs/basics/printw_example.c,
+	  ncurses_programs/basics/scanw_example.c,
+	  ncurses_programs/basics/acs_vars.c,
+	  ncurses_programs/basics/hello_world.c,
+	  ncurses_programs/basics/init_func_example.c,
+	  ncurses_programs/basics/key_code.c,
+	  ncurses_programs/basics/other_border.c,
+	  ncurses_programs/basics/simple_attr.c,
+	  ncurses_programs/basics/simple_key.c,
+	  ncurses_programs/basics/win_border.c,
+	  ncurses_programs/basics/with_chgat.c:
+	convert line-endings
+	add #include's to fix compiler warnings
+	use consistent "curses.h"
+
+	* ncurses_programs/Makefile: when cleaning, remove the demo directory
+
+	* ncurses_programs/panels/panel_resize.c,
+	  ncurses_programs/panels/panel_hide.c,
+	  ncurses_programs/panels/panel_browse.c,
+	  ncurses_programs/menus/menu_win.c,
+	  ncurses_programs/menus/menu_userptr.c,
+	  ncurses_programs/menus/menu_toggle.c,
+	  ncurses_programs/menus/menu_simple.c,
+	  ncurses_programs/menus/menu_scroll.c,
+	  ncurses_programs/menus/menu_multi_column.c,
+	  ncurses_programs/menus/menu_item_data.c,
+	  ncurses_programs/menus/menu_attrib.c,
+	  ncurses_programs/forms/form_win.c,
+	  ncurses_programs/basics/temp_leave.c,
+	  ncurses_programs/basics/simple_color.c,
+	  ncurses_programs/basics/mouse_menu.c,
+	  ncurses_programs/JustForFun/shuffle.c,
+	  ncurses_programs/JustForFun/magic.c,
+	  ncurses_programs/JustForFun/life.c, ncurses_programs/JustForFun/hanoi.c:
+	convert line-endings
+	add #include's to fix compiler warnings
+	use consistent "curses.h"
+
 2016-12-31  Thomas E. Dickey  <dickey@invisible-island.net>
 
-	* result/NCURSES-nochunks.html, result/attrib.html, result/awordwindows.html, result/color.html, result/forms.html, result/gory.html, result/helloworld.html, result/init.html, result/justforfun.html, result/keys.html, result/menus.html, result/misc.html, result/mouse.html, result/otherlib.html, result/panels.html, result/printw.html, result/ref.html, result/scanw.html, result/screen.html, result/tools.html, result/windows.html:
+	* result/NCURSES-nochunks.html, result/attrib.html,
+	  result/awordwindows.html, result/color.html, result/forms.html,
+	  result/gory.html, result/helloworld.html, result/init.html,
+	  result/justforfun.html, result/keys.html, result/menus.html,
+	  result/misc.html, result/mouse.html, result/otherlib.html,
+	  result/panels.html, result/printw.html, result/ref.html,
+	  result/scanw.html, result/screen.html, result/tools.html,
+	  result/windows.html:
 	used tidy on Debian 7 to indent generated html
 	tidy 20091223cvs-1.2+deb7u1
 
-	* result/intro.html, result/index.html, result/attrib.html, result/awordwindows.html, result/color.html, result/forms.html, result/gory.html, result/helloworld.html, result/init.html, result/justforfun.html, result/keys.html, result/menus.html, result/misc.html, result/mouse.html, result/otherlib.html, result/panels.html, result/printw.html, result/ref.html, result/scanw.html, result/screen.html, result/tools.html, result/windows.html, result/NCURSES-nochunks.html:
+	* result/intro.html, result/index.html, result/attrib.html,
+	  result/awordwindows.html, result/color.html, result/forms.html,
+	  result/gory.html, result/helloworld.html, result/init.html,
+	  result/justforfun.html, result/keys.html, result/menus.html,
+	  result/misc.html, result/mouse.html, result/otherlib.html,
+	  result/panels.html, result/printw.html, result/ref.html,
+	  result/scanw.html, result/screen.html, result/tools.html,
+	  result/windows.html, result/NCURSES-nochunks.html:
 	using top-level makefile on Debian 7, regenerate (using newer stylesheet 1.79
 	vs 1.7).  The intro.html and index.html don't map in the newer stylesheet.
 	Tweaked these manually (splitting the generated index.html) to correspond
@@ -26,32 +114,107 @@
 
 2005-06-20  Pradeep Padala <ppadala@gmail.com>
 
-	* ncurses_programs/perl/README, ncurses_programs/perl/COPYING, ncurses_programs/perl/01.pl, ncurses_programs/perl/02.pl, ncurses_programs/perl/03.pl, ncurses_programs/perl/04.pl, ncurses_programs/perl/05.pl, ncurses_programs/perl/06.pl, ncurses_programs/perl/07.pl, ncurses_programs/perl/08.pl, ncurses_programs/perl/09.pl, ncurses_programs/perl/10.pl:
+	* ncurses_programs/perl/README, ncurses_programs/perl/COPYING,
+	  ncurses_programs/perl/01.pl, ncurses_programs/perl/02.pl,
+	  ncurses_programs/perl/03.pl, ncurses_programs/perl/04.pl,
+	  ncurses_programs/perl/05.pl, ncurses_programs/perl/06.pl,
+	  ncurses_programs/perl/07.pl, ncurses_programs/perl/08.pl,
+	  ncurses_programs/perl/09.pl, ncurses_programs/perl/10.pl:
 	t20050620
 
 2005-06-17  Pradeep Padala <ppadala@gmail.com>
 
 	* ncurses_programs/COPYING: t20050620
 
-	* result/index.html, result/justforfun.html, result/ref.html, result/forms.html, result/menus.html, result/tools.html, result/misc.html, result/mouse.html, result/otherlib.html, result/panels.html, result/screen.html, result/attrib.html, result/color.html, result/keys.html, result/windows.html, result/awordwindows.html, result/init.html, result/printw.html, result/scanw.html, result/gory.html, result/helloworld.html, result/intro.html:
+	* result/index.html, result/justforfun.html, result/ref.html,
+	  result/forms.html, result/menus.html, result/tools.html,
+	  result/misc.html, result/mouse.html, result/otherlib.html,
+	  result/panels.html, result/screen.html, result/attrib.html,
+	  result/color.html, result/keys.html, result/windows.html,
+	  result/awordwindows.html, result/init.html, result/printw.html,
+	  result/scanw.html, result/gory.html, result/helloworld.html,
+	  result/intro.html:
 	t20050617
 
-	* ncurses_programs/basics/mouse_menu.c, ncurses_programs/basics/simple_color.c, ncurses_programs/basics/simple_attr.c, ncurses_programs/JustForFun/magic.c, ncurses_programs/panels/panel_simple.c, ncurses_programs/basics/other_border.c, ncurses_programs/README, ncurses_programs/JustForFun/life.c, ncurses_programs/JustForFun/queens.c, ncurses_programs/JustForFun/shuffle.c, ncurses_programs/JustForFun/tt.c, ncurses_programs/basics/acs_vars.c, ncurses_programs/basics/hello_world.c, ncurses_programs/basics/init_func_example.c, ncurses_programs/basics/key_code.c, ncurses_programs/basics/printw_example.c, ncurses_programs/basics/scanw_example.c, ncurses_programs/basics/simple_key.c, ncurses_programs/basics/temp_leave.c, ncurses_programs/basics/win_border.c, ncurses_programs/basics/with_chgat.c, ncurses_programs/forms/form_attrib.c, ncurses_programs/forms/form_options.c, ncurses_programs/forms/form_simple.c, ncurses_programs/forms/form_win.c, ncurses_programs/menus/menu_attrib.c, ncurses_programs/menus/menu_item_data.c, ncurses_programs/menus/menu_multi_column.c, ncurses_programs/menus/menu_scroll.c, ncurses_programs/menus/menu_simple.c, ncurses_programs/menus/menu_toggle.c, ncurses_programs/menus/menu_userptr.c, ncurses_programs/menus/menu_win.c, ncurses_programs/panels/panel_browse.c, ncurses_programs/panels/panel_hide.c, ncurses_programs/panels/panel_resize.c:
+	* ncurses_programs/basics/mouse_menu.c,
+	  ncurses_programs/basics/simple_color.c,
+	  ncurses_programs/basics/simple_attr.c,
+	  ncurses_programs/JustForFun/magic.c,
+	  ncurses_programs/panels/panel_simple.c:
 	t20050620
+
+2005-06-17  Thomas E. Dickey  <dickey@invisible-island.net>
+
+	* ncurses_programs/panels/panel_simple.c: convert line-endings
+	add #include's to fix compiler warnings
+	use consistent "curses.h"
+
+2005-06-17  Pradeep Padala <ppadala@gmail.com>
+
+	* ncurses_programs/basics/other_border.c, ncurses_programs/README,
+	  ncurses_programs/JustForFun/life.c,
+	  ncurses_programs/JustForFun/queens.c,
+	  ncurses_programs/JustForFun/shuffle.c,
+	  ncurses_programs/JustForFun/tt.c, ncurses_programs/basics/acs_vars.c,
+	  ncurses_programs/basics/hello_world.c,
+	  ncurses_programs/basics/init_func_example.c,
+	  ncurses_programs/basics/key_code.c,
+	  ncurses_programs/basics/printw_example.c,
+	  ncurses_programs/basics/scanw_example.c,
+	  ncurses_programs/basics/simple_key.c,
+	  ncurses_programs/basics/temp_leave.c,
+	  ncurses_programs/basics/win_border.c,
+	  ncurses_programs/basics/with_chgat.c,
+	  ncurses_programs/forms/form_attrib.c,
+	  ncurses_programs/forms/form_options.c,
+	  ncurses_programs/forms/form_simple.c,
+	  ncurses_programs/forms/form_win.c,
+	  ncurses_programs/menus/menu_attrib.c,
+	  ncurses_programs/menus/menu_item_data.c,
+	  ncurses_programs/menus/menu_multi_column.c,
+	  ncurses_programs/menus/menu_scroll.c,
+	  ncurses_programs/menus/menu_simple.c,
+	  ncurses_programs/menus/menu_toggle.c,
+	  ncurses_programs/menus/menu_userptr.c,
+	  ncurses_programs/menus/menu_win.c,
+	  ncurses_programs/panels/panel_browse.c,
+	  ncurses_programs/panels/panel_hide.c,
+	  ncurses_programs/panels/panel_resize.c:
+	t20050620
+
+2005-06-17  Thomas E. Dickey  <dickey@invisible-island.net>
+
+	* ncurses_programs/forms/form_attrib.c,
+	  ncurses_programs/forms/form_options.c,
+	  ncurses_programs/forms/form_simple.c:
+	convert line-endings
+	add #include's to fix compiler warnings
+	use consistent "curses.h"
 
 2002-06-25  Pradeep Padala <ppadala@gmail.com>
 
-	* ncurses_programs/menus/menu_win.c, ncurses_programs/menus/menu_simple.c, ncurses_programs/panels/panel_resize.c, ncurses_programs/basics/simple_color.c, ncurses_programs/basics/with_chgat.c, ncurses_programs/basics/init_func_example.c, ncurses_programs/basics/hello_world.c:
+	* ncurses_programs/menus/menu_win.c,
+	  ncurses_programs/menus/menu_simple.c,
+	  ncurses_programs/panels/panel_resize.c,
+	  ncurses_programs/basics/simple_color.c,
+	  ncurses_programs/basics/with_chgat.c,
+	  ncurses_programs/basics/init_func_example.c,
+	  ncurses_programs/basics/hello_world.c:
 	t20040918
 
 2002-06-24  Pradeep Padala <ppadala@gmail.com>
 
-	* ncurses_programs/basics/scanw_example.c, ncurses_programs/basics/mouse_menu.c, ncurses_programs/basics/simple_attr.c:
+	* ncurses_programs/basics/scanw_example.c,
+	  ncurses_programs/basics/mouse_menu.c,
+	  ncurses_programs/basics/simple_attr.c:
 	t20040918
 
 2002-02-23  Pradeep Padala <ppadala@gmail.com>
 
-	* ncurses_programs/basics/README, ncurses_programs/README, ncurses_programs/panels/Makefile, ncurses_programs/menus/Makefile, ncurses_programs/forms/Makefile, ncurses_programs/JustForFun/Makefile, ncurses_programs/basics/Makefile:
+	* ncurses_programs/basics/README, ncurses_programs/README,
+	  ncurses_programs/panels/Makefile, ncurses_programs/menus/Makefile,
+	  ncurses_programs/forms/Makefile, ncurses_programs/JustForFun/Makefile,
+	  ncurses_programs/basics/Makefile:
 	t20040918
 
 2002-02-16  Pradeep Padala <ppadala@gmail.com>
@@ -60,17 +223,68 @@
 
 2002-01-05  Pradeep Padala <ppadala@gmail.com>
 
-	* result/attrib.html, result/awordwindows.html, result/color.html, result/forms.html, result/gory.html, result/helloworld.html, result/index.html, result/init.html, result/intro.html, result/justforfun.html, result/keys.html, result/menus.html, result/misc.html, result/mouse.html, result/otherlib.html, result/panels.html, result/printw.html, result/scanw.html, result/screen.html, result/tools.html, result/windows.html:
+	* result/attrib.html, result/awordwindows.html, result/color.html,
+	  result/forms.html, result/gory.html, result/helloworld.html,
+	  result/index.html, result/init.html, result/intro.html,
+	  result/justforfun.html, result/keys.html, result/menus.html,
+	  result/misc.html, result/mouse.html, result/otherlib.html,
+	  result/panels.html, result/printw.html, result/scanw.html,
+	  result/screen.html, result/tools.html, result/windows.html:
 	t20020105
 
 2002-01-03  Pradeep Padala <ppadala@gmail.com>
 
-	* result/windows.html, result/screen.html, result/tools.html, result/printw.html, result/scanw.html, result/panels.html, result/otherlib.html, result/mouse.html, result/misc.html, result/menus.html, result/justforfun.html, result/keys.html, result/intro.html, result/index.html, result/init.html, result/gory.html, result/helloworld.html, result/forms.html, result/awordwindows.html, result/color.html, result/attrib.html:
+	* result/windows.html, result/screen.html, result/tools.html,
+	  result/printw.html, result/scanw.html, result/panels.html,
+	  result/otherlib.html, result/mouse.html, result/misc.html,
+	  result/menus.html, result/justforfun.html, result/keys.html,
+	  result/intro.html, result/index.html, result/init.html,
+	  result/gory.html, result/helloworld.html, result/forms.html,
+	  result/awordwindows.html, result/color.html, result/attrib.html:
 	t20020103
 
 2002-01-02  Pradeep Padala <ppadala@gmail.com>
 
-	* ncurses_programs/forms/Makefile, ncurses_programs/forms/README, ncurses_programs/forms/form_attrib.c, ncurses_programs/forms/form_options.c, ncurses_programs/forms/form_simple.c, ncurses_programs/forms/form_win.c, ncurses_programs/menus/Makefile, ncurses_programs/menus/README, ncurses_programs/menus/menu_attrib.c, ncurses_programs/menus/menu_item_data.c, ncurses_programs/menus/menu_multi_column.c, ncurses_programs/menus/menu_scroll.c, ncurses_programs/menus/menu_simple.c, ncurses_programs/menus/menu_toggle.c, ncurses_programs/menus/menu_userptr.c, ncurses_programs/menus/menu_win.c, ncurses_programs/panels/Makefile, ncurses_programs/panels/README, ncurses_programs/panels/panel_browse.c, ncurses_programs/panels/panel_hide.c, ncurses_programs/panels/panel_resize.c, ncurses_programs/panels/panel_simple.c, ncurses_programs/COPYING, ncurses_programs/JustForFun/Makefile, ncurses_programs/JustForFun/README, ncurses_programs/JustForFun/hanoi.c, ncurses_programs/JustForFun/life.c, ncurses_programs/JustForFun/magic.c, ncurses_programs/JustForFun/queens.c, ncurses_programs/JustForFun/shuffle.c, ncurses_programs/JustForFun/tt.c, ncurses_programs/Makefile, ncurses_programs/NCURSES_HOWTO.sgml, ncurses_programs/README, ncurses_programs/basics/Makefile, ncurses_programs/basics/README, ncurses_programs/basics/hello_world.c, ncurses_programs/basics/init_func_example.c, ncurses_programs/basics/key_code.c, ncurses_programs/basics/mouse_menu.c, ncurses_programs/basics/other_border.c, ncurses_programs/basics/printw_example.c, ncurses_programs/basics/scanw_example.c, ncurses_programs/basics/simple_attr.c, ncurses_programs/basics/simple_color.c, ncurses_programs/basics/simple_key.c, ncurses_programs/basics/temp_leave.c, ncurses_programs/basics/win_border.c, ncurses_programs/basics/with_chgat.c:
+	* ncurses_programs/forms/Makefile, ncurses_programs/forms/README,
+	  ncurses_programs/forms/form_attrib.c,
+	  ncurses_programs/forms/form_options.c,
+	  ncurses_programs/forms/form_simple.c,
+	  ncurses_programs/forms/form_win.c, ncurses_programs/menus/Makefile,
+	  ncurses_programs/menus/README, ncurses_programs/menus/menu_attrib.c,
+	  ncurses_programs/menus/menu_item_data.c,
+	  ncurses_programs/menus/menu_multi_column.c,
+	  ncurses_programs/menus/menu_scroll.c,
+	  ncurses_programs/menus/menu_simple.c,
+	  ncurses_programs/menus/menu_toggle.c,
+	  ncurses_programs/menus/menu_userptr.c,
+	  ncurses_programs/menus/menu_win.c, ncurses_programs/panels/Makefile,
+	  ncurses_programs/panels/README,
+	  ncurses_programs/panels/panel_browse.c, ncurses_programs/panels/panel_hide.c,
+	  ncurses_programs/panels/panel_resize.c,
+	  ncurses_programs/panels/panel_simple.c, ncurses_programs/COPYING,
+	  ncurses_programs/JustForFun/Makefile,
+	  ncurses_programs/JustForFun/README,
+	  ncurses_programs/JustForFun/hanoi.c,
+	  ncurses_programs/JustForFun/life.c,
+	  ncurses_programs/JustForFun/magic.c,
+	  ncurses_programs/JustForFun/queens.c,
+	  ncurses_programs/JustForFun/shuffle.c,
+	  ncurses_programs/JustForFun/tt.c, ncurses_programs/Makefile,
+	  ncurses_programs/NCURSES_HOWTO.sgml, ncurses_programs/README,
+	  ncurses_programs/basics/Makefile, ncurses_programs/basics/README,
+	  ncurses_programs/basics/hello_world.c,
+	  ncurses_programs/basics/init_func_example.c,
+	  ncurses_programs/basics/key_code.c,
+	  ncurses_programs/basics/mouse_menu.c,
+	  ncurses_programs/basics/other_border.c,
+	  ncurses_programs/basics/printw_example.c,
+	  ncurses_programs/basics/scanw_example.c,
+	  ncurses_programs/basics/simple_attr.c,
+	  ncurses_programs/basics/simple_color.c,
+	  ncurses_programs/basics/simple_key.c,
+	  ncurses_programs/basics/temp_leave.c,
+	  ncurses_programs/basics/win_border.c,
+	  ncurses_programs/basics/with_chgat.c:
 	t20020105
 
 2001-07-28  Thomas E. Dickey  <dickey@clark.net>
