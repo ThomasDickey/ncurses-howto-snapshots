@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Colors</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -15,7 +13,6 @@
   <link rel="NEXT" title="Interfacing with the key board" href=
   "keys.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -28,20 +25,21 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "windows.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "windows.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "keys.html" accesskey="N">Next</a></td>
+        "keys.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
   <div class="SECT1">
-    <h1 class="SECT1"><a name="COLOR" id="COLOR">10.
-    Colors</a></h1>
+    <h1 class="SECT1"><a name="COLOR" id="COLOR">10. Colors</a></h1>
 
     <div class="SECT2">
       <h2 class="SECT2"><a name="COLORBASICS" id=
@@ -53,10 +51,13 @@ vlink="#840084" alink="#0000FF">
 
       <div class="EXAMPLE">
         <a name="BSICO" id="BSICO"></a>
+        <p><b>Example 9. A Simple Color example</b>
+        </p>
 
-        <p><b>Example 9. A Simple Color example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;ncurses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;curses.h&gt;
 
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string);
 int main(int argc, char *argv[])
@@ -95,8 +96,7 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
         mvwprintw(win, y, x, "%s", string);
         refresh();
 }
-</span>
-</pre>
+</span></pre>
       </div>
 
       <p>As you can see, to start using color, you should first
@@ -109,7 +109,7 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
 
       <p>Curses initializes all the colors supported by terminal
       when start_color() is called. These can be accessed by the
-      define constants like <tt class="LITERAL">COLOR_BLACK</tt>
+      define constants like <tt class="LITERAL">COLOR_BLACK</tt> ,
       etc. Now to actually start using colors, you have to define
       pairs. Colors are always used in pairs. That means you have
       to use the function <tt class="LITERAL">init_pair()</tt> to
@@ -129,16 +129,15 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
       <p>The following colors are defined in <tt class=
       "LITERAL">curses.h</tt>. You can use these as parameters for
       various color functions.</p>
-      <pre class="PROGRAMLISTING">
-        COLOR_BLACK   0
+
+      <pre class="PROGRAMLISTING">        COLOR_BLACK   0
         COLOR_RED     1
         COLOR_GREEN   2
         COLOR_YELLOW  3
         COLOR_BLUE    4
         COLOR_MAGENTA 5
         COLOR_CYAN    6
-        COLOR_WHITE   7
-</pre>
+        COLOR_WHITE   7</pre>
     </div>
 
     <div class="SECT2">
@@ -150,12 +149,11 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
       curses initially. Say you wanted to lighten the intensity of
       red color by a minuscule. Then you can use this function
       as</p>
-      <pre class="PROGRAMLISTING">
-    init_color(COLOR_RED, 700, 0, 0);
-    /* param 1     : color name
-     * param 2, 3, 4 : rgb content min = 0, max = 1000 */
-</pre>
 
+      <pre class=
+      "PROGRAMLISTING">    init_color(COLOR_RED, 700, 0, 0);
+    /* param 1     : color name
+     * param 2, 3, 4 : rgb content min = 0, max = 1000 */</pre>
       <p>If your terminal cannot change the color definitions, the
       function returns ERR. The function <tt class=
       "LITERAL">can_change_color()</tt> can be used to find out
@@ -183,20 +181,19 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "windows.html" accesskey="P">Prev</a></td>
-
+        "windows.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "keys.html" accesskey="N">Next</a></td>
+        "keys.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">Windows</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Interfacing with
         the key board</td>
       </tr>

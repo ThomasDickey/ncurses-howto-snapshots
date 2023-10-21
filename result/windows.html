@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Windows</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -14,7 +12,6 @@
   <link rel="PREVIOUS" title="Attributes" href="attrib.html">
   <link rel="NEXT" title="Colors" href="color.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -27,20 +24,21 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "attrib.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "attrib.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "color.html" accesskey="N">Next</a></td>
+        "color.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
   <div class="SECT1">
-    <h1 class="SECT1"><a name="WINDOWS" id="WINDOWS">9.
-    Windows</a></h1>
+    <h1 class="SECT1"><a name="WINDOWS" id="WINDOWS">9. Windows</a></h1>
 
     <p>Windows form the most important concept in curses. You have
     seen the standard window stdscr above where all the functions
@@ -63,13 +61,13 @@ vlink="#840084" alink="#0000FF">
       "LITERAL">newwin()</tt>. It doesn't create any thing on the
       screen actually. It allocates memory for a structure to
       manipulate the window and updates the structure with data
-      regarding the window like it's size, beginy, beginx etc..
+      regarding the window such as its size, beginy, beginx, etc.
       Hence in curses, a window is just an abstraction of an
       imaginary window, which can be manipulated independent of
       other parts of screen. The function newwin() returns a
       pointer to structure WINDOW, which can be passed to window
-      related functions like wprintw() etc.. Finally the window can
-      be destroyed with delwin(). It will deallocate the memory
+      related functions such as wprintw(), etc. Finally the window
+      can be destroyed with delwin(). It will deallocate the memory
       associated with the window structure.</p>
     </div>
 
@@ -85,11 +83,11 @@ vlink="#840084" alink="#0000FF">
 
       <div class="EXAMPLE">
         <a name="BWIBO" id="BWIBO"></a>
+        <p><b>Example 7. Window Border example</b>
+        </p>
 
-        <p><b>Example 7. Window Border example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;ncurses.h&gt;
-
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
 
 WINDOW *create_newwin(int height, int width, int starty, int startx);
 void destroy_win(WINDOW *local_win);
@@ -152,7 +150,7 @@ WINDOW *create_newwin(int height, int width, int starty, int startx)
 void destroy_win(WINDOW *local_win)
 {       
         /* box(local_win, ' ', ' '); : This won't produce the desired
-         * result of erasing the window. It will leave it's four corners 
+         * result of erasing the window. It will leave its four corners 
          * and so an ugly remnant of window. 
          */
         wborder(local_win, ' ', ' ', ' ',' ',' ',' ',' ',' ');
@@ -169,8 +167,7 @@ void destroy_win(WINDOW *local_win)
          */
         wrefresh(local_win);
         delwin(local_win);
-}</span>
-</pre>
+}</span></pre>
       </div>
     </div>
 
@@ -178,7 +175,7 @@ void destroy_win(WINDOW *local_win)
       <h2 class="SECT2"><a name="BORDEREXEXPL" id=
       "BORDEREXEXPL">9.3. Explanation</a></h2>
 
-      <p>Don't scream. I know it's a big example. But I have to
+      <p>Don't scream. I know it is a big example. But I have to
       explain some important things here :-). This program creates
       a rectangular window that can be moved with left, right, up,
       down arrow keys. It repeatedly creates and destroys windows
@@ -201,21 +198,19 @@ void destroy_win(WINDOW *local_win)
       window with the characters given to it as the 4 corner points
       and the 4 lines. To put it clearly, if you have called
       wborder as below:</p>
-      <pre class="PROGRAMLISTING">
-    wborder(win, '|', '|', '-', '-', '+', '+', '+', '+');
-</pre>
 
-      <p>it produces some thing like</p>
-      <pre class="PROGRAMLISTING">
-    +------------+
+      <pre class=
+      "PROGRAMLISTING">    wborder(win, '|', '|', '-', '-', '+', '+', '+', '+');</pre>
+      <p>it produces something like</p>
+
+      <pre class="PROGRAMLISTING">    +------------+
     |            |
     |            |
     |            |
     |            |
     |            |
     |            |
-    +------------+
-</pre>
+    +------------+</pre>
     </div>
 
     <div class="SECT2">
@@ -249,10 +244,11 @@ void destroy_win(WINDOW *local_win)
 
       <div class="EXAMPLE">
         <a name="BOTBO" id="BOTBO"></a>
+        <p><b>Example 8. More border functions</b>
+        </p>
 
-        <p><b>Example 8. More border functions</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;ncurses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
 
 typedef struct _win_border_struct {
         chtype  ls, rs, ts, bs, 
@@ -371,8 +367,7 @@ void create_box(WIN *p_win, bool flag)
                                 
         refresh();
 
-}</span>
-</pre>
+}</span></pre>
       </div>
     </div>
   </div>
@@ -384,20 +379,19 @@ void create_box(WIN *p_win, bool flag)
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "attrib.html" accesskey="P">Prev</a></td>
-
+        "attrib.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "color.html" accesskey="N">Next</a></td>
+        "color.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">Attributes</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Colors</td>
       </tr>
     </table>

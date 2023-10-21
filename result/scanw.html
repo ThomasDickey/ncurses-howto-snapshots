@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Input functions</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -14,7 +12,6 @@
   <link rel="PREVIOUS" title="Output functions" href="printw.html">
   <link rel="NEXT" title="Attributes" href="attrib.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -27,14 +24,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "printw.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "printw.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "attrib.html" accesskey="N">Next</a></td>
+        "attrib.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -110,7 +109,7 @@ vlink="#840084" alink="#0000FF">
 
       <div class="SECT3">
         <h3 class="SECT3"><a name="VWSCANW" id="VWSCANW">7.2.3.
-        vwscanw()</a></h3>
+        vw_scanw()</a></h3>
 
         <p>This function is similar to <tt class=
         "LITERAL">vscanf()</tt>. This can be used when a variable
@@ -137,11 +136,11 @@ vlink="#840084" alink="#0000FF">
 
       <div class="EXAMPLE">
         <a name="BSCEX" id="BSCEX"></a>
+        <p><b>Example 4. A Simple scanw example</b>
+        </p>
 
-        <p><b>Example 4. A Simple scanw example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class=
-"INLINEMEDIAOBJECT">#include &lt;ncurses.h&gt;                   /* ncurses.h includes stdio.h */  
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
 #include &lt;string.h&gt; 
  
 int main()
@@ -149,7 +148,7 @@ int main()
  char mesg[]="Enter a string: ";                /* message to be appeared on the screen */
  char str[80];
  int row,col;                           /* to store the number of rows and *
-                                         * the number of colums of the screen */
+                                         * the number of columns of the screen */
  initscr();                             /* start the curses mode */
  getmaxyx(stdscr,row,col);              /* get the number of rows and columns */
  mvprintw(row/2,(col-strlen(mesg))/2,"%s",mesg);
@@ -160,8 +159,7 @@ int main()
  endwin();
 
  return 0;
-}</span>
-</pre>
+}</span></pre>
       </div>
     </div>
   </div>
@@ -173,21 +171,20 @@ int main()
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "printw.html" accesskey="P">Prev</a></td>
-
+        "printw.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "attrib.html" accesskey="N">Next</a></td>
+        "attrib.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">Output
         functions</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Attributes</td>
       </tr>
     </table>

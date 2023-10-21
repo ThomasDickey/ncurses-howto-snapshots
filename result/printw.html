@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Output functions</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -15,7 +13,6 @@
   "awordwindows.html">
   <link rel="NEXT" title="Input functions" href="scanw.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -28,14 +25,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "awordwindows.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "awordwindows.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "scanw.html" accesskey="N">Next</a></td>
+        "scanw.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -66,7 +65,7 @@ vlink="#840084" alink="#0000FF">
       </li>
     </ol>
 
-    <p>These functions can be used interchangeably and it's a
+    <p>These functions can be used interchangeably and it is a
     matter of style as to which class is used. Let's see each one
     in detail.</p>
 
@@ -95,9 +94,9 @@ vlink="#840084" alink="#0000FF">
           For example, you want to print a character ch(of type
           char) bold and underlined, you would call addch() as
           below.</p>
-          <pre class="PROGRAMLISTING">
-    addch(ch | A_BOLD | A_UNDERLINE);
-</pre>
+
+          <pre class=
+          "PROGRAMLISTING">    addch(ch | A_BOLD | A_UNDERLINE);</pre>
         </li>
 
         <li>
@@ -115,27 +114,23 @@ vlink="#840084" alink="#0000FF">
       <p>Additionally, <tt class="LITERAL">curses</tt> provides
       some special characters for character-based graphics. You can
       draw tables, horizontal or vertical lines, etc. You can find
-      all avaliable characters in the header file <tt class=
+      all available characters in the header file <tt class=
       "LITERAL">ncurses.h</tt>. Try looking for macros beginning
       with <tt class="LITERAL">ACS_</tt> in this file.</p>
     </div>
 
     <div class="SECT2">
-      <h2 class="SECT2"><a name="AEN298" id="AEN298">6.2.
+      <h2 class="SECT2"><a name="AEN303" id="AEN303">6.2.
       mvaddch(), waddch() and mvwaddch()</a></h2>
 
       <p><tt class="LITERAL">mvaddch()</tt> is used to move the
       cursor to a given point, and then print. Thus, the calls:</p>
-      <pre class="PROGRAMLISTING">
-    move(row,col);    /* moves the cursor to row<span class=
-"emphasis"><i class=
-"EMPHASIS">th</i></span> row and col<span class="emphasis"><i class="EMPHASIS">th</i></span> column */
-    addch(ch);
-</pre>can be replaced by
-      <pre class="PROGRAMLISTING">
-    mvaddch(row,col,ch);
-</pre>
 
+      <pre class=
+      "PROGRAMLISTING">    move(row,col);    /* moves the cursor to row<span class="emphasis"><i class="EMPHASIS">th</i></span> row and col<span class="emphasis"><i class="EMPHASIS">th</i></span> column */
+    addch(ch);</pre>can be replaced by
+
+      <pre class="PROGRAMLISTING">    mvaddch(row,col,ch);</pre>
       <p><tt class="LITERAL">waddch()</tt> is similar to <tt class=
       "LITERAL">addch()</tt>, except that it adds a character into
       the given window. (Note that <tt class="LITERAL">addch()</tt>
@@ -191,7 +186,7 @@ vlink="#840084" alink="#0000FF">
 
       <div class="SECT3">
         <h3 class="SECT3"><a name="VWPRINTW" id="VWPRINTW">6.3.3.
-        vwprintw()</a></h3>
+        vw_printw()</a></h3>
 
         <p>This function is similar to <tt class=
         "LITERAL">vprintf()</tt>. This can be used when variable
@@ -204,18 +199,18 @@ vlink="#840084" alink="#0000FF">
 
         <div class="EXAMPLE">
           <a name="BPREX" id="BPREX"></a>
+          <p><b>Example 3. A Simple printw example</b>
+          </p>
 
-          <p><b>Example 3. A Simple printw example</b></p>
-          <pre class="PROGRAMLISTING">
-<span class=
-"INLINEMEDIAOBJECT">#include &lt;ncurses.h&gt;                   /* ncurses.h includes stdio.h */  
+          <pre class="PROGRAMLISTING"><span class=
+          "INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
 #include &lt;string.h&gt; 
  
 int main()
 {
  char mesg[]="Just a string";           /* message to be appeared on the screen */
  int row,col;                           /* to store the number of rows and *
-                                         * the number of colums of the screen */
+                                         * the number of columns of the screen */
  initscr();                             /* start the curses mode */
  getmaxyx(stdscr,row,col);              /* get the number of rows and columns */
  mvprintw(row/2,(col-strlen(mesg))/2,"%s",mesg);
@@ -227,8 +222,7 @@ int main()
  endwin();
 
  return 0;
-}</span>
-</pre>
+}</span></pre>
         </div>
 
         <p>Above program demonstrates how easy it is to use
@@ -286,21 +280,20 @@ int main()
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "awordwindows.html" accesskey="P">Prev</a></td>
-
+        "awordwindows.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "scanw.html" accesskey="N">Next</a></td>
+        "scanw.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">A Word about
         Windows</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Input
         functions</td>
       </tr>

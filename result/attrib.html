@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Attributes</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -14,7 +12,6 @@
   <link rel="PREVIOUS" title="Input functions" href="scanw.html">
   <link rel="NEXT" title="Windows" href="windows.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -27,14 +24,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "scanw.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "scanw.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "windows.html" accesskey="N">Next</a></td>
+        "windows.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -51,12 +50,12 @@ vlink="#840084" alink="#0000FF">
 
     <div class="EXAMPLE">
       <a name="BSIAT" id="BSIAT"></a>
+      <p><b>Example 5. A Simple Attributes example</b>
+      </p>
 
-      <p><b>Example 5. A Simple Attributes example</b></p>
-      <pre class="PROGRAMLISTING">
-<span class=
-"INLINEMEDIAOBJECT">/* pager functionality by Joseph Spainhour" &lt;spainhou@bellsouth.net&gt; */
-#include &lt;ncurses.h&gt;
+      <pre class="PROGRAMLISTING"><span class=
+      "INLINEMEDIAOBJECT">/* pager functionality by Joseph Spainhour" &lt;spainhou@bellsouth.net&gt; */
+#include &lt;curses.h&gt;
 #include &lt;stdlib.h&gt;
 
 int main(int argc, char *argv[])
@@ -81,7 +80,7 @@ int main(int argc, char *argv[])
   getmaxyx(stdscr, row, col);           /* find the boundaries of the screeen */
   while((ch = fgetc(fp)) != EOF)        /* read the file till we reach the end */
   {
-    getyx(stdscr, y, x);                /* get the current curser position */
+    getyx(stdscr, y, x);                /* get the current cursor position */
     if(y == (row - 1))                  /* are we are at the end of the screen */
     {
       printw("&lt;-Press Any Key-&gt;");      /* tell the user to press a key */
@@ -93,7 +92,7 @@ int main(int argc, char *argv[])
                                          * switch bold on */    
     {
       attron(A_BOLD);                   /* cut bold on */
-      getyx(stdscr, y, x);              /* get the current curser position */
+      getyx(stdscr, y, x);              /* get the current cursor position */
       move(y, x - 1);                   /* back up one space */
       printw("%c%c", '/', ch);          /* The actual printing is done here */
     }
@@ -108,8 +107,7 @@ int main(int argc, char *argv[])
   endwin();                             /* End curses mode */
   fclose(fp);
   return 0;
-}</span>
-</pre>
+}</span></pre>
     </div>
 
     <p>Don't worry about all those initialization and other crap.
@@ -139,16 +137,16 @@ int main(int argc, char *argv[])
 
       <p>Let's get into more details of attributes. The functions
       <tt class="LITERAL">attron(), attroff(), attrset()</tt> , and
-      their sister functions <tt class="LITERAL">attr_get()</tt>
-      etc.. can be used to switch attributes on/off , get
-      attributes and produce a colorful display.</p>
+      their sister functions <tt class="LITERAL">attr_get()</tt>,
+      etc. can be used to switch attributes on/off , get attributes
+      and produce a colorful display.</p>
 
       <p>The functions attron and attroff take a bit-mask of
       attributes and switch them on or off, respectively. The
       following video attributes, which are defined in
       &lt;curses.h&gt; can be passed to these functions.</p>
-      <pre class="PROGRAMLISTING">
-    
+
+      <pre class="PROGRAMLISTING">    
     A_NORMAL        Normal display (no highlight)
     A_STANDOUT      Best highlighting mode of the terminal.
     A_UNDERLINE     Underlining
@@ -161,9 +159,7 @@ int main(int argc, char *argv[])
     A_ALTCHARSET    Alternate character set
     A_CHARTEXT      Bit-mask to extract a character
     COLOR_PAIR(n)   Color-pair number n 
-    
-</pre>
-
+    </pre>
       <p>The last one is the most colorful one :-) Colors are
       explained in the <a href="#color" target="_top">next
       sections</a>.</p>
@@ -171,9 +167,9 @@ int main(int argc, char *argv[])
       <p>We can OR(|) any number of above attributes to get a
       combined effect. If you wanted reverse video with blinking
       characters you can use</p>
-      <pre class="PROGRAMLISTING">
-    attron(A_REVERSE | A_BLINK);
-</pre>
+
+      <pre class=
+      "PROGRAMLISTING">    attron(A_REVERSE | A_BLINK);</pre>
     </div>
 
     <div class="SECT2">
@@ -214,8 +210,8 @@ int main(int argc, char *argv[])
       <h2 class="SECT2"><a name="ATTRFUNCS" id="ATTRFUNCS">8.4.
       attr_ functions</a></h2>
 
-      <p>There are series of functions like attr_set(), attr_on
-      etc.. These are similar to above functions except that they
+      <p>There are series of functions like attr_set(), attr_on,
+      etc. These are similar to above functions except that they
       take parameters of type <tt class="LITERAL">attr_t</tt>.</p>
     </div>
 
@@ -242,10 +238,9 @@ int main(int argc, char *argv[])
       <p>We can give -1 as the character count to update till end
       of line. If you want to change attributes of characters from
       current position to end of line, just use this.</p>
-      <pre class="PROGRAMLISTING">
-    chgat(-1, A_REVERSE, 0, NULL);
-</pre>
 
+      <pre class=
+      "PROGRAMLISTING">    chgat(-1, A_REVERSE, 0, NULL);</pre>
       <p>This function is useful when changing attributes for
       characters that are already on the screen. Move to the
       character from which you want to change and change the
@@ -260,10 +255,11 @@ int main(int argc, char *argv[])
 
       <div class="EXAMPLE">
         <a name="BWICH" id="BWICH"></a>
+        <p><b>Example 6. Chgat() Usage example</b>
+        </p>
 
-        <p><b>Example 6. Chgat() Usage example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;ncurses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
 
 int main(int argc, char *argv[])
 {       initscr();                      /* Start curses mode            */
@@ -277,7 +273,7 @@ int main(int argc, char *argv[])
          * Third parameter number of characters to update. -1 means till 
          * end of line
          * Forth parameter is the normal attribute you wanted to give 
-         * to the charcter
+         * to the character
          * Fifth is the color index. It is the index given during init_pair()
          * use 0 if you didn't want color
          * Sixth one is always NULL 
@@ -286,8 +282,7 @@ int main(int argc, char *argv[])
         getch();
         endwin();                       /* End curses mode                */
         return 0;
-}</span>
-</pre>
+}</span></pre>
       </div>
 
       <p>This example also introduces us to the color world of
@@ -303,21 +298,20 @@ int main(int argc, char *argv[])
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "scanw.html" accesskey="P">Prev</a></td>
-
+        "scanw.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "windows.html" accesskey="N">Next</a></td>
+        "windows.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">Input
         functions</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Windows</td>
       </tr>
     </table>

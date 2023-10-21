@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Panel Library</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -15,7 +13,6 @@
   "otherlib.html">
   <link rel="NEXT" title=" Menus Library " href="menus.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -28,14 +25,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "otherlib.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "otherlib.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "menus.html" accesskey="N">Next</a></td>
+        "menus.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -51,14 +50,15 @@ vlink="#840084" alink="#0000FF">
     blotches, whenever you forget to refresh the windows in the
     proper order.</p>
 
-    <p>Don't despair. There's an elegant solution provided in
+    <p>Don't despair. There is an elegant solution provided in
     panels library. In the words of developers of ncurses</p>
 
     <p><span class="emphasis"><i class="EMPHASIS">When your
     interface design is such that windows may dive deeper into the
     visibility stack or pop to the top at runtime, the resulting
     book-keeping can be tedious and difficult to get right. Hence
-    the panels library.</i></span></p>
+    the panels library.</i></span>
+    </p>
 
     <p>If you have lot of overlapping windows, then panels library
     is the way to go. It obviates the need of doing series of
@@ -80,7 +80,7 @@ vlink="#840084" alink="#0000FF">
       display them correctly. There is a function similar to
       refresh() which, when called , displays panels in the correct
       order. Functions are provided to hide or show panels, move
-      panels, change its size etc.. The overlapping problem is
+      panels, change its size, etc. The overlapping problem is
       managed by the panels library during all the calls to these
       functions.</p>
 
@@ -106,7 +106,7 @@ vlink="#840084" alink="#0000FF">
 
         <li>
           <p>Mainpulate the panels with show_panel(), hide_panel(),
-          move_panel() etc. Make use of helper functions like
+          move_panel(), etc. Make use of helper functions like
           panel_hidden() and panel_window(). Make use of user
           pointer to store custom data for a panel. Use the
           functions set_panel_userptr() and panel_userptr() to set
@@ -126,28 +126,26 @@ vlink="#840084" alink="#0000FF">
 
     <div class="SECT2">
       <h2 class="SECT2"><a name="COMPILEPANELS" id=
-      "COMPILEPANELS">16.2. Compiling With the Panels
-      Library</a></h2>
+      "COMPILEPANELS">16.2. Compiling With the Panels Library</a></h2>
 
       <p>To use panels library functions, you have to include
       panel.h and to link the program with panels library the flag
       -lpanel should be added along with -lncurses in that
       order.</p>
-      <pre class="PROGRAMLISTING">
-    #include &lt;panel.h&gt;
+
+      <pre class="PROGRAMLISTING">    #include &lt;panel.h&gt;
     .
     .
     .
 
-    compile and link: gcc &lt;program file&gt; -lpanel -lncurses
-</pre>
-
+    compile and link: gcc &lt;program file&gt; -lpanel -lncurses</pre>
       <div class="EXAMPLE">
         <a name="PPASI" id="PPASI"></a>
+        <p><b>Example 14. Panel basics</b>
+        </p>
 
-        <p><b>Example 14. Panel basics</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;panel.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;panel.h&gt;
 
 int main()
 {       WINDOW *my_wins[3];
@@ -184,8 +182,7 @@ int main()
         getch();
         endwin();
 }
-</span>
-</pre>
+</span></pre>
       </div>
 
       <p>As you can see, above program follows a simple flow as
@@ -206,10 +203,12 @@ int main()
 
       <div class="EXAMPLE">
         <a name="PPABR" id="PPABR"></a>
+        <p><b>Example 15. Panel Window Browsing Example</b>
+        </p>
 
-        <p><b>Example 15. Panel Window Browsing Example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;panel.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;string.h&gt;
+#include &lt;panel.h&gt;
 
 #define NLINES 10
 #define NCOLS 40
@@ -325,8 +324,7 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
         mvwprintw(win, y, x, "%s", string);
         wattroff(win, color);
         refresh();
-}</span>
-</pre>
+}</span></pre>
       </div>
     </div>
 
@@ -343,8 +341,8 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
       "LITERAL">set_panel_userptr()</tt>. It can be accessed using
       the function <tt class="LITERAL">panel_userptr()</tt> which
       will return the user pointer for the panel given as argument.
-      After finding the next panel in the cycle It's brought to the
-      top by the function top_panel(). This function brings the
+      After finding the next panel in the cycle, it is brought to
+      the top by the function top_panel(). This function brings the
       panel given as argument to the top of the panel stack.</p>
     </div>
 
@@ -376,10 +374,13 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
 
       <div class="EXAMPLE">
         <a name="PPARE" id="PPARE"></a>
+        <p><b>Example 16. Panel Moving and Resizing example</b>
+        </p>
 
-        <p><b>Example 16. Panel Moving and Resizing example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;panel.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;panel.h&gt;
 
 typedef struct _PANEL_DATA {
         int x, y, w, h;
@@ -612,8 +613,7 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
         mvwprintw(win, y, x, "%s", string);
         wattroff(win, color);
         refresh();
-}</span>
-</pre>
+}</span></pre>
       </div>
 
       <p>Concentrate on the main while loop. Once it finds out the
@@ -623,7 +623,7 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
       presses &lt;ENTER&gt; present selection ends and panel is
       resized by using the concept explained. While in resizing
       mode the program doesn't show how the window is getting
-      resized. It's left as an exercise to the reader to print a
+      resized. It is left as an exercise to the reader to print a
       dotted border while it gets resized to a new position.</p>
 
       <p>When the user presses 'm' the move mode starts. This is a
@@ -663,10 +663,12 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
 
       <div class="EXAMPLE">
         <a name="PPAHI" id="PPAHI"></a>
+        <p><b>Example 17. Panel Hiding and Showing example</b>
+        </p>
 
-        <p><b>Example 17. Panel Hiding and Showing example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;panel.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;string.h&gt;
+#include &lt;panel.h&gt;
 
 typedef struct _PANEL_DATA {
         int hide;       /* TRUE if panel is hidden */
@@ -706,7 +708,7 @@ int main()
         my_panels[1] = new_panel(my_wins[1]);   /* Push 1, order: stdscr-0-1 */
         my_panels[2] = new_panel(my_wins[2]);   /* Push 2, order: stdscr-0-1-2 */
 
-        /* Initialize panel datas saying that nothing is hidden */
+        /* Initialize panel data saying that nothing is hidden */
         panel_datas[0].hide = FALSE;
         panel_datas[1].hide = FALSE;
         panel_datas[2].hide = FALSE;
@@ -821,8 +823,7 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
         mvwprintw(win, y, x, "%s", string);
         wattroff(win, color);
         refresh();
-}</span>
-</pre>
+}</span></pre>
       </div>
     </div>
 
@@ -845,21 +846,20 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "otherlib.html" accesskey="P">Prev</a></td>
-
+        "otherlib.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "menus.html" accesskey="N">Next</a></td>
+        "menus.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">Other
         libraries</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Menus
         Library</td>
       </tr>

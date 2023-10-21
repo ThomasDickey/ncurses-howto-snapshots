@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Forms Library</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -15,7 +13,6 @@
   <link rel="NEXT" title=" Tools and Widget Libraries" href=
   "tools.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -28,14 +25,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "menus.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "menus.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "tools.html" accesskey="N">Next</a></td>
+        "tools.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -46,11 +45,11 @@ vlink="#840084" alink="#0000FF">
     <p>Well. If you have seen those forms on web pages which take
     input from users and do various kinds of things, you might be
     wondering how would any one create such forms in text mode
-    display. It's quite difficult to write those nifty forms in
+    display. It is quite difficult to write those nifty forms in
     plain ncurses. Forms library tries to provide a basic frame
     work to build and maintain forms with ease. It has lot of
     features(functions) which manage validation, dynamic expansion
-    of fields etc.. Let's see it in full flow.</p>
+    of fields, etc. Let's see it in full flow.</p>
 
     <p>A form is a collection of fields; each field can be either a
     label(static text) or a data-entry location. The forms also
@@ -65,12 +64,12 @@ vlink="#840084" alink="#0000FF">
       fields related to the form are created with new_field(). You
       can set options for the fields, so that they can be displayed
       with some fancy attributes, validated before the field looses
-      focus etc.. Then the fields are attached to form. After this,
+      focus, etc. Then the fields are attached to form. After this,
       the form can be posted to display and is ready to receive
       inputs. On the similar lines to menu_driver(), the form is
       manipulated with form_driver(). We can send requests to
       form_driver to move focus to a certain field, move cursor to
-      end of the field etc.. After the user enters values in the
+      end of the field etc. After the user enters values in the
       fields and validation done, form can be unposted and memory
       allocated can be freed.</p>
 
@@ -129,27 +128,25 @@ vlink="#840084" alink="#0000FF">
 
     <div class="SECT2">
       <h2 class="SECT2"><a name="COMPILEFORMS" id=
-      "COMPILEFORMS">18.2. Compiling With the Forms
-      Library</a></h2>
+      "COMPILEFORMS">18.2. Compiling With the Forms Library</a></h2>
 
       <p>To use forms library functions, you have to include form.h
       and to link the program with forms library the flag -lform
       should be added along with -lncurses in that order.</p>
-      <pre class="PROGRAMLISTING">
-    #include &lt;form.h&gt;
+
+      <pre class="PROGRAMLISTING">    #include &lt;form.h&gt;
     .
     .
     .
 
-    compile and link: gcc &lt;program file&gt; -lform -lncurses
-</pre>
-
+    compile and link: gcc &lt;program file&gt; -lform -lncurses</pre>
       <div class="EXAMPLE">
         <a name="FFOSI" id="FFOSI"></a>
+        <p><b>Example 25. Forms Basics</b>
+        </p>
 
-        <p><b>Example 25. Forms Basics</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;form.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;form.h&gt;
 
 int main()
 {       FIELD *field[3];
@@ -214,8 +211,7 @@ int main()
 
         endwin();
         return 0;
-}</span>
-</pre>
+}</span></pre>
       </div>
 
       <p>Above example is pretty straight forward. It creates two
@@ -253,21 +249,20 @@ int main()
 
       <div class="SECT3">
         <h3 class="SECT3"><a name="FETCHINFO" id=
-        "FETCHINFO">18.3.1. Fetching Size and Location of
-        Field</a></h3>
+        "FETCHINFO">18.3.1. Fetching Size and Location of Field</a></h3>
 
         <p>The parameters we have given at the time of creation of
         a field can be retrieved with field_info(). It returns
         height, width, starty, startx, number of offscreen rows,
         and number of additional buffers into the parameters given
         to it. It is a sort of inverse of new_field().</p>
-        <pre class="PROGRAMLISTING">
-int field_info(     FIELD *field,              /* field from which to fetch */
+
+        <pre class=
+        "PROGRAMLISTING">int field_info(     FIELD *field,              /* field from which to fetch */
                     int *height, *int width,   /* field size */ 
                     int *top, int *left,       /* upper left corner */
                     int *offscreen,            /* number of offscreen rows */
-                    int *nbuf);                /* number of working buffers */
-</pre>
+                    int *nbuf);                /* number of working buffers */</pre>
       </div>
 
       <div class="SECT3">
@@ -276,11 +271,10 @@ int field_info(     FIELD *field,              /* field from which to fetch */
 
         <p>The location of the field can be moved to a different
         position with move_field().</p>
-        <pre class="PROGRAMLISTING">
-int move_field(    FIELD *field,              /* field to alter */
-                   int top, int left);        /* new upper-left corner */
-</pre>
 
+        <pre class=
+        "PROGRAMLISTING">int move_field(    FIELD *field,              /* field to alter */
+                   int top, int left);        /* new upper-left corner */</pre>
         <p>As usual, the changed position can be queried with
         field_infor().</p>
       </div>
@@ -291,12 +285,11 @@ int move_field(    FIELD *field,              /* field to alter */
 
         <p>The justification to be done for the field can be fixed
         using the function set_field_just().</p>
-        <pre class="PROGRAMLISTING">
-    int set_field_just(FIELD *field,          /* field to alter */
-               int justmode);         /* mode to set */
-    int field_just(FIELD *field);          /* fetch justify mode of field */
-</pre>
 
+        <pre class=
+        "PROGRAMLISTING">    int set_field_just(FIELD *field,          /* field to alter */
+               int justmode);         /* mode to set */
+    int field_just(FIELD *field);          /* fetch justify mode of field */</pre>
         <p>The justification mode valued accepted and returned by
         these functions are NO_JUSTIFICATION, JUSTIFY_RIGHT,
         JUSTIFY_LEFT, or JUSTIFY_CENTER.</p>
@@ -317,8 +310,9 @@ int move_field(    FIELD *field,              /* field to alter */
         to query the present foreground, background attributes and
         pad character for the field. The following list gives the
         usage of functions.</p>
-        <pre class="PROGRAMLISTING">
-&#13;int set_field_fore(FIELD *field,        /* field to alter */
+
+        <pre class=
+        "PROGRAMLISTING">&#13;int set_field_fore(FIELD *field,        /* field to alter */
                    chtype attr);        /* attribute to set */ 
 
 chtype field_fore(FIELD *field);        /* field to query */
@@ -334,9 +328,7 @@ int set_field_pad(FIELD *field,         /* field to alter */
                   int pad);             /* pad character to set */ 
 
 chtype field_pad(FIELD *field);         /* field to query */  
-                                        /* returns present pad character */&#13;
-</pre>
-
+                                        /* returns present pad character */&#13;</pre>
         <p>Though above functions seem quite simple, using colors
         with set_field_fore() may be frustrating in the beginning.
         Let me first explain about foreground and background
@@ -351,10 +343,11 @@ chtype field_pad(FIELD *field);         /* field to query */
 
         <div class="EXAMPLE">
           <a name="FFOAT" id="FFOAT"></a>
+          <p><b>Example 26. Form Attributes example</b>
+          </p>
 
-          <p><b>Example 26. Form Attributes example</b></p>
-          <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;form.h&gt;
+          <pre class="PROGRAMLISTING"><span class=
+          "INLINEMEDIAOBJECT">#include &lt;form.h&gt;
 
 int main()
 {       FIELD *field[3];
@@ -428,8 +421,7 @@ int main()
 
         endwin();
         return 0;
-}</span>
-</pre>
+}</span></pre>
         </div>
 
         <p>Play with the color pairs and try to understand the
@@ -446,8 +438,9 @@ int main()
         <p>There is also a large collection of field option bits
         you can set to control various aspects of forms processing.
         You can manipulate them with these functions:</p>
-        <pre class="PROGRAMLISTING">
-int set_field_opts(FIELD *field,          /* field to alter */
+
+        <pre class=
+        "PROGRAMLISTING">int set_field_opts(FIELD *field,          /* field to alter */
                    int attr);             /* attribute to set */ 
 
 int field_opts_on(FIELD *field,           /* field to alter */
@@ -456,9 +449,7 @@ int field_opts_on(FIELD *field,           /* field to alter */
 int field_opts_off(FIELD *field,          /* field to alter */
                   int attr);              /* attributes to turn off */ 
 
-int field_opts(FIELD *field);             /* field to query */ 
-</pre>
-
+int field_opts(FIELD *field);             /* field to query */ </pre>
         <p>The function set_field_opts() can be used to directly
         set attributes of a field or you can choose to switch a few
         attributes on and off with field_opts_on() and
@@ -584,10 +575,11 @@ int field_opts(FIELD *field);             /* field to query */
 
         <div class="EXAMPLE">
           <a name="FFOOP" id="FFOOP"></a>
+          <p><b>Example 27. Field Options Usage example</b>
+          </p>
 
-          <p><b>Example 27. Field Options Usage example</b></p>
-          <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;form.h&gt;
+          <pre class="PROGRAMLISTING"><span class=
+          "INLINEMEDIAOBJECT">#include &lt;form.h&gt;
 
 #define STARTX 15
 #define STARTY 4
@@ -662,8 +654,7 @@ int main()
 
         endwin();
         return 0;
-}</span>
-</pre>
+}</span></pre>
         </div>
 
         <p>This example, though useless, shows the usage of
@@ -682,15 +673,14 @@ int main()
         becomes TRUE. So a field's status can be queried to find
         out whether it has been modified or not. The following
         functions can assist in those operations.</p>
-        <pre class="PROGRAMLISTING">
-int set_field_status(FIELD *field,      /* field to alter */
+
+        <pre class=
+        "PROGRAMLISTING">int set_field_status(FIELD *field,      /* field to alter */
                    int status);         /* status to set */
 
-int field_status(FIELD *field);         /* fetch status of field */
-</pre>
-
-        <p>It's better to check the field's status only after after
-        leaving the field, as data buffer might not have been
+int field_status(FIELD *field);         /* fetch status of field */</pre>
+        <p>It is better to check the field's status only after
+        after leaving the field, as data buffer might not have been
         updated yet as the validation is still due. To guarantee
         that right status is returned, call field_status() either
         (1) in the field's exit validation check routine, (2) from
@@ -707,13 +697,13 @@ int field_status(FIELD *field);         /* fetch status of field */
         used by the user for various purposes. It is not touched by
         forms library and can be used for any purpose by the user.
         The following functions set and fetch user pointer.</p>
-        <pre class="PROGRAMLISTING">
-int set_field_userptr(FIELD *field,   
+
+        <pre class=
+        "PROGRAMLISTING">int set_field_userptr(FIELD *field,   
            char *userptr);      /* the user pointer you wish to associate */
                                 /* with the field    */
 
-char *field_userptr(FIELD *field);      /* fetch user pointer of the field */
-</pre>
+char *field_userptr(FIELD *field);      /* fetch user pointer of the field */</pre>
       </div>
 
       <div class="SECT3">
@@ -729,30 +719,27 @@ char *field_userptr(FIELD *field);      /* fetch user pointer of the field */
 
         <p>To make a field dynamically growable, the option
         O_STATIC should be turned off. This can be done with a</p>
-        <pre class="PROGRAMLISTING">
-    field_opts_off(field_pointer, O_STATIC);
-</pre>
 
-        <p>But it's usually not advisable to allow a field to grow
+        <pre class=
+        "PROGRAMLISTING">    field_opts_off(field_pointer, O_STATIC);</pre>
+        <p>But it is usually not advisable to allow a field to grow
         infinitely. You can set a maximum limit to the growth of
         the field with</p>
-        <pre class="PROGRAMLISTING">
-int set_max_field(FIELD *field,    /* Field on which to operate */
-                  int max_growth); /* maximum growth allowed for the field */
-</pre>
 
+        <pre class=
+        "PROGRAMLISTING">int set_max_field(FIELD *field,    /* Field on which to operate */
+                  int max_growth); /* maximum growth allowed for the field */</pre>
         <p>The field info for a dynamically growable field can be
         retrieved by</p>
-        <pre class="PROGRAMLISTING">
-int dynamic_field_info( FIELD *field,     /* Field on which to operate */
+
+        <pre class=
+        "PROGRAMLISTING">int dynamic_field_info( FIELD *field,     /* Field on which to operate */
             int   *prows,     /* number of rows will be filled in this */
             int   *pcols,     /* number of columns will be filled in this*/
             int   *pmax)      /* maximum allowable growth will be filled */
-                              /* in this */
-</pre>Though field_info work as usual, it is advisable to use this
-function to get the proper attributes of a dynamically growable
-field.
-
+                              /* in this */</pre>Though field_info
+work as usual, it is advisable to use this function to get the
+proper attributes of a dynamically growable field.
         <p>Recall the library routine new_field; a new field
         created with height set to one will be defined to be a one
         line field. A new field created with height greater than
@@ -868,10 +855,12 @@ field.
 
       <div class="EXAMPLE">
         <a name="FFOWI" id="FFOWI"></a>
+        <p><b>Example 28. Form Windows Example</b>
+        </p>
 
-        <p><b>Example 28. Form Windows Example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;form.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;string.h&gt;
+#include &lt;form.h&gt;
 
 void print_in_middle(WINDOW *win, int starty, int startx, int width, char *string, chtype color);
 
@@ -982,8 +971,7 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
         mvwprintw(win, y, x, "%s", string);
         wattroff(win, color);
         refresh();
-}</span>
-</pre>
+}</span></pre>
       </div>
     </div>
 
@@ -1000,15 +988,15 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
 
       <p>Validation can be attached to a field with the following
       function.</p>
-      <pre class="PROGRAMLISTING">
-int set_field_type(FIELD *field,          /* field to alter */
-                   FIELDTYPE *ftype,      /* type to associate */
-                   ...);                  /* additional arguments*/
-</pre>Once set, the validation type for a field can be queried with
-      <pre class="PROGRAMLISTING">
-FIELDTYPE *field_type(FIELD *field);      /* field to query */
-</pre>
 
+      <pre class=
+      "PROGRAMLISTING">int set_field_type(FIELD *field,          /* field to alter */
+                   FIELDTYPE *ftype,      /* type to associate */
+                   ...);                  /* additional arguments*/</pre>Once
+set, the validation type for a field can be queried with
+
+      <pre class=
+      "PROGRAMLISTING">FIELDTYPE *field_type(FIELD *field);      /* field to query */</pre>
       <p>The form driver validates the data in a field only when
       data is entered by the end-user. Validation does not occur
       when</p>
@@ -1026,61 +1014,58 @@ FIELDTYPE *field_type(FIELD *field);      /* field to query */
       </ul>
 
       <p>The following are the pre-defined validation types. You
-      can also specify custom validation, though it's a bit tricky
+      can also specify custom validation, though it is a bit tricky
       and cumbersome.</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1069" id=
-      "AEN1069"></a>TYPE_ALPHA</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1074" id=
+      "AEN1074"></a>TYPE_ALPHA</h1>
 
       <p>This field type accepts alphabetic data; no blanks, no
       digits, no special characters (this is checked at
       character-entry time). It is set up with:</p>
-      <pre class="PROGRAMLISTING">
-int set_field_type(FIELD *field,          /* field to alter */
-                   TYPE_ALPHA,            /* type to associate */
-                   int width);            /* minimum width of field */
-</pre>
 
+      <pre class=
+      "PROGRAMLISTING">int set_field_type(FIELD *field,          /* field to alter */
+                   TYPE_ALPHA,            /* type to associate */
+                   int width);            /* minimum width of field */</pre>
       <p>The width argument sets a minimum width of data. The user
       has to enter at-least width number of characters before he
       can leave the field. Typically you'll want to set this to the
-      field width; if it's greater than the field width, the
+      field width; if it is greater than the field width, the
       validation check will always fail. A minimum width of zero
       makes field completion optional.</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1073" id=
-      "AEN1073"></a>TYPE_ALNUM</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1078" id=
+      "AEN1078"></a>TYPE_ALNUM</h1>
 
       <p>This field type accepts alphabetic data and digits; no
       blanks, no special characters (this is checked at
       character-entry time). It is set up with:</p>
-      <pre class="PROGRAMLISTING">
-int set_field_type(FIELD *field,          /* field to alter */
-                   TYPE_ALNUM,            /* type to associate */
-                   int width);            /* minimum width of field */
-</pre>
 
+      <pre class=
+      "PROGRAMLISTING">int set_field_type(FIELD *field,          /* field to alter */
+                   TYPE_ALNUM,            /* type to associate */
+                   int width);            /* minimum width of field */</pre>
       <p>The width argument sets a minimum width of data. As with
       TYPE_ALPHA, typically you'll want to set this to the field
-      width; if it's greater than the field width, the validation
+      width; if it is greater than the field width, the validation
       check will always fail. A minimum width of zero makes field
       completion optional.</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1077" id=
-      "AEN1077"></a>TYPE_ENUM</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1082" id=
+      "AEN1082"></a>TYPE_ENUM</h1>
 
       <p>This type allows you to restrict a field's values to be
       among a specified set of string values (for example, the
       two-letter postal codes for U.S. states). It is set up
       with:</p>
-      <pre class="PROGRAMLISTING">
-int set_field_type(FIELD *field,          /* field to alter */
+
+      <pre class=
+      "PROGRAMLISTING">int set_field_type(FIELD *field,          /* field to alter */
                    TYPE_ENUM,             /* type to associate */
                    char **valuelist;      /* list of possible values */
                    int checkcase;         /* case-sensitive? */
-                   int checkunique);      /* must specify uniquely? */
-</pre>
-
+                   int checkunique);      /* must specify uniquely? */</pre>
       <p>The valuelist parameter must point at a NULL-terminated
       list of valid strings. The checkcase argument, if true, makes
       comparison with the string case-sensitive.</p>
@@ -1100,18 +1085,17 @@ int set_field_type(FIELD *field,          /* field to alter */
       <p>The REQ_NEXT_CHOICE and REQ_PREV_CHOICE input requests can
       be particularly useful with these fields.</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1084" id=
-      "AEN1084"></a>TYPE_INTEGER</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1089" id=
+      "AEN1089"></a>TYPE_INTEGER</h1>
 
       <p>This field type accepts an integer. It is set up as
       follows:</p>
-      <pre class="PROGRAMLISTING">
-int set_field_type(FIELD *field,          /* field to alter */
+
+      <pre class=
+      "PROGRAMLISTING">int set_field_type(FIELD *field,          /* field to alter */
                    TYPE_INTEGER,          /* type to associate */
                    int padding,           /* # places to zero-pad to */
-                   int vmin, int vmax);   /* valid range */
-</pre>
-
+                   int vmin, int vmax);   /* valid range */</pre>
       <p>Valid characters consist of an optional leading minus and
       digits. The range check is performed on exit. If the range
       maximum is less than or equal to the minimum, the range is
@@ -1124,18 +1108,17 @@ int set_field_type(FIELD *field,          /* field to alter */
       <p>A TYPE_INTEGER value buffer can conveniently be
       interpreted with the C library function atoi(3).</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1090" id=
-      "AEN1090"></a>TYPE_NUMERIC</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1095" id=
+      "AEN1095"></a>TYPE_NUMERIC</h1>
 
       <p>This field type accepts a decimal number. It is set up as
       follows:</p>
-      <pre class="PROGRAMLISTING">
-int set_field_type(FIELD *field,          /* field to alter */
+
+      <pre class=
+      "PROGRAMLISTING">int set_field_type(FIELD *field,          /* field to alter */
                    TYPE_NUMERIC,          /* type to associate */
                    int padding,           /* # places of precision */
-                   int vmin, int vmax);   /* valid range */
-</pre>
-
+                   int vmin, int vmax);   /* valid range */</pre>
       <p>Valid characters consist of an optional leading minus and
       digits. possibly including a decimal point. The range check
       is performed on exit. If the range maximum is less than or
@@ -1148,17 +1131,16 @@ int set_field_type(FIELD *field,          /* field to alter */
       <p>A TYPE_NUMERIC value buffer can conveniently be
       interpreted with the C library function atof(3).</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1096" id=
-      "AEN1096"></a>TYPE_REGEXP</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1101" id=
+      "AEN1101"></a>TYPE_REGEXP</h1>
 
       <p>This field type accepts data matching a regular
       expression. It is set up as follows:</p>
-      <pre class="PROGRAMLISTING">
-int set_field_type(FIELD *field,          /* field to alter */
-                   TYPE_REGEXP,           /* type to associate */
-                   char *regexp);         /* expression to match */
-</pre>
 
+      <pre class=
+      "PROGRAMLISTING">int set_field_type(FIELD *field,          /* field to alter */
+                   TYPE_REGEXP,           /* type to associate */
+                   char *regexp);         /* expression to match */</pre>
       <p>The syntax for regular expressions is that of regcomp(3).
       The check for regular-expression match is performed on
       exit.</p>
@@ -1171,14 +1153,13 @@ int set_field_type(FIELD *field,          /* field to alter */
       <p>As in the menu system, form_driver() plays a very
       important role in forms system. All types of requests to
       forms system should be funneled through form_driver().</p>
-      <pre class="PROGRAMLISTING">
-int form_driver(FORM *form,     /* form on which to operate     */
-                int request)    /* form request code         */
-</pre>
 
+      <pre class=
+      "PROGRAMLISTING">int form_driver(FORM *form,     /* form on which to operate     */
+                int request)    /* form request code         */</pre>
       <p>As you have seen some of the examples above, you have to
       be in a loop looking for user input and then decide whether
-      it's a field data or a form request. The form requests are
+      it is a field data or a form request. The form requests are
       then passed to form_driver() to do the work.</p>
 
       <p>The requests roughly can be divided into following
@@ -1195,11 +1176,10 @@ int form_driver(FORM *form,     /* form on which to operate     */
         fields and logical sections, then you can divide the form
         into pages. The function set_new_page() to set a new page
         at the field specified.</p>
-        <pre class="PROGRAMLISTING">
-int set_new_page(FIELD *field,/* Field at which page break to be set or unset */
-         bool new_page_flag); /* should be TRUE to put a break */
-</pre>
 
+        <pre class=
+        "PROGRAMLISTING">int set_new_page(FIELD *field,/* Field at which page break to be set or unset */
+         bool new_page_flag); /* should be TRUE to put a break */</pre>
         <p>The following requests allow you to move to different
         pages</p>
 
@@ -1714,21 +1694,20 @@ int set_new_page(FIELD *field,/* Field at which page break to be set or unset */
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "menus.html" accesskey="P">Prev</a></td>
-
+        "menus.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "tools.html" accesskey="N">Next</a></td>
+        "tools.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">Menus
         Library</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Tools and Widget
         Libraries</td>
       </tr>

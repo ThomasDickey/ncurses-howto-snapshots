@@ -1,3 +1,15 @@
+2023-10-21  Thomas E. Dickey  <dickey@invisible-island.net>
+
+	* result/panels.html, result/printw.html, result/ref.html,
+	  result/scanw.html, result/screen.html, result/tools.html,
+	  result/windows.html, result/NCURSES-nochunks.html, result/attrib.html,
+	  result/awordwindows.html, result/color.html, result/forms.html,
+	  result/gory.html, result/helloworld.html, result/index.html,
+	  result/init.html, result/justforfun.html, result/keys.html,
+	  result/menus.html, result/misc.html, result/mouse.html,
+	  result/otherlib.html:
+	regenerate with Debian 11: tidy 5.6.0, stylesheet 1.79
+
 2022-12-03  Thomas E. Dickey  <dickey@invisible-island.net>
 
 	* ncurses_programs/COPYING: update copyright

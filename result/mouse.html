@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Interfacing with the mouse</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -15,7 +13,6 @@
   "keys.html">
   <link rel="NEXT" title="Screen Manipulation" href="screen.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -28,14 +25,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "keys.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "keys.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "screen.html" accesskey="N">Next</a></td>
+        "screen.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -54,11 +53,10 @@ vlink="#840084" alink="#0000FF">
       <p>Before you do any thing else, the events you want to
       receive have to be enabled with <tt class=
       "LITERAL">mousemask()</tt>.</p>
-      <pre class="PROGRAMLISTING">
-    mousemask(  mmask_t newmask,    /* The events you want to listen to */
-                mmask_t *oldmask)    /* The old events mask                */
-</pre>
 
+      <pre class=
+      "PROGRAMLISTING">    mousemask(  mmask_t newmask,    /* The events you want to listen to */
+                mmask_t *oldmask)    /* The old events mask                */</pre>
       <p>The first parameter to above function is a bit mask of
       events you would like to listen. By default, all the events
       are turned off. The bit mask <tt class=
@@ -66,8 +64,8 @@ vlink="#840084" alink="#0000FF">
       events.</p>
 
       <p>The following are all the event masks:</p>
-      <pre class="PROGRAMLISTING">
-    Name            Description
+
+      <pre class="PROGRAMLISTING">    Name            Description
        ---------------------------------------------------------------------
        BUTTON1_PRESSED          mouse button 1 down
        BUTTON1_RELEASED         mouse button 1 up
@@ -93,8 +91,7 @@ vlink="#840084" alink="#0000FF">
        BUTTON_CTRL              control was down during button state change
        BUTTON_ALT               alt was down during button state change
        ALL_MOUSE_EVENTS         report all button state changes
-       REPORT_MOUSE_POSITION    report mouse movement
-</pre>
+       REPORT_MOUSE_POSITION    report mouse movement</pre>
     </div>
 
     <div class="SECT2">
@@ -107,38 +104,34 @@ vlink="#840084" alink="#0000FF">
       <tt class="LITERAL">getmouse()</tt>.</p>
 
       <p>The code approximately looks like this:</p>
-      <pre class="PROGRAMLISTING">
-    MEVENT event;
+
+      <pre class="PROGRAMLISTING">    MEVENT event;
 
     ch = getch();
     if(ch == KEY_MOUSE)
         if(getmouse(&amp;event) == OK)
             .    /* Do some thing with the event */
             .
-            .
-</pre>
-
+            .</pre>
       <p>getmouse() returns the event into the pointer given to it.
-      It's a structure which contains</p>
-      <pre class="PROGRAMLISTING">
-    typedef struct
+      It is a structure which contains</p>
+
+      <pre class="PROGRAMLISTING">    typedef struct
     {
         short id;         /* ID to distinguish multiple devices */
         int x, y, z;      /* event coordinates */
         mmask_t bstate;   /* button state bits */
-    }    
-</pre>
-
+    }    </pre>
       <p>The <tt class="LITERAL">bstate</tt> is the main variable
       we are interested in. It tells the button state of the
       mouse.</p>
 
       <p>Then with a code snippet like the following, we can find
       out what happened.</p>
-      <pre class="PROGRAMLISTING">
-    if(event.bstate &amp; BUTTON1_PRESSED)
-        printw("Left Button Pressed");
-</pre>
+
+      <pre class=
+      "PROGRAMLISTING">    if(event.bstate &amp; BUTTON1_PRESSED)
+        printw("Left Button Pressed");</pre>
     </div>
 
     <div class="SECT2">
@@ -151,13 +144,15 @@ vlink="#840084" alink="#0000FF">
 
       <div class="EXAMPLE">
         <a name="BMOME" id="BMOME"></a>
+        <p><b>Example 11. Access the menu with mouse !!!</b>
+        </p>
 
-        <p><b>Example 11. Access the menu with mouse !!!</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;ncurses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;string.h&gt;
+#include &lt;curses.h&gt;
 
 #define WIDTH 30
-#define HEIGHT 10 
+#define HEIGHT 10
 
 int startx = 0;
 int starty = 0;
@@ -188,7 +183,7 @@ int main()
         /* Try to put the window in the middle of screen */
         startx = (80 - WIDTH) / 2;
         starty = (24 - HEIGHT) / 2;
-        
+
         attron(A_REVERSE);
         mvprintw(23, 1, "Click on Exit to quit (Works best in a virtual console)");
         refresh();
@@ -196,10 +191,11 @@ int main()
 
         /* Print the menu for the first time */
         menu_win = newwin(HEIGHT, WIDTH, starty, startx);
+        keypad(menu_win, TRUE);
         print_menu(menu_win, 1);
         /* Get all the mouse events */
         mousemask(ALL_MOUSE_EVENTS, NULL);
-        
+
         while(1)
         {       c = wgetch(menu_win);
                 switch(c)
@@ -211,29 +207,28 @@ int main()
                                         if(choice == -1) //Exit chosen
                                                 goto end;
                                         mvprintw(22, 1, "Choice made is : %d String Chosen is \"%10s\"", choice, choices[choice - 1]);
-                                        refresh(); 
+                                        refresh();
                                 }
                         }
                         print_menu(menu_win, choice);
                         break;
                 }
-        }               
+        }
 end:
         endwin();
         return 0;
 }
 
-
 void print_menu(WINDOW *menu_win, int highlight)
 {
-        int x, y, i;    
+        int x, y, i;
 
         x = 2;
         y = 2;
         box(menu_win, 0, 0);
         for(i = 0; i &lt; n_choices; ++i)
         {       if(highlight == i + 1)
-                {       wattron(menu_win, A_REVERSE); 
+                {       wattron(menu_win, A_REVERSE);
                         mvwprintw(menu_win, y, x, "%s", choices[i]);
                         wattroff(menu_win, A_REVERSE);
                 }
@@ -250,17 +245,16 @@ void report_choice(int mouse_x, int mouse_y, int *p_choice)
 
         i = startx + 2;
         j = starty + 3;
-        
+
         for(choice = 0; choice &lt; n_choices; ++choice)
                 if(mouse_y == j + choice &amp;&amp; mouse_x &gt;= i &amp;&amp; mouse_x &lt;= i + strlen(choices[choice]))
                 {       if(choice == n_choices - 1)
-                                *p_choice = -1;         
+                                *p_choice = -1;
                         else
-                                *p_choice = choice + 1; 
+                                *p_choice = choice + 1;
                         break;
                 }
-}</span>
-</pre>
+}</span></pre>
       </div>
     </div>
 
@@ -287,21 +281,20 @@ void report_choice(int mouse_x, int mouse_y, int *p_choice)
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "keys.html" accesskey="P">Prev</a></td>
-
+        "keys.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "screen.html" accesskey="N">Next</a></td>
+        "screen.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">Interfacing with
         the key board</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Screen
         Manipulation</td>
       </tr>

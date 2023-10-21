@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Menus Library</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -14,7 +12,6 @@
   <link rel="PREVIOUS" title=" Panel Library" href="panels.html">
   <link rel="NEXT" title=" Forms Library " href="forms.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -27,14 +24,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "panels.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "panels.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "forms.html" accesskey="N">Next</a></td>
+        "forms.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -45,7 +44,7 @@ vlink="#840084" alink="#0000FF">
     <p>The menus library provides a nice extension to basic curses,
     through which you can create menus. It provides a set of
     functions to create menus. But they have to be customized to
-    give a nicer look, with colors etc. Let's get into the
+    give a nicer look, with colors, etc. Let's get into the
     details.</p>
 
     <p>A menu is a screen display that assists the user to choose
@@ -123,21 +122,21 @@ vlink="#840084" alink="#0000FF">
       <p>To use menu library functions, you have to include menu.h
       and to link the program with menu library the flag -lmenu
       should be added along with -lncurses in that order.</p>
-      <pre class="PROGRAMLISTING">
-    #include &lt;menu.h&gt;
+
+      <pre class="PROGRAMLISTING">    #include &lt;menu.h&gt;
     .
     .
     .
 
-    compile and link: gcc &lt;program file&gt; -lmenu -lncurses
-</pre>
-
+    compile and link: gcc &lt;program file&gt; -lmenu -lncurses</pre>
       <div class="EXAMPLE">
         <a name="MMESI" id="MMESI"></a>
+        <p><b>Example 18. Menu Basics</b>
+        </p>
 
-        <p><b>Example 18. Menu Basics</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;curses.h&gt;
 #include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
@@ -192,8 +191,7 @@ int main()
         free_menu(my_menu);
         endwin();
 }
-        </span>
-</pre>
+        </span></pre>
       </div>
 
       <p>This program demonstrates the basic concepts involved in
@@ -211,8 +209,9 @@ int main()
 
       <p>The menu_driver accepts following navigational
       requests.</p>
-      <pre class="PROGRAMLISTING">
-&#13;     REQ_LEFT_ITEM         Move left to an item.
+
+      <pre class=
+      "PROGRAMLISTING">&#13;     REQ_LEFT_ITEM         Move left to an item.
      REQ_RIGHT_ITEM      Move right to an item.
      REQ_UP_ITEM         Move up to an item.
      REQ_DOWN_ITEM       Move down to an item.
@@ -228,9 +227,7 @@ int main()
      REQ_CLEAR_PATTERN     Clear the menu pattern buffer.
      REQ_BACK_PATTERN      Delete the previous character from the pattern buffer.
      REQ_NEXT_MATCH     Move to the next item matching the pattern match.
-     REQ_PREV_MATCH     Move to the previous item matching the pattern match.&#13;
-</pre>
-
+     REQ_PREV_MATCH     Move to the previous item matching the pattern match.&#13;</pre>
       <p>Don't get overwhelmed by the number of options. We will
       see them slowly one after another. The options of interest in
       this example are REQ_UP_ITEM and REQ_DOWN_ITEM. These two
@@ -253,8 +250,8 @@ int main()
       <ul>
         <li>
           <p><span class="emphasis"><i class=
-          "EMPHASIS">REQ_LEFT_ITEM and
-          REQ_RIGHT_ITEM</i></span></p>
+          "EMPHASIS">REQ_LEFT_ITEM and REQ_RIGHT_ITEM</i></span>
+          </p>
 
           <p>A Menu can be displayed with multiple columns for more
           than one item. This can be done by using the <tt class=
@@ -266,7 +263,8 @@ int main()
 
         <li>
           <p><span class="emphasis"><i class="EMPHASIS">REQ_UP_ITEM
-          and REQ_DOWN_ITEM</i></span></p>
+          and REQ_DOWN_ITEM</i></span>
+          </p>
 
           <p>These two options you have seen in the above example.
           These options when given, makes the menu_driver to move
@@ -275,7 +273,8 @@ int main()
 
         <li>
           <p><span class="emphasis"><i class="EMPHASIS">REQ_SCR_*
-          options</i></span></p>
+          options</i></span>
+          </p>
 
           <p>The four options REQ_SCR_ULINE, REQ_SCR_DLINE,
           REQ_SCR_DPAGE, REQ_SCR_UPAGE are related to scrolling. If
@@ -289,14 +288,16 @@ int main()
         <li>
           <p><span class="emphasis"><i class=
           "EMPHASIS">REQ_FIRST_ITEM, REQ_LAST_ITEM, REQ_NEXT_ITEM
-          and REQ_PREV_ITEM</i></span></p>
+          and REQ_PREV_ITEM</i></span>
+          </p>
 
           <p>These requests are self explanatory.</p>
         </li>
 
         <li>
           <p><span class="emphasis"><i class=
-          "EMPHASIS">REQ_TOGGLE_ITEM</i></span></p>
+          "EMPHASIS">REQ_TOGGLE_ITEM</i></span>
+          </p>
 
           <p>This request when given, toggles the present
           selection. This option is to be used only in a multi
@@ -307,7 +308,8 @@ int main()
 
         <li>
           <p><span class="emphasis"><i class="EMPHASIS">Pattern
-          Requests</i></span></p>
+          Requests</i></span>
+          </p>
 
           <p>Every menu has an associated pattern buffer, which is
           used to find the nearest match to the ascii characters
@@ -326,14 +328,16 @@ int main()
 
         <li>
           <p><span class="emphasis"><i class="EMPHASIS">Mouse
-          Requests</i></span></p>
+          Requests</i></span>
+          </p>
 
           <p>In case of KEY_MOUSE requests, according to the mouse
           position an action is taken accordingly. The action to be
           taken is explained in the man page as,</p>
-          <pre class="PROGRAMLISTING">
-<span class="emphasis"><i class=
-"EMPHASIS">       If  the  second argument is the KEY_MOUSE special key, the
+
+          <pre class="PROGRAMLISTING"><span class=
+          "emphasis"><i class=
+          "EMPHASIS">       If  the  second argument is the KEY_MOUSE special key, the
        associated mouse event is translated into one of the above
        pre-defined  requests.   Currently only clicks in the user
        window (e.g. inside the menu display area or  the  decora&shy;
@@ -345,8 +349,7 @@ int main()
        generated, if you doubleclick a REQ_SCR_DPAGE is generated
        and  if  you  tripleclick a REQ_LAST_ITEM is generated. If
        you click at an item inside the display area of the  menu,
-       the menu cursor is positioned to that item.</i></span>
-</pre>
+       the menu cursor is positioned to that item.</i></span></pre>
         </li>
       </ul>
 
@@ -372,10 +375,13 @@ int main()
 
       <div class="EXAMPLE">
         <a name="MMEWI" id="MMEWI"></a>
+        <p><b>Example 19. Menu Windows Usage example</b>
+        </p>
 
-        <p><b>Example 19. Menu Windows Usage example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;menu.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 #define CTRLD   4
@@ -411,7 +417,7 @@ int main()
         for(i = 0; i &lt; n_choices; ++i)
                 my_items[i] = new_item(choices[i], choices[i]);
 
-        /* Crate menu */
+        /* Create menu */
         my_menu = new_menu((ITEM **)my_items);
 
         /* Create the window to be associated with the menu */
@@ -479,8 +485,7 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
         mvwprintw(win, y, x, "%s", string);
         wattroff(win, color);
         refresh();
-}</span>
-</pre>
+}</span></pre>
       </div>
 
       <p>This example creates a menu with a title, border, a fancy
@@ -505,10 +510,13 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
 
       <div class="EXAMPLE">
         <a name="MMESC" id="MMESC"></a>
+        <p><b>Example 20. Scrolling Menus example</b>
+        </p>
 
-        <p><b>Example 20. Scrolling Menus example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;curses.h&gt;
 #include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
@@ -552,7 +560,7 @@ int main()
         for(i = 0; i &lt; n_choices; ++i)
                 my_items[i] = new_item(choices[i], choices[i]);
 
-        /* Crate menu */
+        /* Create menu */
         my_menu = new_menu((ITEM **)my_items);
 
         /* Create the window to be associated with the menu */
@@ -579,7 +587,7 @@ int main()
         wrefresh(my_menu_win);
         
         attron(COLOR_PAIR(2));
-        mvprintw(LINES - 2, 0, "Use PageUp and PageDown to scoll down or up a page of items");
+        mvprintw(LINES - 2, 0, "Use PageUp and PageDown to scroll down or up a page of items");
         mvprintw(LINES - 1, 0, "Arrow Keys to navigate (F1 to Exit)");
         attroff(COLOR_PAIR(2));
         refresh();
@@ -631,8 +639,7 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
         mvwprintw(win, y, x, "%s", string);
         wattroff(win, color);
         refresh();
-}</span>
-</pre>
+}</span></pre>
       </div>
 
       <p>This program is self-explanatory. In this example the
@@ -662,10 +669,12 @@ void print_in_middle(WINDOW *win, int starty, int startx, int width, char *strin
 
       <div class="EXAMPLE">
         <a name="MMEMUCO" id="MMEMUCO"></a>
+        <p><b>Example 21. Milt Columnar Menus Example</b>
+        </p>
 
-        <p><b>Example 21. Milt Columnar Menus Example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;curses.h&gt;
 #include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
@@ -702,7 +711,7 @@ int main()
         for(i = 0; i &lt; n_choices; ++i)
                 my_items[i] = new_item(choices[i], choices[i]);
 
-        /* Crate menu */
+        /* Create menu */
         my_menu = new_menu((ITEM **)my_items);
 
         /* Set menu option not to show the description */
@@ -761,8 +770,7 @@ int main()
         for(i = 0; i &lt; n_choices; ++i)
                 free_item(my_items[i]);
         endwin();
-}</span>
-</pre>
+}</span></pre>
       </div>
 
       <p>Watch the function call to set_menu_format(). It specifies
@@ -772,8 +780,8 @@ int main()
       set_menu_opts(), menu_opts_on() and menu_opts() which can be
       used to manipulate menu options. The following menu options
       can be specified.</p>
-      <pre class="PROGRAMLISTING">
-       O_ONEVALUE
+
+      <pre class="PROGRAMLISTING">       O_ONEVALUE
             Only one item can be selected for this menu.
 
        O_SHOWDESC
@@ -792,9 +800,7 @@ int main()
 
        O_NONCYCLIC
             Don't   wrap   around  next-item  and  previous-item,
-            requests to the other end of the menu.
-</pre>
-
+            requests to the other end of the menu.</pre>
       <p>All options are on by default. You can switch specific
       attributes on or off with menu_opts_on() and menu_opts_off()
       functions. You can also use set_menu_opts() to directly
@@ -815,10 +821,13 @@ int main()
 
       <div class="EXAMPLE">
         <a name="MMETO" id="MMETO"></a>
+        <p><b>Example 22. Multi Valued Menus example</b>
+        </p>
 
-        <p><b>Example 22. Multi Valued Menus example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;curses.h&gt;
 #include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
@@ -901,8 +910,7 @@ int main()
         free_menu(my_menu);
         endwin();
 }
-        </span>
-</pre>
+        </span></pre>
       </div>
 
       <p>Whew, A lot of new functions. Let's take them one after
@@ -943,15 +951,17 @@ int main()
       This brings us to the interesting option for an item the one
       and only O_SELECTABLE. We can turn it off by the function
       item_opts_off() and after that that item is not selectable.
-      It's like a grayed item in those fancy windows menus. Let's
+      It is like a grayed item in those fancy windows menus. Let's
       put these concepts in practice with this example</p>
 
       <div class="EXAMPLE">
         <a name="MMEAT" id="MMEAT"></a>
+        <p><b>Example 23. Menu Options example</b>
+        </p>
 
-        <p><b>Example 23. Menu Options example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;menu.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 #define CTRLD   4
@@ -1003,7 +1013,7 @@ int main()
 
         /* Post the menu */
         mvprintw(LINES - 3, 0, "Press &lt;ENTER&gt; to see the option selected");
-        mvprintw(LINES - 2, 0, "Up and Down arrow keys to naviage (F1 to Exit)");
+        mvprintw(LINES - 2, 0, "Up and Down arrow keys to navigate (F1 to Exit)");
         post_menu(my_menu);
         refresh();
 
@@ -1030,8 +1040,7 @@ int main()
         free_menu(my_menu);
         endwin();
 }
-        </span>
-</pre>
+        </span></pre>
       </div>
     </div>
 
@@ -1040,18 +1049,20 @@ int main()
       "MENUUSERPTR">17.9. The useful User Pointer</a></h2>
 
       <p>We can associate a user pointer with each item in the
-      menu. It works the same way as user pointer in panels. It's
+      menu. It works the same way as user pointer in panels. It is
       not touched by menu system. You can store any thing you like
       in that. I usually use it to store the function to be
-      executed when the menu option is chosen (It's selected and
+      executed when the menu option is chosen (It is selected and
       may be the user pressed &lt;ENTER&gt;);</p>
 
       <div class="EXAMPLE">
         <a name="MMEUS" id="MMEUS"></a>
+        <p><b>Example 24. Menu User Pointer Usage</b>
+        </p>
 
-        <p><b>Example 24. Menu User Pointer Usage</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;curses.h&gt;
 #include &lt;menu.h&gt;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
@@ -1101,7 +1112,7 @@ int main()
 
         /* Post the menu */
         mvprintw(LINES - 3, 0, "Press &lt;ENTER&gt; to see the option selected");
-        mvprintw(LINES - 2, 0, "Up and Down arrow keys to naviage (F1 to Exit)");
+        mvprintw(LINES - 2, 0, "Up and Down arrow keys to navigate (F1 to Exit)");
         post_menu(my_menu);
         refresh();
 
@@ -1137,8 +1148,7 @@ void func(char *name)
 {       move(20, 0);
         clrtoeol();
         mvprintw(20, 0, "Item selected is : %s", name);
-}       </span>
-</pre>
+}       </span></pre>
       </div>
     </div>
   </div>
@@ -1150,21 +1160,20 @@ void func(char *name)
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "panels.html" accesskey="P">Prev</a></td>
-
+        "panels.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "forms.html" accesskey="N">Next</a></td>
+        "forms.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">Panel
         Library</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Forms
         Library</td>
       </tr>

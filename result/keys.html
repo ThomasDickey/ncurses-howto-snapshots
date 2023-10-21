@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Interfacing with the key board</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -15,7 +13,6 @@
   <link rel="NEXT" title="Interfacing with the mouse " href=
   "mouse.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -28,14 +25,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "color.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "color.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "mouse.html" accesskey="N">Next</a></td>
+        "mouse.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -52,14 +51,14 @@ vlink="#840084" alink="#0000FF">
       to key presses or the mouse actions done by the user. Let's
       deal with the keys first.</p>
 
-      <p>As you have seen in almost all of the above examples, it's
-      very easy to get key input from the user. A simple way of
+      <p>As you have seen in almost all of the above examples, it
+      is very easy to get key input from the user. A simple way of
       getting key presses is to use <tt class=
       "LITERAL">getch()</tt> function. The cbreak mode should be
       enabled to read keys when you are interested in reading
       individual key hits rather than complete lines of text (which
       usually end with a carriage return). keypad should be enabled
-      to get the Functions keys, arrow keys etc. See the
+      to get the Functions keys, arrow keys, etc. See the
       initialization section for details.</p>
 
       <p><tt class="LITERAL">getch()</tt> returns an integer
@@ -73,12 +72,10 @@ vlink="#840084" alink="#0000FF">
       portable and easy to manage.</p>
 
       <p>For example, if you call getch() like this</p>
-      <pre class="PROGRAMLISTING">
-    int ch;
 
-    ch = getch();
-</pre>
+      <pre class="PROGRAMLISTING">    int ch;
 
+    ch = getch();</pre>
       <p>getch() will wait for the user to press a key, (unless you
       specified a timeout) and when user presses a key, the
       corresponding integer is returned. Then you can check the
@@ -86,11 +83,9 @@ vlink="#840084" alink="#0000FF">
       match against the keys you want.</p>
 
       <p>The following code piece will do that job.</p>
-      <pre class="PROGRAMLISTING">
-    if(ch == KEY_LEFT)
-        printw("Left arrow is pressed\n");
-</pre>
 
+      <pre class="PROGRAMLISTING">    if(ch == KEY_LEFT)
+        printw("Left arrow is pressed\n");</pre>
       <p>Let's write a small program which creates a menu which can
       be navigated by up and down arrows.</p>
     </div>
@@ -101,11 +96,11 @@ vlink="#840084" alink="#0000FF">
 
       <div class="EXAMPLE">
         <a name="BSIKE" id="BSIKE"></a>
+        <p><b>Example 10. A Simple Key Usage example</b>
+        </p>
 
-        <p><b>Example 10. A Simple Key Usage example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;stdio.h&gt;
-#include &lt;ncurses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
 
 #define WIDTH 30
 #define HEIGHT 10 
@@ -160,7 +155,7 @@ int main()
                                 choice = highlight;
                                 break;
                         default:
-                                mvprintw(24, 0, "Charcter pressed is = %3d Hopefully it can be printed as '%c'", c, c);
+                                mvprintw(24, 0, "Character pressed is = %3d Hopefully it can be printed as '%c'", c, c);
                                 refresh();
                                 break;
                 }
@@ -174,7 +169,6 @@ int main()
         endwin();
         return 0;
 }
-
 
 void print_menu(WINDOW *menu_win, int highlight)
 {
@@ -195,8 +189,7 @@ void print_menu(WINDOW *menu_win, int highlight)
         }
         wrefresh(menu_win);
 }
-</span>
-</pre>
+</span></pre>
       </div>
     </div>
   </div>
@@ -208,20 +201,19 @@ void print_menu(WINDOW *menu_win, int highlight)
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "color.html" accesskey="P">Prev</a></td>
-
+        "color.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "mouse.html" accesskey="N">Next</a></td>
+        "mouse.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">Colors</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Interfacing with
         the mouse</td>
       </tr>

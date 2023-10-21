@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>A Word about Windows</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -14,7 +12,6 @@
   <link rel="PREVIOUS" title="Initialization " href="init.html">
   <link rel="NEXT" title="Output functions" href="printw.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -27,14 +24,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "init.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "init.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "printw.html" accesskey="N">Next</a></td>
+        "printw.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -52,17 +51,15 @@ vlink="#840084" alink="#0000FF">
     default window named <tt class="LITERAL">stdscr</tt> which
     represents your 80x25 (or the size of window in which you are
     running) screen. If you are doing simple tasks like printing
-    few strings, reading input etc., you can safely use this single
-    window for all of your purposes. You can also create windows
-    and call functions which explicitly work on the specified
-    window.</p>
+    few strings, reading input, etc., you can safely use this
+    single window for all of your purposes. You can also create
+    windows and call functions which explicitly work on the
+    specified window.</p>
 
     <p>For example, if you call</p>
-    <pre class="PROGRAMLISTING">
-    printw("Hi There !!!");
-    refresh();
-</pre>
 
+    <pre class="PROGRAMLISTING">    printw("Hi There !!!");
+    refresh();</pre>
     <p>It prints the string on stdscr at the present cursor
     position. Similarly the call to refresh(), works on stdscr
     only.</p>
@@ -70,23 +67,20 @@ vlink="#840084" alink="#0000FF">
     <p>Say you have created <a href="windows.html">windows</a> then
     you have to call a function with a 'w' added to the usual
     function.</p>
-    <pre class="PROGRAMLISTING">
-    wprintw(win, "Hi There !!!");
-    wrefresh(win);
-</pre>
 
+    <pre class="PROGRAMLISTING">    wprintw(win, "Hi There !!!");
+    wrefresh(win);</pre>
     <p>As you will see in the rest of the document, naming of
     functions follow the same convention. For each function there
     usually are three more functions.</p>
-    <pre class="PROGRAMLISTING">
-    printw(string);        /* Print on stdscr at present cursor position */
+
+    <pre class=
+    "PROGRAMLISTING">    printw(string);        /* Print on stdscr at present cursor position */
     mvprintw(y, x, string);/* Move to (y, x) then print string     */
     wprintw(win, string);  /* Print on window win at present cursor position */
                            /* in the window */
     mvwprintw(win, y, x, string);   /* Move to (y, x) relative to window */
-                                    /* co-ordinates and then print         */
-</pre>
-
+                                    /* co-ordinates and then print         */</pre>
     <p>Usually the w-less functions are macros which expand to
     corresponding w-function with stdscr as the window
     parameter.</p>
@@ -99,21 +93,20 @@ vlink="#840084" alink="#0000FF">
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "init.html" accesskey="P">Prev</a></td>
-
+        "init.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "printw.html" accesskey="N">Next</a></td>
+        "printw.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">
         Initialization</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Output
         functions</td>
       </tr>

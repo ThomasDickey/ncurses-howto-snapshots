@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Initialization</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -15,7 +13,6 @@
   <link rel="NEXT" title="A Word about Windows" href=
   "awordwindows.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -28,14 +25,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "gory.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "gory.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "awordwindows.html" accesskey="N">Next</a></td>
+        "awordwindows.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -47,7 +46,7 @@ vlink="#840084" alink="#0000FF">
     initscr() has to be called. There are functions which can be
     called after this initialization to customize our curses
     session. We may ask the curses system to set the terminal in
-    raw mode or initialize color or initialize the mouse etc..
+    raw mode or initialize color or initialize the mouse, etc.
     Let's discuss some of the functions that are normally called
     immediately after initscr();</p>
 
@@ -83,7 +82,7 @@ vlink="#840084" alink="#0000FF">
       the user to the terminal. <tt class="LITERAL">noecho()</tt>
       switches off echoing. The reason you might want to do this is
       to gain more control over echoing or to suppress unnecessary
-      echoing while taking input from the user through the getch()
+      echoing while taking input from the user through the getch(),
       etc. functions. Most of the interactive programs call
       <tt class="LITERAL">noecho()</tt> at initialization and do
       the echoing of characters in a controlled manner. It gives
@@ -97,7 +96,7 @@ vlink="#840084" alink="#0000FF">
       keypad()</a></h2>
 
       <p>This is my favorite initialization function. It enables
-      the reading of function keys like F1, F2, arrow keys etc.
+      the reading of function keys like F1, F2, arrow keys, etc.
       Almost every interactive program enables this, as arrow keys
       are a major part of any User Interface. Do <tt class=
       "LITERAL">keypad(stdscr, TRUE)</tt> to enable this feature
@@ -140,11 +139,11 @@ vlink="#840084" alink="#0000FF">
 
       <div class="EXAMPLE">
         <a name="BINFU" id="BINFU"></a>
+        <p><b>Example 2. Initialization Function Usage example</b>
+        </p>
 
-        <p><b>Example 2. Initialization Function Usage
-        example</b></p>
-        <pre class="PROGRAMLISTING">
-<span class="INLINEMEDIAOBJECT">#include &lt;ncurses.h&gt;
+        <pre class="PROGRAMLISTING"><span class=
+        "INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
 
 int main()
 {       int ch;
@@ -161,7 +160,7 @@ int main()
         if(ch == KEY_F(1))              /* Without keypad enabled this will */
                 printw("F1 Key pressed");/*  not get to us either       */
                                         /* Without noecho() some ugly escape
-                                         * charachters might have been printed
+                                         * characters might have been printed
                                          * on screen                    */
         else
         {       printw("The pressed key is ");
@@ -174,8 +173,7 @@ int main()
         endwin();                       /* End curses mode                */
 
         return 0;
-}</span>
-</pre>
+}</span></pre>
       </div>
 
       <p>This program is self-explanatory. But I used functions
@@ -200,21 +198,20 @@ int main()
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "gory.html" accesskey="P">Prev</a></td>
-
+        "gory.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "awordwindows.html" accesskey="N">Next</a></td>
+        "awordwindows.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">The Gory
         Details</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">A Word about
         Windows</td>
       </tr>

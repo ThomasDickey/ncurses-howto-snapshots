@@ -1,11 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
+  "HTML Tidy for HTML5 for Linux version 5.6.0">
   <title>Screen Manipulation</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -15,7 +13,6 @@
   "mouse.html">
   <link rel="NEXT" title="Miscellaneous features" href="misc.html">
 </head>
-
 <body class="SECT1" bgcolor="#FFFFFF" text="#000000" link="#0000FF"
 vlink="#840084" alink="#0000FF">
   <div class="NAVHEADER">
@@ -28,14 +25,16 @@ vlink="#840084" alink="#0000FF">
 
       <tr>
         <td width="10%" align="left" valign="bottom"><a href=
-        "mouse.html" accesskey="P">Prev</a></td>
-
-        <td width="80%" align="center" valign="bottom"></td>
-
+        "mouse.html" accesskey="P">Prev</a>
+        </td>
+        <td width="80%" align="center" valign="bottom">
+        </td>
         <td width="10%" align="right" valign="bottom"><a href=
-        "misc.html" accesskey="N">Next</a></td>
+        "misc.html" accesskey="N">Next</a>
+        </td>
       </tr>
     </table>
+
     <hr align="left" width="100%">
   </div>
 
@@ -57,18 +56,16 @@ vlink="#840084" alink="#0000FF">
       values of x and y co-ordinates in the arguments given to it.
       Since getyx() is a macro you don't have to pass the address
       of the variables. It can be called as</p>
-      <pre class="PROGRAMLISTING">
-    getyx(win, y, x);
+
+      <pre class="PROGRAMLISTING">    getyx(win, y, x);
     /* win: window pointer
      *   y, x: y, x co-ordinates will be put into this variables 
-     */
-</pre>
-
+     */</pre>
       <p>The function getparyx() gets the beginning co-ordinates of
       the sub window relative to the main window. This is some
       times useful to update a sub window. When designing fancy
       stuff like writing multiple menus, it becomes difficult to
-      store the menu positions, their first option co-ordinates
+      store the menu positions, their first option co-ordinates,
       etc. A simple solution to this problem, is to create menus in
       sub windows and later find the starting co-ordinates of the
       menus by using getparyx().</p>
@@ -106,7 +103,7 @@ vlink="#840084" alink="#0000FF">
       used to copy a window completely onto another window. It
       takes the source and destination windows as parameters and
       according to the rectangle specified, it copies the
-      rectangular region from source to destination window. It's
+      rectangular region from source to destination window. Its
       last parameter specifies whether to overwrite or just overlay
       the contents on to the destination window. If this argument
       is true, then the copying is non-destructive.</p>
@@ -120,21 +117,20 @@ vlink="#840084" alink="#0000FF">
     "0" cellpadding="0" cellspacing="0">
       <tr>
         <td width="33%" align="left" valign="top"><a href=
-        "mouse.html" accesskey="P">Prev</a></td>
-
+        "mouse.html" accesskey="P">Prev</a>
+        </td>
         <td width="34%" align="center" valign="top"><a href=
-        "index.html" accesskey="H">Home</a></td>
-
+        "index.html" accesskey="H">Home</a>
+        </td>
         <td width="33%" align="right" valign="top"><a href=
-        "misc.html" accesskey="N">Next</a></td>
+        "misc.html" accesskey="N">Next</a>
+        </td>
       </tr>
 
       <tr>
         <td width="33%" align="left" valign="top">Interfacing with
         the mouse</td>
-
         <td width="34%" align="center" valign="top">&nbsp;</td>
-
         <td width="33%" align="right" valign="top">Miscellaneous
         features</td>
       </tr>
