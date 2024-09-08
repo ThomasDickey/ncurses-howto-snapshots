@@ -1,3 +1,58 @@
+2024-09-07  Thomas E. Dickey  <dickey@invisible-island.net>
+
+	* ncurses_programs/COPYING: update copyright
+
+	* NCURSES-Programming-HOWTO.sgml: revised sample programs
+
+	* ncurses_programs/menus/menu_userptr.c:
+	work around for passing a function-pointer via set_item_userptr()
+
+	* ncurses_programs/JustForFun/hanoi.c:
+	drop an unused parameter from check_user_response()
+
+	* ncurses_programs/menus/menu_scroll.c,
+	  ncurses_programs/menus/menu_win.c,
+	  ncurses_programs/menus/menu_attrib.c,
+	  ncurses_programs/menus/menu_item_data.c,
+	  ncurses_programs/menus/menu_multi_column.c,
+	  ncurses_programs/menus/menu_simple.c,
+	  ncurses_programs/menus/menu_toggle.c,
+	  ncurses_programs/menus/menu_userptr.c,
+	  ncurses_programs/forms/form_simple.c,
+	  ncurses_programs/forms/form_options.c,
+	  ncurses_programs/forms/form_attrib.c, ncurses_programs/forms/form_win.c:
+	fix most of the compiler-warnings, and reformat
+
+	* ncurses_programs/basics/Makefile: add acs_vars
+
+	* ncurses_programs/basics/acs_vars.c,
+	  ncurses_programs/basics/init_func_example.c,
+	  ncurses_programs/basics/simple_attr.c,
+	  ncurses_programs/basics/mouse_menu.c,
+	  ncurses_programs/basics/other_border.c,
+	  ncurses_programs/basics/simple_key.c,
+	  ncurses_programs/basics/win_border.c,
+	  ncurses_programs/basics/hello_world.c,
+	  ncurses_programs/basics/key_code.c,
+	  ncurses_programs/basics/printw_example.c,
+	  ncurses_programs/basics/scanw_example.c,
+	  ncurses_programs/basics/simple_color.c,
+	  ncurses_programs/basics/temp_leave.c,
+	  ncurses_programs/basics/with_chgat.c,
+	  ncurses_programs/JustForFun/life.c, ncurses_programs/JustForFun/tt.c,
+	  ncurses_programs/JustForFun/magic.c,
+	  ncurses_programs/JustForFun/queens.c,
+	  ncurses_programs/JustForFun/shuffle.c,
+	  ncurses_programs/JustForFun/hanoi.c,
+	  ncurses_programs/panels/panel_resize.c,
+	  ncurses_programs/panels/panel_hide.c,
+	  ncurses_programs/panels/panel_browse.c,
+	  ncurses_programs/panels/panel_simple.c:
+	fix most of the compiler-warnings, and reformat
+
+	* ncurses_programs/Makefile:
+	pass $(CC) to subdirectories to simplify adding compiler-warnings
+
 2023-10-21  Thomas E. Dickey  <dickey@invisible-island.net>
 
 	* result/panels.html, result/printw.html, result/ref.html,

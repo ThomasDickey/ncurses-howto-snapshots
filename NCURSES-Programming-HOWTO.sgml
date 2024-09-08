@@ -17,7 +17,15 @@
         </affiliation>
     </author>
     <revhistory>
-    
+
+    <revision>
+        <revnumber>2.1</revnumber>
+        <date>2024-09-07</date>
+        <authorinitials>dickey</authorinitials>
+        <revremark>Fixes for the sample programs.
+        </revremark>
+    </revision>
+
     <revision>
         <revnumber>2.0</revnumber>
         <date>2022-12-03</date>
@@ -25,7 +33,7 @@
         <revremark>Fixes for the sample programs,  Correct documentation errata.
         </revremark>
     </revision>
-   
+
     <revision>
         <revnumber>1.9</revnumber>
         <date>2005-06-20</date>
@@ -34,7 +42,7 @@
         by NCURSES. Note that the programs are also re-licensed under this.
         </revremark>
     </revision>
-   
+
     <revision>
         <revnumber>1.8</revnumber>
         <date>2005-06-17</date>
@@ -53,16 +61,16 @@
         for building from source.
         </revremark>
     </revision>
-    
+
     <revision>
         <revnumber>1.7</revnumber>
         <date>2002-06-25</date>
         <authorinitials>ppadala</authorinitials>
-        <revremark>Added "Other formats" section and made a lot of fancy 
+        <revremark>Added "Other formats" section and made a lot of fancy
         changes to the programs. Inlining of programs is gone.
         </revremark>
     </revision>
-    
+
     <revision>
         <revnumber>1.6.1</revnumber>
         <date>2002-02-24</date>
@@ -70,7 +78,7 @@
         <revremark>Removed the old Changelog section, cleaned the makefiles
         </revremark>
     </revision>
-    
+
     <revision>
         <revnumber>1.6</revnumber>
         <date>2002-02-16</date>
@@ -78,7 +86,7 @@
         <revremark>Corrected a lot of spelling mistakes, added ACS variables
         section </revremark>
     </revision>
-    
+
     <revision>
         <revnumber>1.5</revnumber>
         <date>2002-01-05</date>
@@ -93,7 +101,7 @@
         <revremark>Corrected maintainers paragraph, Corrected stable release number
         </revremark>
     </revision>
-    
+
     <revision>
         <revnumber>1.3</revnumber>
         <date>2001-07-24</date>
@@ -108,7 +116,7 @@
         <revnumber>1.2</revnumber>
         <date>2001-06-05</date>
         <authorinitials>ppadala</authorinitials>
-        <revremark>Incorporated ravi's changes. Mainly to introduction, menu, 
+        <revremark>Incorporated ravi's changes. Mainly to introduction, menu,
         form, justforfun sections
         </revremark>
     </revision>
@@ -126,9 +134,9 @@
     <abstract>
     <para>
     <emphasis>
-This document is intended to be an "All in One" guide for programming with 
-ncurses and its sister libraries. We graduate from a simple "Hello World" 
-program to more complex form manipulation. No prior experience in ncurses is 
+This document is intended to be an "All in One" guide for programming with
+ncurses and its sister libraries. We graduate from a simple "Hello World"
+program to more complex form manipulation. No prior experience in ncurses is
 assumed. Send comments to <ulink url="mailto:ppadala@gmail.com">this address
 </ulink>
     </emphasis>
@@ -141,13 +149,13 @@ assumed. Send comments to <ulink url="mailto:ppadala@gmail.com">this address
 <para>
 In the olden days of teletype terminals, terminals were away from computers and
 were connected to them through serial cables. The terminals could be configured
-by sending a series of bytes. All the capabilities (such as 
-moving the cursor to a new location, erasing part of the screen, scrolling the 
-screen, changing modes, etc.) of terminals could be accessed through these 
-series of bytes. These control seeuqnces are usually called escape sequences, 
-because they start 
-with an escape(0x1B) character. Even today, with proper emulation, we can send 
-escape sequences to the emulator and achieve the same effect on a terminal 
+by sending a series of bytes. All the capabilities (such as
+moving the cursor to a new location, erasing part of the screen, scrolling the
+screen, changing modes, etc.) of terminals could be accessed through these
+series of bytes. These control seeuqnces are usually called escape sequences,
+because they start
+with an escape(0x1B) character. Even today, with proper emulation, we can send
+escape sequences to the emulator and achieve the same effect on a terminal
 window.
 </para>
 
@@ -160,10 +168,10 @@ echo "^[[0;31;40mIn Color"
 </programlisting>
 
 <para>
-The first character is an escape character, which looks like two characters ^ 
-and [. To be able to print it, you have to press CTRL+V and then the ESC key. 
-All the others are normal printable characters. You should be able to see the 
-string "In Color" in red. It stays that way and to revert back to the original 
+The first character is an escape character, which looks like two characters ^
+and [. To be able to print it, you have to press CTRL+V and then the ESC key.
+All the others are normal printable characters. You should be able to see the
+string "In Color" in red. It stays that way and to revert back to the original
 mode type this.
 </para>
 
@@ -173,18 +181,18 @@ echo "^[[0;37;40m"
 
 <para>
 Now, what do these magic characters mean? Difficult to comprehend? They might
-even be different for different terminals. So the designers of UNIX invented a 
+even be different for different terminals. So the designers of UNIX invented a
 mechanism named <literal remap="tt">termcap</literal>. It is a file that
 lists all the capabilities of a particular terminal, along with the escape
-sequences needed to achieve a particular effect. In the later years, this was 
-replaced by <literal remap="tt">terminfo</literal>. Without delving too 
-much into details, this mechanism allows application 
-programs to query the terminfo database and obtain the control characters to be 
+sequences needed to achieve a particular effect. In the later years, this was
+replaced by <literal remap="tt">terminfo</literal>. Without delving too
+much into details, this mechanism allows application
+programs to query the terminfo database and obtain the control characters to be
 sent to a terminal or terminal emulator.
 </para>
 
 <sect2 id="whatis"> <title> What is NCURSES? </title>
-<para> 
+<para>
 You might be wondering, what the import of all this technical gibberish is.  In
 the above scenario, every application program is supposed to query the terminfo
 and perform the necessary stuff (sending control characters, etc.).  It soon became
@@ -201,13 +209,13 @@ So what is NCURSES? NCURSES is a clone of the original System V Release 4.0
 (SVr4) curses. It is a freely distributable library, fully compatible with
 older version of curses.  In short, it is a library of functions that manages
 an application's display on character-cell terminals.  In the remainder of the
-document, the terms curses and ncurses are used interchangeably.  
+document, the terms curses and ncurses are used interchangeably.
 </para>
 
 <para>
 A detailed history of NCURSES can be found in the NEWS file from the source
-distribution. The current package is maintained by 
-<ulink url="mailto:dickey@invisible-island.net">Thomas Dickey</ulink>.  
+distribution. The current package is maintained by
+<ulink url="mailto:dickey@invisible-island.net">Thomas Dickey</ulink>.
 You can contact the maintainers at <ulink url="mailto:bug-ncurses@gnu.org">bug-ncurses@gnu.org</ulink>.
 </para>
 
@@ -225,7 +233,7 @@ windows, menus, panels and forms. Windows can be managed independently, can
 provide 'scrollability' and even can be hidden.
 </para>
 
-<para> 
+<para>
 Menus provide the user with an easy command selection option.  Forms allow the
 creation of easy-to-use data entry and display windows.  Panels extend the
 capabilities of ncurses to deal with overlapping and stacked windows.
@@ -233,7 +241,7 @@ capabilities of ncurses to deal with overlapping and stacked windows.
 
 <para>
 These are just some of the basic things we can do with ncurses. As we move
-along, We will see all the capabilities of these libraries. 
+along, We will see all the capabilities of these libraries.
 </para>
 </sect2>
 
@@ -250,20 +258,20 @@ you don't have the library or want to compile it on your own, read on.
 <para>
 NCURSES can be obtained from <ulink url=
 "ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz">
-ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz</ulink> or any of the ftp 
+ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz</ulink> or any of the ftp
 sites mentioned in <ulink url="https://www.gnu.org/order/ftp.html">
-https://www.gnu.org/order/ftp.html</ulink>. 
+https://www.gnu.org/order/ftp.html</ulink>.
 </para>
 
 <para>
-Read the README and INSTALL files for details on to how to install it. It 
+Read the README and INSTALL files for details on to how to install it. It
 usually involves the following operations.
 </para>
 
 <programlisting>
     tar zxvf ncurses&lt;version&gt;.tar.gz  # unzip and untar the archive
     cd ncurses&lt;version&gt;               # cd to the directory
-    ./configure                             # configure the build according to your 
+    ./configure                             # configure the build according to your
                                             # environment
     make                                    # make it
     su root                                 # become root
@@ -274,7 +282,7 @@ usually involves the following operations.
 
 <para>
 NCURSES RPM can be found and downloaded from <ulink url="https://rpmfind.net">
-https://rpmfind.net </ulink>. The RPM can be installed with the following 
+https://rpmfind.net </ulink>. The RPM can be installed with the following
 command after becoming root.
 </para>
 
@@ -329,7 +337,7 @@ JustForFun
     |
     |----&gt; hanoi.c   -- The Towers of Hanoi Solver
     |----&gt; life.c    -- The Game of Life demo
-    |----&gt; magic.c   -- An Odd Order Magic Square builder 
+    |----&gt; magic.c   -- An Odd Order Magic Square builder
     |----&gt; queens.c  -- The famous N-Queens Solver
     |----&gt; shuffle.c -- A fun game, if you have time to kill
     |----&gt; tt.c      -- A very trivial typing tutor
@@ -345,23 +353,23 @@ JustForFun
     |                               -- rt from box()
     |----&gt; printw_example.c      -- A very simple printw() example
     |----&gt; scanw_example.c       -- A very simple getstr() example
-    |----&gt; simple_attr.c         -- A program that can print a c file with 
+    |----&gt; simple_attr.c         -- A program that can print a c file with
     |                               -- comments in attribute
     |----&gt; simple_color.c        -- A simple example demonstrating colors
-    |----&gt; simple_key.c          -- A menu accessible with keyboard UP, DOWN 
+    |----&gt; simple_key.c          -- A menu accessible with keyboard UP, DOWN
     |                               -- arrows
     |----&gt; temp_leave.c          -- Demonstrates temporarily leaving curses mode
     |----&gt; win_border.c          -- Shows Creation of windows and borders
     |----&gt; with_chgat.c          -- chgat() usage example
 
-  forms 
+  forms
     |
     |----&gt; form_attrib.c     -- Usage of field attributes
     |----&gt; form_options.c    -- Usage of field options
     |----&gt; form_simple.c     -- A simple form example
     |----&gt; form_win.c        -- Demo of windows associated with forms
 
-  menus 
+  menus
     |
     |----&gt; menu_attrib.c     -- Usage of menu attributes
     |----&gt; menu_item_data.c  -- Usage of item_name(), etc. functions
@@ -373,9 +381,9 @@ JustForFun
     |----&gt; menu_userptr.c    -- Usage of user pointer
     |----&gt; menu_win.c        -- Demo of windows associated with menus
 
-  panels 
+  panels
     |
-    |----&gt; panel_browse.c    -- Panel browsing through tab. Usage of user 
+    |----&gt; panel_browse.c    -- Panel browsing through tab. Usage of user
     |                           -- pointer
     |----&gt; panel_hide.c      -- Hiding and Un hiding of panels
     |----&gt; panel_resize.c    -- Moving and resizing of panels
@@ -386,19 +394,19 @@ JustForFun
 </programlisting>
 
 <para>
-There is a top level Makefile included in the main directory. It builds all the 
-files and puts the ready-to-use exes in demo/exe directory. You can also 
-do selective make by going into the corresponding directory. Each directory 
+There is a top level Makefile included in the main directory. It builds all the
+files and puts the ready-to-use exes in demo/exe directory. You can also
+do selective make by going into the corresponding directory. Each directory
 contains a README file explaining the purpose of each c file in the directory.
 </para>
 
 <para>
-For every example, I have included path name for the file relative to the 
-examples directory. 
+For every example, I have included path name for the file relative to the
+examples directory.
 </para>
 
-<simpara> If you prefer browsing individual programs, point your browser to 
-<ulink 
+<simpara> If you prefer browsing individual programs, point your browser to
+<ulink
 url="https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/">
 https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/
 </ulink></simpara>
@@ -410,7 +418,7 @@ claiming them as yours. Feel free to use them in your programs as appropriate.
 </para>
 </sect2>
 
-<sect2 id="otherformats"><title>Other Formats of the document </title> 
+<sect2 id="otherformats"><title>Other Formats of the document </title>
 
 <para>
 This howto is also available in various other formats on the tldp.org site.
@@ -465,7 +473,7 @@ If above links are broken or if you want to experiment with sgml read on.
     the multiple html files, you would use
         jade -t sgml -i html -d &lt;path to docbook html stylesheet&gt;
         NCURSES-Programming-HOWTO.sgml
-    to get pdf, first create a single html file of the HOWTO with 
+    to get pdf, first create a single html file of the HOWTO with
         jade -t sgml -i html -d &lt;path to docbook html stylesheet&gt; -V nochunks
         NCURSES-Programming-HOWTO.sgml &gt; NCURSES-ONE-BIG-FILE.html
     then use htmldoc to get pdf file with
@@ -479,14 +487,14 @@ If above links are broken or if you want to experiment with sgml read on.
 
 <para>
 See <ulink url="https://www.tldp.org/LDP/LDP-Author-Guide/">
-LDP Author guide</ulink> for more details. If all else fails, mail me at 
+LDP Author guide</ulink> for more details. If all else fails, mail me at
 <ulink url= "ppadala@gmail.com">ppadala@gmail.com</ulink>
 </para>
 </sect3>
 
 </sect2>
 
-<sect2 id="credits"><title>Credits </title> 
+<sect2 id="credits"><title>Credits </title>
 
 <para>
 I thank <ulink url="mailto:sharath_1@usa.net">Sharath</ulink> and Emre Akbas for
@@ -497,24 +505,24 @@ writing printw and scanw sections.
 
 <para>
 Perl equivalents of the example programs are contributed by <ulink
-url="mailto:Aratnaweera@virtusa.com">Anuradha Ratnaweera</ulink>. 
+url="mailto:Aratnaweera@virtusa.com">Anuradha Ratnaweera</ulink>.
 </para>
 
 <para>
 Then comes <ulink url="mailto:parimi@ece.arizona.edu">Ravi Parimi</ulink>, my
 dearest friend, who has been on this project before even one line was written.
 He constantly bombarded me with suggestions and patiently reviewed the whole
-text.  He also checked each program on Linux and Solaris. 
+text.  He also checked each program on Linux and Solaris.
 </para>
 
 </sect2>
 
-<sect2 id="wishlist"><title>Wish List</title> 
+<sect2 id="wishlist"><title>Wish List</title>
 
 <para>
 This is the wish list, in the order of priority. If you have a wish or you want
 to work on completing the wish, mail <ulink url="mailto:ppadala@gmail.com">me
-</ulink>. 
+</ulink>.
 </para>
 
 <itemizedlist>
@@ -545,7 +553,7 @@ package.</para>
 </itemizedlist>
 </sect2>
 
-<sect2 id="copyright"><title>Copyright</title> 
+<sect2 id="copyright"><title>Copyright</title>
 <para>
 Copyright &copy; 2001 by Pradeep Padala. </para>
 
@@ -576,7 +584,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 <para>
 Except as contained in this notice, the name(s) of the above copyright holders
 shall not be used in advertising or otherwise to promote the sale, use or
-other dealings in this Software without prior written authorization. 
+other dealings in this Software without prior written authorization.
 </para>
 
 </sect2>
@@ -587,7 +595,7 @@ other dealings in this Software without prior written authorization.
 <para>
 Welcome to the world of curses. Before we plunge into the library and look into
 its various features, let's write a simple program and say
-hello to the world. 
+hello to the world.
 </para>
 
 <sect2 id="compilecurses"><title> Compiling With the NCURSES Library </title>
@@ -605,35 +613,35 @@ program with ncurses the flag -lncurses should be added.
     .
 
     compile and link: gcc &lt;program file&gt; -lncurses
-</programlisting>    
+</programlisting>
 
 <example id="bhw"> <title> The Hello World !!! Program </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/hello_world.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
 </sect2>
 
 <sect2 id="dissection"><title>Dissection</title>
-<para> 
-The above program prints "Hello World !!!" to the screen and exits. This 
-program shows how to initialize curses and do screen manipulation and 
-end curses mode. Let's dissect it line by line. 
+<para>
+The above program prints "Hello World !!!" to the screen and exits. This
+program shows how to initialize curses and do screen manipulation and
+end curses mode. Let's dissect it line by line.
 </para>
 
 <sect3 id="about-initscr"><title>About initscr()</title>
 <para>
-The function initscr() initializes the terminal in curses mode.  In some 
-implementations, it clears the screen and presents a blank screen. To do any 
+The function initscr() initializes the terminal in curses mode.  In some
+implementations, it clears the screen and presents a blank screen. To do any
 screen manipulation using curses package this has to be called first. This
 function initializes the curses system and allocates memory for our present
 window (called <literal remap="tt">stdscr</literal>) and some other data-structures. Under extreme
 cases this function might fail due to insufficient memory to allocate memory
-for curses library's data structures. 
+for curses library's data structures.
 </para>
 
-<para> 
+<para>
 After this is done, we can do a variety of initializations to customize
 our curses settings. These details will be explained <link linkend="init">
 later </link>.
@@ -652,8 +660,8 @@ of the window.
 </para>
 
 <para>
-This brings us to that mysterious refresh(). Well, when we called printw 
-the data is actually written to an imaginary window, which is not updated 
+This brings us to that mysterious refresh(). Well, when we called printw
+the data is actually written to an imaginary window, which is not updated
 on the screen yet. The job of printw is to update a few flags
 and data structures and write the data to a buffer corresponding to stdscr.
 In order to show it on the screen, we need to call refresh() and tell the
@@ -667,16 +675,16 @@ is done. refresh() checks the window and updates only the portion which has been
 changed. This improves performance and offers greater flexibility too. But, it is
 sometimes frustrating to beginners. A common mistake committed by beginners is
 to forget to call refresh() after they did some update through printw() class of
-functions. I still forget to add it sometimes :-) 
+functions. I still forget to add it sometimes :-)
 </para>
 </sect3>
 
 <sect3 id="about-endwin"><title>About endwin()</title>
 <para>
 And finally don't forget to end the curses mode. Otherwise your terminal might
-behave strangely after the program quits. endwin() frees the memory taken by 
-curses sub-system and its data structures and puts the terminal in normal 
-mode. This function must be called after you are done with the curses mode. 
+behave strangely after the program quits. endwin() frees the memory taken by
+curses sub-system and its data structures and puts the terminal in normal
+mode. This function must be called after you are done with the curses mode.
 </para>
 </sect3>
 </sect2>
@@ -687,13 +695,13 @@ mode. This function must be called after you are done with the curses mode.
 <para>
 Now that we have seen how to write a simple curses program let's get into the
 details. There are many functions that help customize what you see on screen and
-many features which can be put to full use. 
+many features which can be put to full use.
 </para>
 
 <simpara>Here we go...</simpara>
 </sect1>
 
-<sect1 id="init"> <title>Initialization </title> 
+<sect1 id="init"> <title>Initialization </title>
 <para>
 We now know that to initialize curses system the function initscr() has to be
 called.  There are functions which can be called after this initialization to
@@ -722,7 +730,7 @@ to use raw() as I can exercise greater control over what the user does.
 </sect2>
 
 <sect2 id="echonoecho"><title>echo() and noecho() </title>
-<para> 
+<para>
 These functions control the echoing of characters typed by the user to the
 terminal. <literal remap="tt">noecho()</literal> switches off echoing. The
 reason you might want to do this is to gain more control over echoing or to
@@ -731,7 +739,7 @@ getch(), etc. functions. Most of the interactive programs call
 <literal remap="tt">noecho()</literal> at initialization and do the echoing
 of characters in a controlled manner. It gives the programmer the flexibility
 of echoing characters at any place in the window without updating current (y,x)
-co-ordinates. 
+co-ordinates.
 </para>
 </sect2>
 
@@ -755,14 +763,14 @@ However, it waits for 'X' tenths of a second for input and then returns ERR, if
 no input is available. 'X' is the timeout value passed to the function
 halfdelay(). This function is useful when you want to ask the user for input,
 and if he doesn't respond with in certain time, we can do some thing else. One
-possible example is a timeout at the password prompt. 
+possible example is a timeout at the password prompt.
 </para>
 </sect2>
 
 <sect2 id="miscinit"><title>Miscellaneous Initialization functions</title>
 <para>
 There are few more functions which are called at initialization to
-customize curses behavior. They are not used as extensively as those mentioned 
+customize curses behavior. They are not used as extensively as those mentioned
 above. Some of them are explained where appropriate.
 </para>
 </sect2>
@@ -775,7 +783,7 @@ Let's write a program which will clarify the usage of these functions.
 
 <example id="binfu"> <title> Initialization Function Usage example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/init_func_example.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -786,8 +794,8 @@ character from user. It is equivalent to normal
 <literal remap="tt">getchar()</literal> except that we can disable the line
 buffering to avoid &lt;enter&gt; after input. Look for more about
 <literal remap ="tt">getch()</literal>and reading keys in the <link
-linkend="keys"> key management section </link>. The functions attron and attroff 
-are used to switch some attributes on and off respectively.  In the example I 
+linkend="keys"> key management section </link>. The functions attron and attroff
+are used to switch some attributes on and off respectively.  In the example I
 used them to print the character in bold. These functions are explained in detail
 later.
 </para>
@@ -796,7 +804,7 @@ later.
 
 <sect1 id="awordwindows"><title>A Word about Windows</title>
 
-<para> 
+<para>
 Before we plunge into the myriad ncurses functions, let me clear few things
 about windows. Windows are explained in detail in following <link
 linkend="windows"> sections </link>
@@ -823,12 +831,12 @@ For example, if you call
 </programlisting>
 
 <para>
-It prints the string on stdscr at the present cursor position. Similarly the 
-call to refresh(), works on stdscr only. 
+It prints the string on stdscr at the present cursor position. Similarly the
+call to refresh(), works on stdscr only.
 </para>
 
 <para>
-Say you have created <link linkend="windows">windows</link> then you have to 
+Say you have created <link linkend="windows">windows</link> then you have to
 call a function with a 'w' added to the usual function.
 </para>
 
@@ -913,11 +921,11 @@ character ch(of type char) bold and underlined, you would call addch() as below.
 <para>
 By using functions like <literal remap="tt">attrset(),attron(),attroff()
 </literal>. These functions are explained in the <link linkend="attrib">
-Attributes</link> section. Briefly, they manipulate the current attributes of 
-the given window. Once set, the character printed in the window are associated 
+Attributes</link> section. Briefly, they manipulate the current attributes of
+the given window. Once set, the character printed in the window are associated
 with the attributes until it is turned off.
 </para>
-</listitem> 
+</listitem>
 
 </itemizedlist>
 
@@ -926,14 +934,14 @@ Additionally, <literal remap="tt">curses</literal> provides some special
 characters for character-based graphics. You can draw tables, horizontal or
 vertical lines, etc. You can find all available characters in the header file
 <literal remap="tt">ncurses.h</literal>.  Try looking for macros beginning
-with <literal remap="tt">ACS_</literal> in this file. 
+with <literal remap="tt">ACS_</literal> in this file.
 </para>
 </sect2>
 
 <sect2><title>mvaddch(), waddch() and mvwaddch() </title>
 
 <para>
-<literal remap="tt">mvaddch()</literal> is used to move the cursor to a 
+<literal remap="tt">mvaddch()</literal> is used to move the cursor to a
 given point, and then print. Thus, the calls:
 <programlisting>
     move(row,col);    /* moves the cursor to row<emphasis>th</emphasis> row and col<emphasis>th</emphasis> column */
@@ -971,7 +979,7 @@ printf</literal><emphasis>-like</emphasis> or
 
 <para>
 These functions are similar to <literal remap="tt">printf()</literal> with
-the added capability of printing at any position on the screen. 
+the added capability of printing at any position on the screen.
 </para>
 
 <sect3 id="printwmvprintw"> <title>printw() and mvprintw </title>
@@ -983,14 +991,14 @@ using <literal remap="tt">printw()</literal> function, use
 <literal remap="tt">move() </literal> first and then use
 <literal remap="tt">printw()</literal> though I see no point why one should
 avoid using <literal remap="tt">mvprintw()</literal>, you have the
-flexibility to manipulate. 
+flexibility to manipulate.
 </para>
 </sect3>
 
 <sect3 id="wprintwmvwprintw"><title>wprintw() and mvwprintw </title>
 <para>
-These two functions are similar to above two except that they print in the 
-corresponding window given as argument. 
+These two functions are similar to above two except that they print in the
+corresponding window given as argument.
 </para>
 </sect3>
 
@@ -1004,7 +1012,7 @@ be used when variable number of arguments are to be printed.
 <sect3 id="simpleprintwex"> <title> A Simple printw example </title>
 <example id="bprex"> <title> A Simple printw example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/printw_example.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -1022,7 +1030,7 @@ The above program introduces us to a new function
 the number of rows in a given window.
 <literal remap="tt">getmaxyx()</literal> does this by updating the variables
 given to it. Since <literal remap="tt">getmaxyx()</literal> is not a function
-we don't pass pointers to it, we just give two integer variables. 
+we don't pass pointers to it, we just give two integer variables.
 </para>
 </sect3>
 </sect2>
@@ -1039,7 +1047,7 @@ this family such as <literal remap="tt">mvaddstr(),mvwaddstr()</literal> and
 curses.(e.g. mvaddstr() is similar to the respective calls move() and then
 addstr().) Another function of this family is addnstr(), which takes an integer
 parameter(say n) additionally. This function puts at most n characters into the
-screen. If n is negative, then the entire string will be added. 
+screen. If n is negative, then the entire string will be added.
 </para>
 </sect2>
 
@@ -1095,14 +1103,14 @@ The usage of these functions is similar to that of
 <literal remap="tt">sscanf()</literal>, where the line to be scanned is
 provided by <literal remap="tt">wgetstr()</literal> function. That is, these
 functions call to <literal remap="tt">wgetstr()</literal> function(explained
-below) and uses the resulting line for a scan. 
+below) and uses the resulting line for a scan.
 </para>
 </sect3>
 
 <sect3 id="wscanwmvwscanw"><title>wscanw() and mvwscanw()</title>
 <para>
 These are similar to above two functions except that they read from a window,
-which is supplied as one of the arguments to these functions. 
+which is supplied as one of the arguments to these functions.
 </para>
 </sect3>
 
@@ -1128,7 +1136,7 @@ the user.
 <sect2 id="getstrex"><title>Some examples</title>
 <example id="bscex"> <title> A Simple scanw example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/scanw_example.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -1140,35 +1148,35 @@ the user.
 We have seen an example of how attributes can be used to print characters with
 some special effects. Attributes, when set prudently, can present information in
 an easy, understandable manner. The following program takes a C file as input
-and prints the file with comments in bold. Scan through the code. 
+and prints the file with comments in bold. Scan through the code.
 </para>
 
 <example id="bsiat"> <title> A Simple Attributes example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/simple_attr.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
 
-<para> 
-Don't worry about all those initialization and other crap. Concentrate on 
-the while loop. It reads each character in the file and searches for the 
-pattern /*. Once it spots the pattern, it switches the BOLD attribute on with 
-<literal remap="tt"> attron()</literal> . When we get the pattern */ it is 
+<para>
+Don't worry about all those initialization and other crap. Concentrate on
+the while loop. It reads each character in the file and searches for the
+pattern /*. Once it spots the pattern, it switches the BOLD attribute on with
+<literal remap="tt"> attron()</literal> . When we get the pattern */ it is
 switched off by <literal remap="tt"> attroff()</literal> .
 </para>
 
-<para> 
+<para>
 The above program also introduces us to two useful functions
 <literal remap="tt">getyx() </literal> and
 <literal remap="tt">move()</literal>. The first function gets the
 co-ordinates of the present cursor into the variables y, x. Since getyx() is a
 macro we don't have to pass pointers to variables. The function
 <literal remap="tt">move()</literal> moves the cursor to the co-ordinates
-given to it. 
+given to it.
 </para>
 
-<para> 
+<para>
 The above program is really a simple one which doesn't do much. On these lines
 one could write a more useful program which reads a C file, parses it and prints
 it in different colors. One could even extend it to other languages as well.
@@ -1184,13 +1192,13 @@ attributes on/off , get attributes and produce a colorful display.
 </para>
 
 <para>
-The functions attron and attroff take a bit-mask of attributes and switch them 
-on or off, respectively. The following video attributes, which are defined in 
-&lt;curses.h&gt; can be passed to these functions. 
+The functions attron and attroff take a bit-mask of attributes and switch them
+on or off, respectively. The following video attributes, which are defined in
+&lt;curses.h&gt; can be passed to these functions.
 </para>
 
 <programlisting>
-    
+
     A_NORMAL        Normal display (no highlight)
     A_STANDOUT      Best highlighting mode of the terminal.
     A_UNDERLINE     Underlining
@@ -1202,17 +1210,17 @@ on or off, respectively. The following video attributes, which are defined in
     A_INVIS         Invisible or blank mode
     A_ALTCHARSET    Alternate character set
     A_CHARTEXT      Bit-mask to extract a character
-    COLOR_PAIR(n)   Color-pair number n 
-    
+    COLOR_PAIR(n)   Color-pair number n
+
 </programlisting>
 
-<para> 
-The last one is the most colorful one :-) Colors are explained in the 
+<para>
+The last one is the most colorful one :-) Colors are explained in the
 <ulink url="#color">next sections</ulink>.
 </para>
 
 <para>
-We can OR(|) any number of above attributes to get a combined effect. If you 
+We can OR(|) any number of above attributes to get a combined effect. If you
 wanted reverse video with blinking characters you can use
 </para>
 
@@ -1263,7 +1271,7 @@ to above functions except that they take parameters of type
 <sect2 id="wattrfuncs"><title>wattr functions</title>
 <para>
 For each of the above functions we have a corresponding function with 'w' which
-operates on a particular window. The above functions operate on stdscr. 
+operates on a particular window. The above functions operate on stdscr.
 </para>
 </sect2>
 
@@ -1286,10 +1294,10 @@ this.
     chgat(-1, A_REVERSE, 0, NULL);
 </programlisting>
 
-<para> 
+<para>
 This function is useful when changing attributes for characters that are
 already on the screen. Move to the character from which you want to change and
-change the attribute. 
+change the attribute.
 </para>
 
 <para>
@@ -1302,13 +1310,13 @@ are macros.
 
 <example id="bwich"> <title> Chgat() Usage example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/with_chgat.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
 
 <para>
-This example also introduces us to the color world of curses. Colors will be 
+This example also introduces us to the color world of curses. Colors will be
 explained in detail later. Use 0 for no color.
 </para>
 </sect2>
@@ -1353,7 +1361,7 @@ window. Let's explore these functions in more detail in this example.
 
 <example id="bwibo"> <title>Window Border example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/win_border.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -1364,7 +1372,7 @@ window. Let's explore these functions in more detail in this example.
 
 <para>
 Don't scream. I know it is a big example. But I have to explain some important
-things here :-). This program creates a rectangular window that can be moved 
+things here :-). This program creates a rectangular window that can be moved
 with left, right, up, down arrow keys. It repeatedly creates and destroys
 windows as user press a key. Don't go beyond the screen limits. Checking for
 those limits is left as an exercise for the reader. Let's dissect it by line by line.
@@ -1382,7 +1390,7 @@ new window is created.
 
 <para>
 In the destroy_win, as you can see, I used wborder instead of box. The reason is
-written in the comments (You missed it. I know. Read the code :-)). wborder 
+written in the comments (You missed it. I know. Read the code :-)). wborder
 draws a border around the window with the characters given to it as the 4 corner
 points and the 4 lines. To put it clearly, if you have called wborder as below:
 <programlisting>
@@ -1391,7 +1399,7 @@ points and the 4 lines. To put it clearly, if you have called wborder as below:
 </para>
 
 <para>
-it produces something like 
+it produces something like
 </para>
 
 <programlisting>
@@ -1433,7 +1441,7 @@ length at the specified position.
 
 <example id="botbo"><title> More border functions</title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/other_border.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -1448,7 +1456,7 @@ Let's get into the thick of the things with a small program.
 </para>
 <example id="bsico"> <title> A Simple Color example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/simple_color.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -1459,7 +1467,7 @@ As you can see, to start using color, you should first call the function
 capabilities of your terminals using various functions. To find out whether a
 terminal has color capabilities or not, you can use
 <literal remap="tt">has_colors()</literal> function, which returns FALSE if
-the terminal does not support color. 
+the terminal does not support color.
 </para>
 
 <para>
@@ -1515,7 +1523,7 @@ If your terminal cannot change the color definitions, the function returns ERR.
 The function <literal remap="tt">can_change_color()</literal> can be used to
 find out whether the terminal has the capability of changing color content or
 not.  The rgb content is scaled from 0 to 1000. Initially RED color is defined
-with content 1000(r), 0(g), 0(b). 
+with content 1000(r), 0(g), 0(b).
 </para>
 </sect2>
 
@@ -1523,7 +1531,7 @@ with content 1000(r), 0(g), 0(b).
 <para>
 The functions <literal remap="tt">color_content()</literal> and
 <literal remap="tt">pair_content()</literal> can be used to find the color
-content and foreground, background combination for the pair. 
+content and foreground, background combination for the pair.
 </para>
 </sect2>
 </sect1>
@@ -1593,7 +1601,7 @@ and down arrows.
 <sect2 id="simplekeyex"> <title>A Simple Key Usage example </title>
 <example id="bsike"><title> A Simple Key Usage example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/simple_key.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -1604,7 +1612,7 @@ and down arrows.
 
 <para>
 Now that you have seen how to get keys, lets do the same thing from mouse.
-Usually each UI allows the user to interact with both keyboard and mouse. 
+Usually each UI allows the user to interact with both keyboard and mouse.
 </para>
 
 <sect2 id="mousebasics"> <title> The Basics </title>
@@ -1620,7 +1628,7 @@ with <literal remap="tt">mousemask()</literal>.
 </programlisting>
 
 <para>
-The first parameter to above function is a bit mask of events you would like to 
+The first parameter to above function is a bit mask of events you would like to
 listen. By default, all the events are turned off. The bit mask <literal
 remap="tt"> ALL_MOUSE_EVENTS</literal> can be used to get all the events.
 </para>
@@ -1682,7 +1690,7 @@ The code approximately looks like this:
             .
 </programlisting>
 
-<para> 
+<para>
 getmouse() returns the event into the pointer given to it. It is a structure
 which contains
 </para>
@@ -1693,7 +1701,7 @@ which contains
         short id;         /* ID to distinguish multiple devices */
         int x, y, z;      /* event coordinates */
         mmask_t bstate;   /* button state bits */
-    }    
+    }
 </programlisting>
 
 <para>
@@ -1720,7 +1728,7 @@ mouse interaction. To make things simpler, key handling is removed.
 
 <example id="bmome"> <title> Access the menu with mouse !!! </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/mouse_menu.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -1742,11 +1750,11 @@ interval value.  The default is one fifth of a second.
 </sect2>
 </sect1>
 
-<sect1 id="screen"><title>Screen Manipulation</title> 
+<sect1 id="screen"><title>Screen Manipulation</title>
 <para>
 In this section, we will look into some functions, which allow us to manage the
 screen efficiently and to write some fancy programs. This is especially
-important in writing games. 
+important in writing games.
 </para>
 
 <sect2 id="getyx"><title>getyx() functions </title>
@@ -1761,7 +1769,7 @@ the address of the variables. It can be called as
 <programlisting>
     getyx(win, y, x);
     /* win: window pointer
-     *   y, x: y, x co-ordinates will be put into this variables 
+     *   y, x: y, x co-ordinates will be put into this variables
      */
 </programlisting>
 
@@ -1787,7 +1795,7 @@ While writing games, some times it becomes necessary to store the state of the
 screen and restore it back to the same state. The function scr_dump() can be
 used to dump the screen contents to a file given as an argument. Later it can be
 restored by scr_restore function. These two simple functions can be used
-effectively to maintain a fast moving game with changing scenarios. 
+effectively to maintain a fast moving game with changing scenarios.
 </para>
 </sect2>
 
@@ -1800,7 +1808,7 @@ the present window state into a file, which can be later restored by
 <literal remap="tt">getwin()</literal>.
 </para>
 
-<para> 
+<para>
 The function <literal remap="tt">copywin()</literal> can be used to copy a
 window completely onto another window. It takes the source and destination
 windows as parameters and according to the rectangle specified, it copies the
@@ -1823,7 +1831,7 @@ cases.  Let's go headlong into some of those.
 <sect2 id="cursset"><title>curs_set() </title>
 <para>
 This function can be used to make the cursor invisible. The parameter to this
-function should be 
+function should be
 </para>
 
 <programlisting>
@@ -1849,7 +1857,7 @@ is an example showing the sequence of things to be done.
 
 <example id="btele"> <title> Temporarily Leaving Curses Mode </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/temp_leave.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -1859,16 +1867,16 @@ is an example showing the sequence of things to be done.
 
 <para>
 If you have ever programmed in DOS, you know about those nifty characters in
-extended character set. They are printable only on some terminals. NCURSES 
+extended character set. They are printable only on some terminals. NCURSES
 functions like <literal remap="tt">box()</literal> use these characters. All
-these variables start with ACS meaning alternative character set. You might have 
-noticed me using these characters in some of the programs above. Here is an example 
+these variables start with ACS meaning alternative character set. You might have
+noticed me using these characters in some of the programs above. Here is an example
 showing all the characters.
 </para>
 
 <example id="bacsvars"> <title> ACS Variables Example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/basics/acs_vars.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -1879,24 +1887,24 @@ showing all the characters.
 
 <para>
 Apart from the curses library, there are few text mode libraries, which provide
-more functionality and a lot of features. The following sections explain three 
-standard libraries which are usually distributed along with curses. 
+more functionality and a lot of features. The following sections explain three
+standard libraries which are usually distributed along with curses.
 </para>
 </sect1>
 
-<sect1 id="panels"><title> Panel Library</title> 
+<sect1 id="panels"><title> Panel Library</title>
 
 <para>
 Now that you are proficient in curses, you wanted to do some thing big. You
 created a lot of overlapping windows to give a professional windows-type look.
 Unfortunately, it soon becomes difficult to manage these. The multiple
 refreshes, updates plunge you into a nightmare. The overlapping windows create
-blotches, whenever you forget to refresh the windows in the proper order. 
+blotches, whenever you forget to refresh the windows in the proper order.
 </para>
 
 <para>
 Don't despair. There is an elegant solution provided in panels library. In the
-words of developers of ncurses 
+words of developers of ncurses
 </para>
 
 <para>
@@ -1925,7 +1933,7 @@ and use panels library to display them correctly. There is a function similar to
 refresh() which, when called , displays panels in the correct order. Functions
 are provided to hide or show panels, move panels, change its size, etc. The
 overlapping problem is managed by the panels library during all the calls to
-these functions. 
+these functions.
 </para>
 
 <para>
@@ -1938,7 +1946,7 @@ The general flow of a panel program goes like this:
 
 <listitem>
 <para>
-Create panels with the chosen visibility order. Stack them up according to the 
+Create panels with the chosen visibility order. Stack them up according to the
 desired visibility. The function new_panel() is used to created panels.
 </para>
 </listitem>
@@ -1946,7 +1954,7 @@ desired visibility. The function new_panel() is used to created panels.
 <listitem>
 <para>
 Call update_panels() to write the panels to the virtual screen in correct
-visibility order. Do a doupdate() to show it on the screen. 
+visibility order. Do a doupdate() to show it on the screen.
 </para>
 </listitem>
 
@@ -1969,7 +1977,7 @@ When you are done with the panel use del_panel() to delete the panel.
 
 <para>
 Let's make the concepts clear, with some programs.  The following is a simple
-program which creates 3 overlapping panels and shows them on the screen. 
+program which creates 3 overlapping panels and shows them on the screen.
 </para>
 </sect2>
 
@@ -1992,7 +2000,7 @@ program with panels library the flag -lpanel should be added along with
 
 <example id="ppasi"><title> Panel basics</title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/panels/panel_simple.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2013,7 +2021,7 @@ windows which can be cycled through using tab. Have a look at the code.
 
 <example id="ppabr"><title> Panel Window Browsing Example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/panels/panel_browse.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2030,7 +2038,7 @@ It can be accessed using the function <literal remap="tt">panel_userptr()
 </literal> which will return the user pointer for the panel given as
 argument. After finding the next panel in the cycle, it is brought to the top by
 the function top_panel().  This function brings the panel given as argument to
-the top of the panel stack.  
+the top of the panel stack.
 </para>
 </sect2>
 
@@ -2057,12 +2065,12 @@ can cycle through the window with &lt;TAB&gt; as usual. To resize or move the
 active panel press 'r' for resize 'm' for moving. Then use arrow keys to resize
 or move it to the desired way and press enter to end your resizing or moving.
 This example makes use of user data to get the required data to do the
-operations. 
+operations.
 </para>
 
 <example id="ppare"><title> Panel Moving and Resizing example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/panels/panel_resize.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2074,7 +2082,7 @@ this the new sizes are updated as the user presses the arrow keys. When the user
 presses &lt;ENTER&gt; present selection ends and panel is resized by using the
 concept explained.  While in resizing mode the program doesn't show how the
 window is getting resized.  It is left as an exercise to the reader to print a
-dotted border while it gets resized to a new position. 
+dotted border while it gets resized to a new position.
 </para>
 
 <para>
@@ -2115,7 +2123,7 @@ hidden or not is not working.  A bug report was also presented by Michael Andres
 
 <example id="ppahi"><title> Panel Hiding and Showing example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/panels/panel_hide.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2131,7 +2139,7 @@ return a pointer to bottom panel and top panel respectively.
 </sect2>
 </sect1>
 
-<sect1 id="menus"><title> Menus Library </title> 
+<sect1 id="menus"><title> Menus Library </title>
 <para>
 The menus library provides a nice extension to basic curses, through which you
 can create menus. It provides a set of functions to create menus. But they have
@@ -2152,7 +2160,7 @@ is dealt with in a later section. Now it is time for some rudiments.
 <para>
 To create menus, you first create items, and then post the menu to the display.
 After that, all the processing of user responses is done in an elegant function
-menu_driver() which is the work horse of any menu program. 
+menu_driver() which is the work horse of any menu program.
 </para>
 
 <para>
@@ -2195,7 +2203,7 @@ menu_driver.
 
 <para>
 Let's see a program which prints a simple menu and updates the current selection
-with up, down arrows. 
+with up, down arrows.
 </para>
 
 </sect2>
@@ -2219,7 +2227,7 @@ in that order.
 
 <example id="mmesi"> <title>Menu Basics </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/menus/menu_simple.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2237,24 +2245,24 @@ KEY_MOUSE special key associated with a mouse event.
 </para>
 
 <para>
-The menu_driver accepts following navigational requests. 
+The menu_driver accepts following navigational requests.
 <programlisting>
 
-     REQ_LEFT_ITEM         Move left to an item.
-     REQ_RIGHT_ITEM      Move right to an item.
-     REQ_UP_ITEM         Move up to an item.
-     REQ_DOWN_ITEM       Move down to an item.
-     REQ_SCR_ULINE       Scroll up a line.
-     REQ_SCR_DLINE          Scroll down a line.
-     REQ_SCR_DPAGE          Scroll down a page.
-     REQ_SCR_UPAGE         Scroll up a page.
+     REQ_LEFT_ITEM      Move left to an item.
+     REQ_RIGHT_ITEM     Move right to an item.
+     REQ_UP_ITEM        Move up to an item.
+     REQ_DOWN_ITEM      Move down to an item.
+     REQ_SCR_ULINE      Scroll up a line.
+     REQ_SCR_DLINE      Scroll down a line.
+     REQ_SCR_DPAGE      Scroll down a page.
+     REQ_SCR_UPAGE      Scroll up a page.
      REQ_FIRST_ITEM     Move to the first item.
-     REQ_LAST_ITEM         Move to the last item.
-     REQ_NEXT_ITEM         Move to the next item.
-     REQ_PREV_ITEM         Move to the previous item. 
-     REQ_TOGGLE_ITEM     Select/deselect an item.
-     REQ_CLEAR_PATTERN     Clear the menu pattern buffer.
-     REQ_BACK_PATTERN      Delete the previous character from the pattern buffer.
+     REQ_LAST_ITEM      Move to the last item.
+     REQ_NEXT_ITEM      Move to the next item.
+     REQ_PREV_ITEM      Move to the previous item.
+     REQ_TOGGLE_ITEM    Select/deselect an item.
+     REQ_CLEAR_PATTERN  Clear the menu pattern buffer.
+     REQ_BACK_PATTERN   Delete the previous character from the pattern buffer.
      REQ_NEXT_MATCH     Move to the next item matching the pattern match.
      REQ_PREV_MATCH     Move to the previous item matching the pattern match.
 
@@ -2302,7 +2310,7 @@ The four options REQ_SCR_ULINE, REQ_SCR_DLINE, REQ_SCR_DPAGE, REQ_SCR_UPAGE are
 related to scrolling. If all the items in the menu cannot be displayed in the
 menu sub window, then the menu is scrollable. These requests can be given to the
 menu_driver to do the scrolling either one line up, down or one page down or up
-respectively. 
+respectively.
 </para>
 </listitem>
 
@@ -2338,7 +2346,7 @@ selection to the next and previous matches respectively.
 <listitem><para> <emphasis>Mouse Requests</emphasis></para>
 <para>
 In case of KEY_MOUSE requests, according to the mouse position an action is
-taken accordingly. The action to be taken is explained in the man page as, 
+taken accordingly. The action to be taken is explained in the man page as,
 </para>
 <programlisting>
 <emphasis>
@@ -2380,7 +2388,7 @@ a border and a title.
 
 <example id="mmewi"><title> Menu Windows Usage example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/menus/menu_win.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2405,7 +2413,7 @@ scrolling. Let's see how it can be done.
 
 <example id="mmesc"><title> Scrolling Menus example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/menus/menu_scroll.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2433,7 +2441,7 @@ example doesn't show descriptions for the items.
 
 <example id="mmemuco"> <title> Milt Columnar Menus Example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/menus/menu_multi_column.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2473,7 +2481,7 @@ All options are on by default. You can switch specific attributes on or off with
 menu_opts_on() and menu_opts_off() functions. You can also use set_menu_opts()
 to directly specify the options. The argument to this function should be a OR ed
 value of some of those above constants. The function menu_opts() can be used to
-find out a menu's present options. 
+find out a menu's present options.
 </para>
 </sect2>
 
@@ -2486,7 +2494,7 @@ brings us to the request REQ_TOGGLE_ITEM. Let's see it in action.
 
 <example id="mmeto"><title> Multi Valued Menus example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/menus/menu_toggle.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2518,7 +2526,7 @@ menus similar to those text mode <ulink
 url="http://www.jersey.net/~debinjoe/games/">dos games</ulink>. The functions
 set_menu_fore() and set_menu_back() can be used to change the attribute of the
 selected item and unselected item. The names are misleading. They don't change
-menu's foreground or background which would have been useless. 
+menu's foreground or background which would have been useless.
 </para>
 
 <para>
@@ -2532,7 +2540,7 @@ this example
 
 <example id="mmeat"><title> Menu Options example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/menus/menu_attrib.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2549,14 +2557,14 @@ pressed &lt;ENTER&gt;);
 
 <example id="mmeus"><title> Menu User Pointer Usage </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/menus/menu_userptr.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
 </sect2>
 </sect1>
 
-<sect1 id="forms"><title> Forms Library </title> 
+<sect1 id="forms"><title> Forms Library </title>
 
 <para>
 Well. If you have seen those forms on web pages which take input from users and
@@ -2570,7 +2578,7 @@ validation, dynamic expansion of fields, etc. Let's see it in full flow.
 <para>
 A form is a collection of fields; each field can be either a label(static text)
 or a data-entry location. The forms also library provides functions to divide
-forms into multiple pages. 
+forms into multiple pages.
 </para>
 
 <sect2 id="formbasics"><title> The Basics </title>
@@ -2643,7 +2651,7 @@ in that order.
 
 <example id="ffosi"><title> Forms Basics </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/forms/form_simple.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2677,7 +2685,7 @@ The details of all the requests to the form_driver() are explained later.
 <sect2 id="playfields"><title> Playing with Fields </title>
 <para>
 Each form field is associated with a lot of attributes. They can be manipulated
-to get the required effect and to have fun !!!. So why wait? 
+to get the required effect and to have fun !!!. So why wait?
 </para>
 
 <sect3 id="fetchinfo"><title> Fetching Size and Location of Field </title>
@@ -2691,7 +2699,7 @@ sort of inverse of new_field().
 
 <programlisting>
 int field_info(     FIELD *field,              /* field from which to fetch */
-                    int *height, *int width,   /* field size */ 
+                    int *height, *int width,   /* field size */
                     int *top, int *left,       /* upper left corner */
                     int *offscreen,            /* number of offscreen rows */
                     int *nbuf);                /* number of working buffers */
@@ -2729,7 +2737,7 @@ set_field_just().
 </programlisting>
 
 <para>
-The justification mode valued accepted and returned by these functions are 
+The justification mode valued accepted and returned by these functions are
 NO_JUSTIFICATION, JUSTIFY_RIGHT, JUSTIFY_LEFT, or JUSTIFY_CENTER.
 </para>
 </sect3>
@@ -2749,21 +2757,21 @@ list gives the usage of functions.
 <programlisting>
 
 int set_field_fore(FIELD *field,        /* field to alter */
-                   chtype attr);        /* attribute to set */ 
+                   chtype attr);        /* attribute to set */
 
 chtype field_fore(FIELD *field);        /* field to query */
                                         /* returns foreground attribute */
 
 int set_field_back(FIELD *field,        /* field to alter */
-                   chtype attr);        /* attribute to set */ 
+                   chtype attr);        /* attribute to set */
 
 chtype field_back(FIELD *field);        /* field to query */
                                         /* returns background attribute */
 
 int set_field_pad(FIELD *field,         /* field to alter */
-                  int pad);             /* pad character to set */ 
+                  int pad);             /* pad character to set */
 
-chtype field_pad(FIELD *field);         /* field to query */  
+chtype field_pad(FIELD *field);         /* field to query */
                                         /* returns present pad character */
 
 </programlisting>
@@ -2781,7 +2789,7 @@ display colored fields? Here's an example clarifying color attributes.
 
 <example id="ffoat"> <title> Form Attributes example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/forms/form_attrib.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2790,7 +2798,7 @@ display colored fields? Here's an example clarifying color attributes.
 Play with the color pairs and try to understand the foreground and background
 attributes. In my programs using color attributes, I usually set only the
 background with set_field_back(). Curses simply doesn't allow defining
-individual color attributes. 
+individual color attributes.
 </para>
 </sect3>
 
@@ -2803,15 +2811,15 @@ functions:
 
 <programlisting>
 int set_field_opts(FIELD *field,          /* field to alter */
-                   int attr);             /* attribute to set */ 
+                   int attr);             /* attribute to set */
 
 int field_opts_on(FIELD *field,           /* field to alter */
-                  int attr);              /* attributes to turn on */ 
+                  int attr);              /* attributes to turn on */
 
 int field_opts_off(FIELD *field,          /* field to alter */
-                  int attr);              /* attributes to turn off */ 
+                  int attr);              /* attributes to turn off */
 
-int field_opts(FIELD *field);             /* field to query */ 
+int field_opts(FIELD *field);             /* field to query */
 </programlisting>
 
 <para>
@@ -2825,7 +2833,7 @@ all options are on.
 <variablelist>
 
 <varlistentry><term> O_VISIBLE </term>
-<listitem> 
+<listitem>
 <para>
 Controls whether the field is visible on the screen.  Can be used
 during form processing to hide or pop up fields depending on the value
@@ -2835,7 +2843,7 @@ of parent fields.
 </varlistentry>
 
 <varlistentry><term> O_ACTIVE </term>
-<listitem> 
+<listitem>
 <para>
 Controls whether the field is active during forms processing (i.e.
 visited by form navigation keys).  Can be used to make labels or derived
@@ -2846,7 +2854,7 @@ fields with buffer values alterable by the forms application, not the user.
 
 
 <varlistentry><term> O_PUBLIC</term>
-<listitem> 
+<listitem>
 <para>
 Controls whether data is displayed during field entry.  If this option is
 turned off on a field, the library will accept and edit data in that field,
@@ -2858,11 +2866,11 @@ You can turn off the O_PUBLIC bit to define password fields.
 
 
 <varlistentry><term> O_EDIT </term>
-<listitem> 
+<listitem>
 <para>
 Controls whether the field's data can be modified.  When this option is
 off, all editing requests except <literal remap="tt">REQ_PREV_CHOICE
-</literal> and <literal remap="tt">REQ_NEXT_CHOICE</literal>will 
+</literal> and <literal remap="tt">REQ_NEXT_CHOICE</literal>will
 fail.  Such read-only fields may be useful for help messages.
 </para>
 </listitem>
@@ -2870,7 +2878,7 @@ fail.  Such read-only fields may be useful for help messages.
 
 
 <varlistentry><term> O_WRAP </term>
-<listitem> 
+<listitem>
 <para>
 Controls word-wrapping in multi-line fields.  Normally, when any
 character of a (blank-separated) word reaches the end of the current line, the
@@ -2881,7 +2889,7 @@ option is off, the word will be split across the line break.
 </varlistentry>
 
 <varlistentry><term> O_BLANK </term>
-<listitem> 
+<listitem>
 <para>
 Controls field blanking.  When this option is on, entering a character at
 the first field position erases the entire field (except for the just-entered
@@ -2891,7 +2899,7 @@ character).
 </varlistentry>
 
 <varlistentry><term> O_AUTOSKIP </term>
-<listitem> 
+<listitem>
 <para>
 Controls automatic skip to next field when this one fills.  Normally,
 when the forms user tries to type more data into a field than will fit,
@@ -2904,7 +2912,7 @@ in dynamic fields that have not reached their size limit.
 
 
 <varlistentry><term> O_NULLOK </term>
-<listitem> 
+<listitem>
 <para>
 Controls whether validation is applied to
 blank fields.  Normally, it is not; the user can leave a field blank
@@ -2915,7 +2923,7 @@ off on a field, exit from it will invoke a validation check.
 </varlistentry>
 
 <varlistentry><term> O_PASSOK </term>
-<listitem> 
+<listitem>
 <para>
 Controls whether validation occurs on every exit, or only after
 the field is modified.  Normally the latter is true.  Setting O_PASSOK
@@ -2926,7 +2934,7 @@ forms processing.
 </varlistentry>
 
 <varlistentry><term> O_STATIC </term>
-<listitem> 
+<listitem>
 <para>
 Controls whether the field is fixed to its initial dimensions.  If you
 turn this off, the field becomes dynamic and will
@@ -2938,7 +2946,7 @@ stretch to fit entered data.
 
 <para>
 A field's options cannot be changed while the field is currently selected.
-However, options may be changed on posted fields that are not current. 
+However, options may be changed on posted fields that are not current.
 </para>
 
 <para>
@@ -2950,7 +2958,7 @@ are explained where appropriate.
 
 <example id="ffoop"> <title> Field Options Usage example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/forms/form_options.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -2998,7 +3006,7 @@ purpose by the user. The following functions set and fetch user pointer.
 </para>
 
 <programlisting>
-int set_field_userptr(FIELD *field,   
+int set_field_userptr(FIELD *field,
            char *userptr);      /* the user pointer you wish to associate */
                                 /* with the field    */
 
@@ -3017,7 +3025,7 @@ new data.
 
 <para>
 To make a field dynamically growable, the option O_STATIC should be turned off.
-This can be done with a 
+This can be done with a
 <programlisting>
     field_opts_off(field_pointer, O_STATIC);
 </programlisting>
@@ -3025,7 +3033,7 @@ This can be done with a
 
 <para>
 But it is usually not advisable to allow a field to grow infinitely. You can set
-a maximum limit to the growth of the field with 
+a maximum limit to the growth of the field with
 <programlisting>
 int set_max_field(FIELD *field,    /* Field on which to operate */
                   int max_growth); /* maximum growth allowed for the field */
@@ -3033,7 +3041,7 @@ int set_max_field(FIELD *field,    /* Field on which to operate */
 </para>
 
 <para>
-The field info for a dynamically growable field can be retrieved by 
+The field info for a dynamically growable field can be retrieved by
 <programlisting>
 int dynamic_field_info( FIELD *field,     /* Field on which to operate */
             int   *prows,     /* number of rows will be filled in this */
@@ -3048,14 +3056,14 @@ proper attributes of a dynamically growable field.
 <para>
 Recall the library routine new_field; a new field created with height set to one
 will be defined to be a one line field. A new field created with height greater
-than one will be defined to be a multi line field. 
+than one will be defined to be a multi line field.
 </para>
 
 <para>
 A one line field with O_STATIC turned off (dynamically growable field)  will
 contain a single fixed row, but the number of columns can increase if the user
 enters more data than the initial field will hold. The number of columns
-displayed will remain fixed and the additional data will scroll horizontally. 
+displayed will remain fixed and the additional data will scroll horizontally.
 </para>
 
 <para>
@@ -3066,7 +3074,7 @@ displayed will remain fixed and the additional data will scroll vertically.
 </para>
 
 <para>
-The above two paragraphs pretty much describe a dynamically growable field's 
+The above two paragraphs pretty much describe a dynamically growable field's
 behavior. The way other parts of forms library behaves is described below:
 </para>
 
@@ -3078,7 +3086,7 @@ generates an automatic REQ_NEXT_FIELD form driver request when the user types in
 the last character position of a field. On a growable field with no maximum
 growth specified, there is no last character position. If a maximum growth is
 specified, the O_AUTOSKIP option will work as normal if the field has grown to
-its maximum size. 
+its maximum size.
 </para></listitem>
 
 <listitem>
@@ -3087,7 +3095,7 @@ The field justification will be ignored if the option O_STATIC is off.
 Currently, set_field_just can be used to JUSTIFY_LEFT, JUSTIFY_RIGHT,
 JUSTIFY_CENTER the contents of a one line field. A growable one line field will,
 by definition, grow and scroll horizontally and may contain more data than can
-be justified. The return from field_just will be unchanged. 
+be justified. The return from field_just will be unchanged.
 </para></listitem>
 
 <listitem>
@@ -3100,14 +3108,14 @@ if called from the last line of a field. If a field can grow without bound,
 there is no last line, so REQ_NEW_LINE will never implicitly generate a
 REQ_NEXT_FIELD. If a maximum growth limit is specified and the O_NL_OVERLOAD
 form option is on, REQ_NEW_LINE will only implicitly generate REQ_NEXT_FIELD if
-the field has grown to its maximum size and the user is on the last line. 
+the field has grown to its maximum size and the user is on the last line.
 </para></listitem>
 
 <listitem>
 <para>
 The library call dup_field will work as usual; it will duplicate the field,
 including the current buffer size and contents of the field being duplicated.
-Any specified maximum growth will also be duplicated. 
+Any specified maximum growth will also be duplicated.
 </para></listitem>
 
 <listitem><para>
@@ -3115,7 +3123,7 @@ The library call link_field will work as usual; it will duplicate all field
 attributes and share buffers with the field being linked. If the O_STATIC field
 option is subsequently changed by a field sharing buffers, how the system reacts
 to an attempt to enter more data into the field than the buffer will currently
-hold will depend on the setting of the option in the current field. 
+hold will depend on the setting of the option in the current field.
 </para></listitem>
 
 <listitem><para>
@@ -3138,7 +3146,7 @@ The form windows concept is pretty much similar to menu windows. Every form is
 associated with a main window and a sub window. The form main window displays
 any title or border associated or whatever the user wishes. Then the sub window
 contains all the fields and displays them according to their position. This
-gives the flexibility of manipulating fancy form displaying very easily. 
+gives the flexibility of manipulating fancy form displaying very easily.
 </para>
 
 <para>
@@ -3148,7 +3156,7 @@ with out much explanation. The functions are similar and they work the same way.
 
 <example id="ffowi"><title> Form Windows Example </title>
 <programlisting><inlinemediaobject><imageobject>
-    <imagedata format="linespecific"  
+    <imagedata format="linespecific"
     fileref="ncurses_programs/forms/form_win.c">
 </imageobject></inlinemediaobject></programlisting>
 </example>
@@ -3178,13 +3186,13 @@ FIELDTYPE *field_type(FIELD *field);      /* field to query */
 
 <para>
 The form driver validates the data in a field only when data is entered by the
-end-user. Validation does not occur when 
+end-user. Validation does not occur when
 </para>
 
 <itemizedlist>
 
 <listitem><para>
-the application program changes the field value by calling set_field_buffer. 
+the application program changes the field value by calling set_field_buffer.
 </para></listitem>
 
 <listitem><para>
@@ -3202,7 +3210,7 @@ validation, though it is a bit tricky and cumbersome.
 <bridgehead>TYPE_ALPHA</bridgehead>
 <para>
 This field type accepts alphabetic data; no blanks, no digits, no special
-characters (this is checked at character-entry time).  It is set up with: 
+characters (this is checked at character-entry time).  It is set up with:
 </para>
 
 <programlisting>
@@ -3216,14 +3224,14 @@ The width argument sets a minimum width of data. The user has to enter at-least
 width number of characters before he can leave the field. Typically
 you'll want to set this to the field width; if it is greater than the
 field width, the validation check will always fail.  A minimum width
-of zero makes field completion optional. 
+of zero makes field completion optional.
 </para>
 
 <bridgehead>TYPE_ALNUM</bridgehead>
 
 <para>
 This field type accepts alphabetic data and digits; no blanks, no special
-characters (this is checked at character-entry time).  It is set up with: 
+characters (this is checked at character-entry time).  It is set up with:
 </para>
 
 <programlisting>
@@ -3236,14 +3244,14 @@ int set_field_type(FIELD *field,          /* field to alter */
 The width argument sets a minimum width of data.  As with
 TYPE_ALPHA, typically you'll want to set this to the field width; if it is
 greater than the field width, the validation check will always fail.  A
-minimum width of zero makes field completion optional. 
+minimum width of zero makes field completion optional.
 </para>
 
 <bridgehead>TYPE_ENUM</bridgehead>
 <para>
 This type allows you to restrict a field's values to be among a specified
 set of string values (for example, the two-letter postal codes for U.S.
-states).  It is set up with: 
+states).  It is set up with:
 </para>
 
 <programlisting>
@@ -3257,32 +3265,32 @@ int set_field_type(FIELD *field,          /* field to alter */
 <para>
 The valuelist parameter must point at a NULL-terminated list of
 valid strings.  The checkcase argument, if true, makes comparison
-with the string case-sensitive. 
+with the string case-sensitive.
 </para>
 
 <para>
 When the user exits a TYPE_ENUM field, the validation procedure tries to
 complete the data in the buffer to a valid entry.  If a complete choice string
 has been entered, it is of course valid.  But it is also possible to enter a
-prefix of a valid string and have it completed for you. 
+prefix of a valid string and have it completed for you.
 </para>
 
 <para>
 By default, if you enter such a prefix and it matches more than one value
 in the string list, the prefix will be completed to the first matching
 value.  But the checkunique argument, if true, requires prefix
-matches to be unique in order to be valid. 
+matches to be unique in order to be valid.
 </para>
 
 <para>
 The REQ_NEXT_CHOICE and REQ_PREV_CHOICE input requests can be particularly
-useful with these fields. 
+useful with these fields.
 </para>
 
 <bridgehead>TYPE_INTEGER</bridgehead>
 
 <para>
-This field type accepts an integer.  It is set up as follows: 
+This field type accepts an integer.  It is set up as follows:
 </para>
 
 <programlisting>
@@ -3295,22 +3303,22 @@ int set_field_type(FIELD *field,          /* field to alter */
 <para>
 Valid characters consist of an optional leading minus and digits.
 The range check is performed on exit.  If the range maximum is less
-than or equal to the minimum, the range is ignored. 
+than or equal to the minimum, the range is ignored.
 </para>
 
 <para>
 If the value passes its range check, it is padded with as many leading
-zero digits as necessary to meet the padding argument. 
+zero digits as necessary to meet the padding argument.
 </para>
 
 <para>
-A TYPE_INTEGER value buffer can conveniently be interpreted with the C library 
+A TYPE_INTEGER value buffer can conveniently be interpreted with the C library
 function atoi(3).
 </para>
 
 <bridgehead>TYPE_NUMERIC</bridgehead>
 <para>
-This field type accepts a decimal number.  It is set up as follows: 
+This field type accepts a decimal number.  It is set up as follows:
 </para>
 
 <programlisting>
@@ -3324,23 +3332,23 @@ int set_field_type(FIELD *field,          /* field to alter */
 Valid characters consist of an optional leading minus and digits. possibly
 including a decimal point.  The range check is performed on exit.  If the
 range maximum is less than or equal to the minimum, the range is
-ignored. 
+ignored.
 </para>
 
 <para>
 If the value passes its range check, it is padded with as many trailing
-zero digits as necessary to meet the padding argument. 
+zero digits as necessary to meet the padding argument.
 </para>
 
 <para>
-A TYPE_NUMERIC value buffer can conveniently be interpreted with the C library 
+A TYPE_NUMERIC value buffer can conveniently be interpreted with the C library
 function atof(3).
 </para>
 
 <bridgehead>TYPE_REGEXP</bridgehead>
 <para>
 This field type accepts data matching a regular expression.  It is set up
-as follows: 
+as follows:
 </para>
 
 <programlisting>
@@ -3405,7 +3413,7 @@ form page.</para></listitem>
 <listitem><para><emphasis>REQ_FIRST_PAGE</emphasis> Move to the first form page.
 </para> </listitem>
 
-<listitem><para><emphasis>REQ_LAST_PAGE</emphasis> Move to the last form page. 
+<listitem><para><emphasis>REQ_LAST_PAGE</emphasis> Move to the last form page.
 </para> </listitem>
 </itemizedlist>
 
@@ -3422,17 +3430,17 @@ These requests handle navigation between fields on the same page.
 </para>
 
 <itemizedlist>
-<listitem><para><emphasis>REQ_NEXT_FIELD</emphasis> 
+<listitem><para><emphasis>REQ_NEXT_FIELD</emphasis>
     Move to next field.  </para> </listitem>
 <listitem><para><emphasis>REQ_PREV_FIELD</emphasis>
     Move to previous field.  </para></listitem>
 <listitem><para><emphasis>REQ_FIRST_FIELD</emphasis>
     Move to the first field. </para> </listitem>
-<listitem><para><emphasis>REQ_LAST_FIELD</emphasis> 
+<listitem><para><emphasis>REQ_LAST_FIELD</emphasis>
     Move to the last field. </para> </listitem>
 <listitem><para><emphasis>REQ_SNEXT_FIELD</emphasis>
     Move to sorted next field. </para> </listitem>
-<listitem><para><emphasis>REQ_SPREV_FIELD</emphasis> 
+<listitem><para><emphasis>REQ_SPREV_FIELD</emphasis>
     Move to sorted previous field. </para> </listitem>
 <listitem><para><emphasis>REQ_SFIRST_FIELD</emphasis>
     Move to the sorted first field. </para> </listitem>
@@ -3487,13 +3495,13 @@ selected field.
 <itemizedlist>
 <listitem><para><emphasis>REQ_NEXT_CHAR</emphasis>
     Move to next character.  </para> </listitem>
-<listitem><para><emphasis>REQ_PREV_CHAR</emphasis> 
+<listitem><para><emphasis>REQ_PREV_CHAR</emphasis>
     Move to previous character.  </para> </listitem>
-<listitem><para><emphasis>REQ_NEXT_LINE</emphasis> 
+<listitem><para><emphasis>REQ_NEXT_LINE</emphasis>
     Move to next line.  </para> </listitem>
-<listitem><para><emphasis>REQ_PREV_LINE</emphasis> 
+<listitem><para><emphasis>REQ_PREV_LINE</emphasis>
     Move to previous line.  </para> </listitem>
-<listitem><para><emphasis>REQ_NEXT_WORD</emphasis> 
+<listitem><para><emphasis>REQ_NEXT_WORD</emphasis>
     Move to next word. </para> </listitem>
 <listitem><para><emphasis>REQ_PREV_WORD</emphasis>
     Move to previous word. </para> </listitem>
@@ -3505,13 +3513,13 @@ selected field.
     Move to beginning of line. </para> </listitem>
 <listitem><para><emphasis>REQ_END_LINE</emphasis>
     Move to end of line.  </para> </listitem>
-<listitem><para><emphasis>REQ_LEFT_CHAR</emphasis> 
+<listitem><para><emphasis>REQ_LEFT_CHAR</emphasis>
     Move left in field. </para> </listitem>
 <listitem><para><emphasis>REQ_RIGHT_CHAR</emphasis>
     Move right in field.  </para> </listitem>
 <listitem><para><emphasis>REQ_UP_CHAR</emphasis>
     Move up in field. </para> </listitem>
-<listitem><para><emphasis>REQ_DOWN_CHAR</emphasis> 
+<listitem><para><emphasis>REQ_DOWN_CHAR</emphasis>
     Move down in field. </para> </listitem>
 </itemizedlist>
 
@@ -3535,9 +3543,9 @@ requests:
 <itemizedlist>
 <listitem><para><emphasis>REQ_SCR_FLINE</emphasis>
     Scroll vertically forward a line.  </para> </listitem>
-<listitem><para><emphasis>REQ_SCR_BLINE</emphasis> 
+<listitem><para><emphasis>REQ_SCR_BLINE</emphasis>
     Scroll vertically backward a line.  </para> </listitem>
-<listitem><para><emphasis>REQ_SCR_FPAGE</emphasis> 
+<listitem><para><emphasis>REQ_SCR_FPAGE</emphasis>
     Scroll vertically forward a page.  </para> </listitem>
 <listitem><para><emphasis>REQ_SCR_BPAGE</emphasis>
     Scroll vertically backward a page. </para> </listitem>
@@ -3577,11 +3585,11 @@ The following requests support editing the field and changing the edit mode:
 </para>
 
 <itemizedlist>
-<listitem><para><emphasis>REQ_INS_MODE</emphasis> 
+<listitem><para><emphasis>REQ_INS_MODE</emphasis>
     Set insertion mode. </para> </listitem>
-<listitem><para><emphasis>REQ_OVL_MODE</emphasis> 
+<listitem><para><emphasis>REQ_OVL_MODE</emphasis>
     Set overlay mode. </para> </listitem>
-<listitem><para><emphasis>REQ_NEW_LINE</emphasis> 
+<listitem><para><emphasis>REQ_NEW_LINE</emphasis>
     New line request (see below for explanation). </para> </listitem>
 <listitem><para><emphasis>REQ_INS_CHAR</emphasis>
     Insert space at character location.  </para> </listitem>
@@ -3589,7 +3597,7 @@ The following requests support editing the field and changing the edit mode:
     Insert blank line at character location.  </para> </listitem>
 <listitem><para><emphasis>REQ_DEL_CHAR</emphasis>
     Delete character at cursor.  </para> </listitem>
-<listitem><para><emphasis>REQ_DEL_PREV</emphasis> 
+<listitem><para><emphasis>REQ_DEL_PREV</emphasis>
     Delete previous word at cursor. </para> </listitem>
 <listitem><para><emphasis>REQ_DEL_LINE</emphasis>
     Delete line at cursor. </para> </listitem>
@@ -3665,10 +3673,10 @@ are requests that can fetch that value into the field buffer:
 </para>
 
 <itemizedlist>
-<listitem><para><emphasis>REQ_NEXT_CHOICE</emphasis> 
-    Place the successor value of the current value in the buffer. 
+<listitem><para><emphasis>REQ_NEXT_CHOICE</emphasis>
+    Place the successor value of the current value in the buffer.
     </para> </listitem>
-<listitem><para><emphasis>REQ_PREV_CHOICE</emphasis> 
+<listitem><para><emphasis>REQ_PREV_CHOICE</emphasis>
     Place the predecessor value of the current value in the buffer.
     </para> </listitem>
 </itemizedlist>
@@ -3693,7 +3701,7 @@ corresponding action.
 </sect1>
 
 <sect1 id="tools"><title> Tools and Widget Libraries</title>
-<para> 
+<para>
 Now that you have seen the capabilities of ncurses and its sister libraries, you
 are rolling your sleeves up and gearing for a project that heavily manipulates
 screen. But wait..  It can be pretty difficult to write and maintain complex GUI
@@ -3703,16 +3711,16 @@ own widgets. You can use some of them, get ideas from the code, or even extend
 them.
 </para>
 
-<sect2 id="cdk"><title> CDK (Curses Development Kit) </title> 
+<sect2 id="cdk"><title> CDK (Curses Development Kit) </title>
 <para>
-In the author's words 
+In the author's words
 </para>
 
 <para>
-<emphasis> 
+<emphasis>
 CDK stands for 'Curses Development Kit' and it currently contains 21 ready
 to use widgets which facilitate the speedy development of full screen
-curses programs. 
+curses programs.
 </emphasis>
 </para>
 
@@ -3722,7 +3730,7 @@ directly. It is pretty well written and the documentation is very good. The
 examples in the examples directory can be a good place to start for beginners.
 The CDK can be downloaded from <ulink
 url="https://invisible-island.net/cdk/">https://invisible-island.net/cdk/</ulink>
-. Follow the instructions in 
+. Follow the instructions in
 README file to install it.
 </para>
 
@@ -3738,7 +3746,7 @@ Widget Type           Quick Description
 Alphalist             Allows a user to select from a list of words, with
                       the ability to narrow the search list by typing in a
                       few characters of the desired word.
-Buttonbox             This creates a multiple button widget. 
+Buttonbox             This creates a multiple button widget.
 Calendar              Creates a little simple calendar widget.
 Dialog                Prompts the user with a message, and the user
                       can pick an answer from the buttons provided.
@@ -3761,17 +3769,17 @@ Multiple Line Entry   A multiple line entry field. Very useful
                       field)
 Radio List            Creates a radio button list.
 Scale                 Creates a numeric scale. Used for allowing a user to
-                      pick a numeric value and restrict them to a range of 
+                      pick a numeric value and restrict them to a range of
                       values.
 Scrolling List        Creates a scrolling list/menu list.
-Scrolling Window      Creates a scrolling log file viewer. Can add 
-                      information into the window while its running. 
+Scrolling Window      Creates a scrolling log file viewer. Can add
+                      information into the window while its running.
                       A good widget for displaying the progress of
                       something. (akin to a console window)
 Selection List        Creates a multiple option selection list.
 Slider                Akin to the scale widget, this widget provides a
                       visual slide bar to represent the numeric value.
-Template              Creates a entry field with character sensitive 
+Template              Creates a entry field with character sensitive
                       positions. Used for pre-formatted fields like
                       dates and phone numbers.
 Viewer                This is a file/information viewer. Very useful
@@ -3817,7 +3825,7 @@ form a strong frame work for developing complex GUI.
 </sect3>
 </sect2>
 
-<sect2 id="dialog"><title> The dialog </title>  
+<sect2 id="dialog"><title> The dialog </title>
 <para>
 Long long ago, in September 1994, when few people knew linux, Jeff Tranter wrote
 an <ulink url="http://www2.linuxjournal.com/lj-issues/issue5/2807.html">article
@@ -3835,18 +3843,18 @@ examples of how and where it can be used
 </emphasis>
 </para>
 
-<para> 
+<para>
 As he explains, dialog is a real gem in making professional-looking dialog boxes
 with ease. It creates a variety of dialog boxes, menus, check lists, etc. It is
 usually installed by default. If not, you can download it from <ulink
-url="https://invisible-island.net/dialog/">Thomas Dickey</ulink>'s site. 
+url="https://invisible-island.net/dialog/">Thomas Dickey</ulink>'s site.
 </para>
 
 <para>
 The above-mentioned article gives a very good overview of its uses and
 capabilities.  The man page has more details. It can be used in variety of
 situations. One good example is building of linux kernel in text mode. Linux
-kernel uses a modified version of dialog tailored for its needs. 
+kernel uses a modified version of dialog tailored for its needs.
 </para>
 
 <para>
@@ -3859,7 +3867,7 @@ occasions by modifying the code.
 </para>
 </sect2>
 
-<sect2 id="perlcurses"><title> Perl Curses Modules CURSES::FORM and CURSES::WIDGETS</title> 
+<sect2 id="perlcurses"><title> Perl Curses Modules CURSES::FORM and CURSES::WIDGETS</title>
 <para>
 The perl module Curses, Curses::Form and Curses::Widgets give access to curses
 from perl.  If you have curses and basic perl is installed, you can get these
@@ -3877,7 +3885,7 @@ Some of my code examples are converted to perl by Anuradha Ratnaweera and they
 are available in the <literal remap="tt">perl</literal> directory.
 </para>
 
-<para> 
+<para>
 For more information see man pages Curses(3) , Curses::Form(3) and
 Curses::Widgets(3).  These pages are installed only when the above modules are
 acquired and installed.
@@ -3898,10 +3906,10 @@ me</ulink>.
 
 <sect2 id="gameoflife"><title>The Game of Life</title>
 <para>
-Game of life is a wonder of math. In 
+Game of life is a wonder of math. In
 <ulink url="http://www.math.com/students/wonders/life/life.html">
 Paul Callahan</ulink>'s words
-</para> 
+</para>
 
 <programlisting>
 <emphasis>
@@ -3960,7 +3968,7 @@ not to place a larger disk over a small disk at any time.
 <sect2 id="queens"> <title> Queens Puzzle </title>
 <para>
 The objective of the famous N-Queen puzzle is to put N queens on a N X N chess
-board without attacking each other. 
+board without attacking each other.
 </para>
 
 <para>
@@ -3974,7 +3982,7 @@ This program solves it with a simple backtracking technique.
 
 <sect2 id="shuffle"> <title>Shuffle </title>
 <para>
-A fun game, if you have time to kill. 
+A fun game, if you have time to kill.
 </para>
 
 <para>
@@ -3986,7 +3994,7 @@ A fun game, if you have time to kill.
 <para>
 A simple typing tutor, I created more out of need than for ease of use. If you
 know how to put your fingers correctly on the keyboard, but lack practice, this
-can be helpful. 
+can be helpful.
 </para>
 
 <para>
@@ -4004,7 +4012,7 @@ url="https://invisible-island.net/ncurses/ncurses.faq.html">
 https://invisible-island.net/ncurses/ncurses.faq.html</ulink>
     </para> </listitem>
 <listitem><para>Writing programs with NCURSES by Eric Raymond and Zeyd M.
-Ben-Halim at 
+Ben-Halim at
 <ulink
 url="https://invisible-island.net/ncurses/ncurses-intro.html">https://invisible-island.net/ncurses/ncurses-intro.html</ulink> - somewhat
 obsolete. I was inspired by this document and the structure of this HOWTO

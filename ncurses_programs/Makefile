@@ -1,11 +1,14 @@
 # The top level Makefile
 
+CC=gcc
+MAKE_RECUR = $(MAKE) CC=$(CC)
+
 all:	
-	cd JustForFun 	&& $(MAKE)
-	cd basics	&& $(MAKE)
-	cd forms	&& $(MAKE)
-	cd menus	&& $(MAKE)
-	cd panels	&& $(MAKE)
+	cd JustForFun 	&& $(MAKE_RECUR)
+	cd basics	&& $(MAKE_RECUR)
+	cd forms	&& $(MAKE_RECUR)
+	cd menus	&& $(MAKE_RECUR)
+	cd panels	&& $(MAKE_RECUR)
 	@echo 
 	@echo "*********************************************"
 	@echo "All files Built"
@@ -14,9 +17,9 @@ all:
 	@echo "*********************************************"
 	@echo
 clean:
-	cd JustForFun 	&& $(MAKE) clean
-	cd basics	&& $(MAKE) clean
-	cd forms	&& $(MAKE) clean
-	cd menus	&& $(MAKE) clean
-	cd panels	&& $(MAKE) clean
+	cd JustForFun 	&& $(MAKE_RECUR) clean
+	cd basics	&& $(MAKE_RECUR) clean
+	cd forms	&& $(MAKE_RECUR) clean
+	cd menus	&& $(MAKE_RECUR) clean
+	cd panels	&& $(MAKE_RECUR) clean
 	rm -rf demo
