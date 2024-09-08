@@ -9,6 +9,7 @@
 <article id="index">
 <articleinfo>
     <title> NCURSES Programming HOWTO </title>
+    <authorgroup>
     <author>
         <firstname> Pradeep </firstname>
         <surname> Padala </surname>
@@ -16,13 +17,24 @@
         <address><email>ppadala@gmail.com</email></address>
         </affiliation>
     </author>
+    <author>
+        <firstname> Thomas </firstname>
+        <othername> E. </othername>
+        <surname> Dickey </surname>
+        <affiliation>
+        <address><email>dickey@invisible-island.net</email></address>
+        </affiliation>
+    </author>
+    </authorgroup>
     <revhistory>
 
     <revision>
         <revnumber>2.1</revnumber>
-        <date>2024-09-07</date>
+        <date>2024-09-08</date>
         <authorinitials>dickey</authorinitials>
         <revremark>Fixes for the sample programs.
+        Remove obsolete mailing addresses.
+        Update publication date.
         </revremark>
     </revision>
 
@@ -130,14 +142,14 @@
     </revision>
 
     </revhistory>
-    <pubdate>v1.9, 2005-06-20</pubdate>
+    <pubdate>v2.1, 2024-09-08</pubdate>
     <abstract>
     <para>
     <emphasis>
 This document is intended to be an "All in One" guide for programming with
 ncurses and its sister libraries. We graduate from a simple "Hello World"
 program to more complex form manipulation. No prior experience in ncurses is
-assumed. Send comments to <ulink url="mailto:ppadala@gmail.com">this address
+assumed. Send comments to <ulink url="mailto:bug-ncurses@gnu.org">this address
 </ulink>
     </emphasis>
     </para>
@@ -152,7 +164,7 @@ were connected to them through serial cables. The terminals could be configured
 by sending a series of bytes. All the capabilities (such as
 moving the cursor to a new location, erasing part of the screen, scrolling the
 screen, changing modes, etc.) of terminals could be accessed through these
-series of bytes. These control seeuqnces are usually called escape sequences,
+series of bytes. These control sequences are usually called escape sequences,
 because they start
 with an escape(0x1B) character. Even today, with proper emulation, we can send
 escape sequences to the emulator and achieve the same effect on a terminal
@@ -256,40 +268,47 @@ you don't have the library or want to compile it on your own, read on.
 <para><emphasis>Compiling the package</emphasis> </para>
 
 <para>
-NCURSES can be obtained from <ulink url=
-"ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz">
-ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz</ulink> or any of the ftp
-sites mentioned in <ulink url="https://www.gnu.org/order/ftp.html">
+NCURSES can be obtained from
+</para>
+<itemizedlist>
+<listitem>
+<para>
+the home page at
+<ulink url="https://invisible-island.net/">https://invisible-island.net</ulink>,
+as well as
+</para>
+</listitem>
+<listitem>
+<para>
+<ulink url="https://ftp.gnu.org/pub/gnu/ncurses/">
+https://ftp.gnu.org/pub/gnu/ncurses/</ulink> or
+</para>
+</listitem>
+<listitem>
+<para>
+any of the
+mirror sites mentioned in <ulink url="https://www.gnu.org/order/ftp.html">
 https://www.gnu.org/order/ftp.html</ulink>.
 </para>
+</listitem>
+</itemizedlist>
 
 <para>
-Read the README and INSTALL files for details on to how to install it. It
-usually involves the following operations.
+Read the README and
+<ulink url="https://invisible-island.net/ncurses/INSTALL.html">INSTALL</ulink>
+files for details on to how to install it.
+It usually involves the following operations.
 </para>
 
 <programlisting>
     tar zxvf ncurses&lt;version&gt;.tar.gz  # unzip and untar the archive
     cd ncurses&lt;version&gt;               # cd to the directory
-    ./configure                             # configure the build according to your
-                                            # environment
-    make                                    # make it
-    su root                                 # become root
-    make install                            # install it
+    ./configure                       # configure the build according to your
+                                      # environment
+    make                              # make it
+    su root                           # become root
+    make install                      # install it
 </programlisting>
-
-<para><emphasis>Using the RPM </emphasis></para>
-
-<para>
-NCURSES RPM can be found and downloaded from <ulink url="https://rpmfind.net">
-https://rpmfind.net </ulink>. The RPM can be installed with the following
-command after becoming root.
-</para>
-
-<programlisting>
-    rpm -i &lt;downloaded rpm&gt;
-</programlisting>
-</sect2>
 
 <sect2 id="purpose"><title>Purpose/Scope of the document</title>
 <para>
@@ -303,9 +322,9 @@ each of the examples.
 
 <sect2 id="aboutprograms"><title>About the Programs</title>
 <para>
-All the programs in the document are available in zipped form
-<ulink url="https://www.tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs.tar.gz">
-here</ulink>. Unzip and untar it. The directory structure looks like this.
+All the programs in the document are available in gzipped form
+<ulink url="https://invisible-island.net/ncurses/howto/ncurses_programs.tar.gz">
+here</ulink>. Ungzip and untar it. The directory structure looks like this.
 </para>
 
 <programlisting>
@@ -405,12 +424,6 @@ For every example, I have included path name for the file relative to the
 examples directory.
 </para>
 
-<simpara> If you prefer browsing individual programs, point your browser to
-<ulink
-url="https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/">
-https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/
-</ulink></simpara>
-
 <para>
 All the programs are released under the same license that is used by ncurses
 (MIT-style). This gives you the ability to do pretty much anything other than
@@ -421,75 +434,67 @@ claiming them as yours. Feel free to use them in your programs as appropriate.
 <sect2 id="otherformats"><title>Other Formats of the document </title>
 
 <para>
-This howto is also available in various other formats on the tldp.org site.
+This howto is also available in other formats.
 Here are the links to other formats of this document.
 </para>
 
-<sect3 id="listformats"><title>Readily available formats from tldp.org</title>
+<sect3 id="listformats"><title>Alternative formats</title>
 
 <itemizedlist>
 <listitem>
 <para>
-<ulink url="https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/pdf/NCURSES-Programming-HOWTO.pdf">Acrobat PDF Format</ulink>
+<ulink url="https://invisible-island.net/ncurses/howto/NCURSES-Programming-HOWTO.pdf">Acrobat PDF Format</ulink>
 </para>
 </listitem>
 
 <listitem>
 <para>
-<ulink url="https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/ps/NCURSES-Programming-HOWTO.ps.gz">PostScript Format</ulink>
+<ulink url="https://invisible-island.net/ncurses/howto/NCURSES-Programming-HOWTO.ps">PostScript Format</ulink>
 </para>
 </listitem>
 
 <listitem>
 <para>
-<ulink url="https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html/NCURSES-Programming-HOWTO-html.tar.gz">In Multiple HTML pages</ulink>
+<ulink url="https://invisible-island.net/ncurses/howto/NCURSES-Programming-HOWTO-html.tar.gz">In Multiple HTML pages</ulink>
 </para>
 </listitem>
 
 <listitem>
 <para>
-<ulink url="https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/NCURSES-Programming-HOWTO.html">In One big HTML format</ulink>
+<ulink url="https://invisible-island.net/ncurses/howto/NCURSES-Programming-HOWTO.html">A single HTML file.</ulink>
 </para>
 </listitem>
+
 </itemizedlist>
 
 </sect3>
 
 <sect3 id="buildsource"><title> Building from source </title>
 <para>
-If above links are broken or if you want to experiment with sgml read on.
+The sources for this HOWTO can be retrieved from
+</para>
+<informalexample>
 <programlisting>
-
-    Get both the source and the tar,gzipped programs, available at
-        http://cvsview.tldp.org/index.cgi/LDP/howto/docbook/
-        NCURSES-HOWTO/NCURSES-Programming-HOWTO.sgml
-        http://cvsview.tldp.org/index.cgi/LDP/howto/docbook/
-        NCURSES-HOWTO/ncurses_programs.tar.gz
-
-    Unzip ncurses_programs.tar.gz with
-    tar zxvf ncurses_programs.tar.gz
-
-    Use jade to create various formats. For example if you just want to create
-    the multiple html files, you would use
-        jade -t sgml -i html -d &lt;path to docbook html stylesheet&gt;
-        NCURSES-Programming-HOWTO.sgml
-    to get pdf, first create a single html file of the HOWTO with
-        jade -t sgml -i html -d &lt;path to docbook html stylesheet&gt; -V nochunks
-        NCURSES-Programming-HOWTO.sgml &gt; NCURSES-ONE-BIG-FILE.html
-    then use htmldoc to get pdf file with
-        htmldoc --size universal -t pdf --firstpage p1 -f &lt;output file name.pdf&gt;
-        NCURSES-ONE-BIG-FILE.html
-    for ps, you would use
-        htmldoc --size universal -t ps --firstpage p1 -f &lt;output file name.ps&gt;
-        NCURSES-ONE-BIG-FILE.html
+<ulink url="https://github.com/ThomasDickey/ncurses-howto-snapshots">
+https://github.com/ThomasDickey/ncurses-howto-snapshots</ulink>
 </programlisting>
-</para>
-
+</informalexample>
 <para>
-See <ulink url="https://www.tldp.org/LDP/LDP-Author-Guide/">
-LDP Author guide</ulink> for more details. If all else fails, mail me at
-<ulink url= "ppadala@gmail.com">ppadala@gmail.com</ulink>
+These tools were used to format the HOWTO and build the examples:
 </para>
+<itemizedlist>
+<listitem>
+<para>
+docbook-utils (a Debian package)
+</para>
+</listitem>
+<listitem>
+<para>
+gcc
+</para>
+</listitem>
+</itemizedlist>
+
 </sect3>
 
 </sect2>
@@ -497,19 +502,19 @@ LDP Author guide</ulink> for more details. If all else fails, mail me at
 <sect2 id="credits"><title>Credits </title>
 
 <para>
-I thank <ulink url="mailto:sharath_1@usa.net">Sharath</ulink> and Emre Akbas for
-helping me with few sections. The introduction was initially written by sharath.
+I thank <emphasis>Sharath</emphasis> and <emphasis>Emre Akbas</emphasis> for
+helping me with few sections. The introduction was initially written by Sharath.
 I rewrote it with few excerpts taken from his initial work. Emre helped in
 writing printw and scanw sections.
 </para>
 
 <para>
-Perl equivalents of the example programs are contributed by <ulink
-url="mailto:Aratnaweera@virtusa.com">Anuradha Ratnaweera</ulink>.
+Perl equivalents of the example programs were contributed
+by <emphasis>Anuradha Ratnaweera</emphasis>.
 </para>
 
 <para>
-Then comes <ulink url="mailto:parimi@ece.arizona.edu">Ravi Parimi</ulink>, my
+Then comes <emphasis>Ravi Parimi</emphasis>, my
 dearest friend, who has been on this project before even one line was written.
 He constantly bombarded me with suggestions and patiently reviewed the whole
 text.  He also checked each program on Linux and Solaris.
@@ -1216,7 +1221,7 @@ on or off, respectively. The following video attributes, which are defined in
 
 <para>
 The last one is the most colorful one :-) Colors are explained in the
-<ulink url="#color">next sections</ulink>.
+<ulink url="#COLOR">next sections</ulink>.
 </para>
 
 <para>

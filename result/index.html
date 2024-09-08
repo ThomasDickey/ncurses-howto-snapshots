@@ -16,18 +16,32 @@
       <h1 class="TITLE"><a name="AEN2" id="AEN2">NCURSES
       Programming HOWTO</a></h1>
 
-      <h3 class="AUTHOR"><a name="AEN4" id="AEN4">Pradeep
-      Padala</a></h3>
+      <div class="AUTHORGROUP">
+        <a name="AEN4" id="AEN4"></a>
+        <h3 class="AUTHOR"><a name="AEN5" id="AEN5">Pradeep
+        Padala</a></h3>
 
-      <div class="AFFILIATION">
-        <div class="ADDRESS">
-          <p class="ADDRESS"><code class="EMAIL">&lt;<a href=
-          "mailto:ppadala@gmail.com">ppadala@gmail.com</a>&gt;</code>
-          </p>
+        <div class="AFFILIATION">
+          <div class="ADDRESS">
+            <p class="ADDRESS"><code class="EMAIL">&lt;<a href=
+            "mailto:ppadala@gmail.com">ppadala@gmail.com</a>&gt;</code>
+            </p>
+          </div>
+        </div>
+
+        <h3 class="AUTHOR"><a name="AEN11" id="AEN11">Thomas E.
+        Dickey</a></h3>
+
+        <div class="AFFILIATION">
+          <div class="ADDRESS">
+            <p class="ADDRESS"><code class="EMAIL">&lt;<a href=
+            "mailto:dickey@invisible-island.net">dickey@invisible-island.net</a>&gt;</code>
+            </p>
+          </div>
         </div>
       </div>
 
-      <p class="PUBDATE">v1.9, 2005-06-20<br></p>
+      <p class="PUBDATE">v2.1, 2024-09-08<br></p>
 
       <div class="REVHISTORY">
         <table width="100%" border="0">
@@ -35,6 +49,18 @@
             <th align="left" valign="top" colspan="3"><b>Revision
             History</b>
             </th>
+          </tr>
+
+          <tr>
+            <td align="left">Revision 2.1</td>
+            <td align="left">2024-09-08</td>
+            <td align="left">Revised by: dickey</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="3">Fixes for the sample
+            programs. Remove obsolete mailing addresses. Update
+            publication date.</td>
           </tr>
 
           <tr>
@@ -180,14 +206,14 @@
 
       <div>
         <div class="ABSTRACT">
-          <a name="AEN72" id="AEN72"></a>
+          <a name="AEN85" id="AEN85"></a>
           <p><span class="emphasis"><i class="EMPHASIS">This
           document is intended to be an "All in One" guide for
           programming with ncurses and its sister libraries. We
           graduate from a simple "Hello World" program to more
           complex form manipulation. No prior experience in ncurses
           is assumed. Send comments to <a href=
-          "mailto:ppadala@gmail.com" target="_top">this
+          "mailto:bug-ncurses@gnu.org" target="_top">this
           address</a></i></span>
           </p>
         </div>
@@ -225,8 +251,9 @@
 
             <dd>
               <dl>
-                <dt>1.6.1. <a href="index.html#LISTFORMATS">Readily
-                available formats from tldp.org</a></dt>
+                <dt>1.6.1. <a href=
+                "index.html#LISTFORMATS">Alternative
+                formats</a></dt>
 
                 <dt>1.6.2. <a href=
                 "index.html#BUILDSOURCE">Building from
@@ -310,7 +337,7 @@
             <dt>6.1. <a href="printw.html#ADDCHCLASS">addch() class
             of functions</a></dt>
 
-            <dt>6.2. <a href="printw.html#AEN303">mvaddch(),
+            <dt>6.2. <a href="printw.html#AEN324">mvaddch(),
             waddch() and mvwaddch()</a></dt>
 
             <dt>6.3. <a href="printw.html#PRINTWCLASS">printw()
@@ -711,7 +738,7 @@
       of bytes. All the capabilities (such as moving the cursor to
       a new location, erasing part of the screen, scrolling the
       screen, changing modes, etc.) of terminals could be accessed
-      through these series of bytes. These control seeuqnces are
+      through these series of bytes. These control sequences are
       usually called escape sequences, because they start with an
       escape(0x1B) character. Even today, with proper emulation, we
       can send escape sequences to the emulator and achieve the
@@ -814,36 +841,41 @@
         package</i></span>
         </p>
 
-        <p>NCURSES can be obtained from <a href=
-        "ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz" target=
-        "_top">ftp://ftp.gnu.org/pub/gnu/ncurses/ncurses.tar.gz</a>
-        or any of the ftp sites mentioned in <a href=
-        "https://www.gnu.org/order/ftp.html" target=
-        "_top">https://www.gnu.org/order/ftp.html</a>.</p>
+        <p>NCURSES can be obtained from</p>
 
-        <p>Read the README and INSTALL files for details on to how
-        to install it. It usually involves the following
-        operations.</p>
+        <ul>
+          <li>
+            <p>the home page at <a href=
+            "https://invisible-island.net/" target=
+            "_top">https://invisible-island.net</a>, as well as</p>
+          </li>
+
+          <li>
+            <p><a href="https://ftp.gnu.org/pub/gnu/ncurses/"
+            target="_top">https://ftp.gnu.org/pub/gnu/ncurses/</a>
+            or</p>
+          </li>
+
+          <li>
+            <p>any of the mirror sites mentioned in <a href=
+            "https://www.gnu.org/order/ftp.html" target=
+            "_top">https://www.gnu.org/order/ftp.html</a>.</p>
+          </li>
+        </ul>
+
+        <p>Read the README and <a href=
+        "https://invisible-island.net/ncurses/INSTALL.html" target=
+        "_top">INSTALL</a> files for details on to how to install
+        it. It usually involves the following operations.</p>
 
         <pre class=
         "PROGRAMLISTING">    tar zxvf ncurses&lt;version&gt;.tar.gz  # unzip and untar the archive
     cd ncurses&lt;version&gt;               # cd to the directory
-    ./configure                             # configure the build according to your 
-                                            # environment
-    make                                    # make it
-    su root                                 # become root
-    make install                            # install it</pre>
-        <p><span class="emphasis"><i class="EMPHASIS">Using the
-        RPM</i></span>
-        </p>
-
-        <p>NCURSES RPM can be found and downloaded from <a href=
-        "https://rpmfind.net" target="_top">https://rpmfind.net</a>
-        . The RPM can be installed with the following command after
-        becoming root.</p>
-
-        <pre class=
-        "PROGRAMLISTING">    rpm -i &lt;downloaded rpm&gt;</pre>
+    ./configure                       # configure the build according to your
+                                      # environment
+    make                              # make it
+    su root                           # become root
+    make install                      # install it</pre>
       </div>
 
       <div class="SECT2">
@@ -862,10 +894,10 @@
         <h2 class="SECT2"><a name="ABOUTPROGRAMS" id=
         "ABOUTPROGRAMS">1.5. About the Programs</a></h2>
 
-        <p>All the programs in the document are available in zipped
-        form <a href=
-        "https://www.tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs.tar.gz"
-        target="_top">here</a>. Unzip and untar it. The directory
+        <p>All the programs in the document are available in
+        gzipped form <a href=
+        "https://invisible-island.net/ncurses/howto/ncurses_programs.tar.gz"
+        target="_top">here</a>. Ungzip and untar it. The directory
         structure looks like this.</p>
 
         <pre class="PROGRAMLISTING">ncurses
@@ -893,7 +925,7 @@ JustForFun
     |
     |----&gt; hanoi.c   -- The Towers of Hanoi Solver
     |----&gt; life.c    -- The Game of Life demo
-    |----&gt; magic.c   -- An Odd Order Magic Square builder 
+    |----&gt; magic.c   -- An Odd Order Magic Square builder
     |----&gt; queens.c  -- The famous N-Queens Solver
     |----&gt; shuffle.c -- A fun game, if you have time to kill
     |----&gt; tt.c      -- A very trivial typing tutor
@@ -909,23 +941,23 @@ JustForFun
     |                               -- rt from box()
     |----&gt; printw_example.c      -- A very simple printw() example
     |----&gt; scanw_example.c       -- A very simple getstr() example
-    |----&gt; simple_attr.c         -- A program that can print a c file with 
+    |----&gt; simple_attr.c         -- A program that can print a c file with
     |                               -- comments in attribute
     |----&gt; simple_color.c        -- A simple example demonstrating colors
-    |----&gt; simple_key.c          -- A menu accessible with keyboard UP, DOWN 
+    |----&gt; simple_key.c          -- A menu accessible with keyboard UP, DOWN
     |                               -- arrows
     |----&gt; temp_leave.c          -- Demonstrates temporarily leaving curses mode
     |----&gt; win_border.c          -- Shows Creation of windows and borders
     |----&gt; with_chgat.c          -- chgat() usage example
 
-  forms 
+  forms
     |
     |----&gt; form_attrib.c     -- Usage of field attributes
     |----&gt; form_options.c    -- Usage of field options
     |----&gt; form_simple.c     -- A simple form example
     |----&gt; form_win.c        -- Demo of windows associated with forms
 
-  menus 
+  menus
     |
     |----&gt; menu_attrib.c     -- Usage of menu attributes
     |----&gt; menu_item_data.c  -- Usage of item_name(), etc. functions
@@ -937,9 +969,9 @@ JustForFun
     |----&gt; menu_userptr.c    -- Usage of user pointer
     |----&gt; menu_win.c        -- Demo of windows associated with menus
 
-  panels 
+  panels
     |
-    |----&gt; panel_browse.c    -- Panel browsing through tab. Usage of user 
+    |----&gt; panel_browse.c    -- Panel browsing through tab. Usage of user
     |                           -- pointer
     |----&gt; panel_hide.c      -- Hiding and Un hiding of panels
     |----&gt; panel_resize.c    -- Moving and resizing of panels
@@ -957,12 +989,6 @@ JustForFun
         <p>For every example, I have included path name for the
         file relative to the examples directory.</p>
 
-        <p>If you prefer browsing individual programs, point your
-        browser to <a href=
-        "https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/"
-        target=
-        "_top">https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/ncurses_programs/</a></p>
-
         <p>All the programs are released under the same license
         that is used by ncurses (MIT-style). This gives you the
         ability to do pretty much anything other than claiming them
@@ -974,38 +1000,36 @@ JustForFun
         <h2 class="SECT2"><a name="OTHERFORMATS" id=
         "OTHERFORMATS">1.6. Other Formats of the document</a></h2>
 
-        <p>This howto is also available in various other formats on
-        the tldp.org site. Here are the links to other formats of
-        this document.</p>
+        <p>This howto is also available in other formats. Here are
+        the links to other formats of this document.</p>
 
         <div class="SECT3">
           <h3 class="SECT3"><a name="LISTFORMATS" id=
-          "LISTFORMATS">1.6.1. Readily available formats from
-          tldp.org</a></h3>
+          "LISTFORMATS">1.6.1. Alternative formats</a></h3>
 
           <ul>
             <li>
               <p><a href=
-              "https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/pdf/NCURSES-Programming-HOWTO.pdf"
+              "https://invisible-island.net/ncurses/howto/NCURSES-Programming-HOWTO.pdf"
               target="_top">Acrobat PDF Format</a></p>
             </li>
 
             <li>
               <p><a href=
-              "https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/ps/NCURSES-Programming-HOWTO.ps.gz"
+              "https://invisible-island.net/ncurses/howto/NCURSES-Programming-HOWTO.ps"
               target="_top">PostScript Format</a></p>
             </li>
 
             <li>
               <p><a href=
-              "https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html/NCURSES-Programming-HOWTO-html.tar.gz"
+              "https://invisible-island.net/ncurses/howto/NCURSES-Programming-HOWTO-html.tar.gz"
               target="_top">In Multiple HTML pages</a></p>
             </li>
 
             <li>
               <p><a href=
-              "https://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/NCURSES-Programming-HOWTO.html"
-              target="_top">In One big HTML format</a></p>
+              "https://invisible-island.net/ncurses/howto/NCURSES-Programming-HOWTO.html"
+              target="_top">A single HTML file.</a></p>
             </li>
           </ul>
         </div>
@@ -1014,37 +1038,29 @@ JustForFun
           <h3 class="SECT3"><a name="BUILDSOURCE" id=
           "BUILDSOURCE">1.6.2. Building from source</a></h3>
 
-          <p>If above links are broken or if you want to experiment
-          with sgml read on.</p>
+          <p>The sources for this HOWTO can be retrieved from</p>
 
-          <pre class=
-          "PROGRAMLISTING">&#13;    Get both the source and the tar,gzipped programs, available at
-        http://cvsview.tldp.org/index.cgi/LDP/howto/docbook/
-        NCURSES-HOWTO/NCURSES-Programming-HOWTO.sgml
-        http://cvsview.tldp.org/index.cgi/LDP/howto/docbook/
-        NCURSES-HOWTO/ncurses_programs.tar.gz
+          <div class="INFORMALEXAMPLE">
+            <a name="AEN164" id="AEN164"></a>
 
-    Unzip ncurses_programs.tar.gz with
-    tar zxvf ncurses_programs.tar.gz
+            <pre class="PROGRAMLISTING"><a href=
+            "https://github.com/ThomasDickey/ncurses-howto-snapshots"
+            target=
+            "_top">https://github.com/ThomasDickey/ncurses-howto-snapshots</a></pre>
+          </div>
 
-    Use jade to create various formats. For example if you just want to create
-    the multiple html files, you would use
-        jade -t sgml -i html -d &lt;path to docbook html stylesheet&gt;
-        NCURSES-Programming-HOWTO.sgml
-    to get pdf, first create a single html file of the HOWTO with 
-        jade -t sgml -i html -d &lt;path to docbook html stylesheet&gt; -V nochunks
-        NCURSES-Programming-HOWTO.sgml &gt; NCURSES-ONE-BIG-FILE.html
-    then use htmldoc to get pdf file with
-        htmldoc --size universal -t pdf --firstpage p1 -f &lt;output file name.pdf&gt;
-        NCURSES-ONE-BIG-FILE.html
-    for ps, you would use
-        htmldoc --size universal -t ps --firstpage p1 -f &lt;output file name.ps&gt;
-        NCURSES-ONE-BIG-FILE.html</pre>
-          <p>See <a href=
-          "https://www.tldp.org/LDP/LDP-Author-Guide/" target=
-          "_top">LDP Author guide</a> for more details. If all else
-          fails, mail me at <a href="ppadala@gmail.com" target=
-          "_top">ppadala@gmail.com</a></p>
+          <p>These tools were used to format the HOWTO and build
+          the examples:</p>
+
+          <ul>
+            <li>
+              <p>docbook-utils (a Debian package)</p>
+            </li>
+
+            <li>
+              <p>gcc</p>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -1052,21 +1068,22 @@ JustForFun
         <h2 class="SECT2"><a name="CREDITS" id="CREDITS">1.7.
         Credits</a></h2>
 
-        <p>I thank <a href="mailto:sharath_1@usa.net" target=
-        "_top">Sharath</a> and Emre Akbas for helping me with few
-        sections. The introduction was initially written by
-        sharath. I rewrote it with few excerpts taken from his
-        initial work. Emre helped in writing printw and scanw
-        sections.</p>
+        <p>I thank <span class="emphasis"><i class=
+        "EMPHASIS">Sharath</i></span> and <span class=
+        "emphasis"><i class="EMPHASIS">Emre Akbas</i></span> for
+        helping me with few sections. The introduction was
+        initially written by Sharath. I rewrote it with few
+        excerpts taken from his initial work. Emre helped in
+        writing printw and scanw sections.</p>
 
-        <p>Perl equivalents of the example programs are contributed
-        by <a href="mailto:Aratnaweera@virtusa.com" target=
-        "_top">Anuradha Ratnaweera</a>.</p>
+        <p>Perl equivalents of the example programs were
+        contributed by <span class="emphasis"><i class=
+        "EMPHASIS">Anuradha Ratnaweera</i></span>.</p>
 
-        <p>Then comes <a href="mailto:parimi@ece.arizona.edu"
-        target="_top">Ravi Parimi</a>, my dearest friend, who has
-        been on this project before even one line was written. He
-        constantly bombarded me with suggestions and patiently
+        <p>Then comes <span class="emphasis"><i class=
+        "EMPHASIS">Ravi Parimi</i></span>, my dearest friend, who
+        has been on this project before even one line was written.
+        He constantly bombarded me with suggestions and patiently
         reviewed the whole text. He also checked each program on
         Linux and Solaris.</p>
       </div>

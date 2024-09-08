@@ -58,55 +58,54 @@ vlink="#840084" alink="#0000FF">
 #include &lt;curses.h&gt;
 #include &lt;stdlib.h&gt;
 
-int main(int argc, char *argv[])
-{ 
-  int ch, prev, row, col;
-  prev = EOF;
-  FILE *fp;
-  int y, x;
+int
+main(int argc, char *argv[])
+{
+    int ch, prev, row, col;
+    prev = EOF;
+    FILE *fp;
+    int y, x;
 
-  if(argc != 2)
-  {
-    printf("Usage: %s &lt;a c file name&gt;\n", argv[0]);
-    exit(1);
-  }
-  fp = fopen(argv[1], "r");
-  if(fp == NULL)
-  {
-    perror("Cannot open input file");
-    exit(1);
-  }
-  initscr();                            /* Start curses mode */
-  getmaxyx(stdscr, row, col);           /* find the boundaries of the screeen */
-  while((ch = fgetc(fp)) != EOF)        /* read the file till we reach the end */
-  {
-    getyx(stdscr, y, x);                /* get the current cursor position */
-    if(y == (row - 1))                  /* are we are at the end of the screen */
-    {
-      printw("&lt;-Press Any Key-&gt;");      /* tell the user to press a key */
-      getch();
-      clear();                          /* clear the screen */
-      move(0, 0);                       /* start at the beginning of the screen */
+    if (argc != 2) {
+        printf("Usage: %s &lt;a c file name&gt;\n", argv[0]);
+        exit(1);
     }
-    if(prev == '/' &amp;&amp; ch == '*')        /* If it is / and * then only
-                                         * switch bold on */    
-    {
-      attron(A_BOLD);                   /* cut bold on */
-      getyx(stdscr, y, x);              /* get the current cursor position */
-      move(y, x - 1);                   /* back up one space */
-      printw("%c%c", '/', ch);          /* The actual printing is done here */
+    fp = fopen(argv[1], "r");
+    if (fp == NULL) {
+        perror("Cannot open input file");
+        exit(1);
     }
-    else
-      printw("%c", ch);
-    refresh();
-    if(prev == '*' &amp;&amp; ch == '/')
-      attroff(A_BOLD);                  /* Switch it off once we got *
-                                         * and then / */
-    prev = ch;
-  }
-  endwin();                             /* End curses mode */
-  fclose(fp);
-  return 0;
+    initscr();                          /* Start curses mode */
+    getmaxyx(stdscr, row, col);         /* find the boundaries of the screeen */
+    (void) col;
+    while ((ch = fgetc(fp)) != EOF)     /* read the file till we reach the end */
+    {
+        getyx(stdscr, y, x);            /* get the current cursor position */
+        if (y == (row - 1))             /* are we are at the end of the screen */
+        {
+            printw("&lt;-Press Any Key-&gt;"); /* tell the user to press a key */
+            getch();
+            clear();                    /* clear the screen */
+            move(0, 0);                 /* start at the beginning of the screen */
+        }
+        if (prev == '/' &amp;&amp; ch == '*')   /* If it is / and * then only
+                                         * switch bold on */
+        {
+            attron(A_BOLD);             /* cut bold on */
+            getyx(stdscr, y, x);        /* get the current cursor position */
+            move(y, x - 1);             /* back up one space */
+            printw("%c%c", '/', ch);    /* The actual printing is done here */
+        } else
+            printw("%c", ch);
+        refresh();
+        if (prev == '*' &amp;&amp; ch == '/')
+            attroff(A_BOLD);    /* Switch it off once we got *
+                                 * and then / */
+        prev = ch;
+    }
+    endwin();                   /* End curses mode */
+    fclose(fp);
+    return 0;
 }</span></pre>
     </div>
 
@@ -146,8 +145,8 @@ int main(int argc, char *argv[])
       following video attributes, which are defined in
       &lt;curses.h&gt; can be passed to these functions.</p>
 
-      <pre class="PROGRAMLISTING">    
-    A_NORMAL        Normal display (no highlight)
+      <pre class=
+      "PROGRAMLISTING">&#13;    A_NORMAL        Normal display (no highlight)
     A_STANDOUT      Best highlighting mode of the terminal.
     A_UNDERLINE     Underlining
     A_REVERSE       Reverse video
@@ -158,10 +157,9 @@ int main(int argc, char *argv[])
     A_INVIS         Invisible or blank mode
     A_ALTCHARSET    Alternate character set
     A_CHARTEXT      Bit-mask to extract a character
-    COLOR_PAIR(n)   Color-pair number n 
-    </pre>
+    COLOR_PAIR(n)   Color-pair number n&#13;</pre>
       <p>The last one is the most colorful one :-) Colors are
-      explained in the <a href="#color" target="_top">next
+      explained in the <a href="#COLOR" target="_top">next
       sections</a>.</p>
 
       <p>We can OR(|) any number of above attributes to get a
@@ -261,27 +259,29 @@ int main(int argc, char *argv[])
         <pre class="PROGRAMLISTING"><span class=
         "INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
 
-int main(int argc, char *argv[])
-{       initscr();                      /* Start curses mode            */
-        start_color();                  /* Start color functionality    */
-        
-        init_pair(1, COLOR_CYAN, COLOR_BLACK);
-        printw("A Big string which i didn't care to type fully ");
-        mvchgat(0, 0, -1, A_BLINK, 1, NULL);    
-        /* 
-         * First two parameters specify the position at which to start 
-         * Third parameter number of characters to update. -1 means till 
-         * end of line
-         * Forth parameter is the normal attribute you wanted to give 
-         * to the character
-         * Fifth is the color index. It is the index given during init_pair()
-         * use 0 if you didn't want color
-         * Sixth one is always NULL 
-         */
-        refresh();
-        getch();
-        endwin();                       /* End curses mode                */
-        return 0;
+int
+main(void)
+{
+    initscr();                  /* Start curses mode            */
+    start_color();              /* Start color functionality    */
+
+    init_pair(1, COLOR_CYAN, COLOR_BLACK);
+    printw("A Big string which i didn't care to type fully ");
+    mvchgat(0, 0, -1, A_BLINK, 1, NULL);
+    /* 
+     * First two parameters specify the position at which to start 
+     * Third parameter number of characters to update. -1 means till 
+     * end of line
+     * Forth parameter is the normal attribute you wanted to give 
+     * to the character
+     * Fifth is the color index. It is the index given during init_pair()
+     * use 0 if you didn't want color
+     * Sixth one is always NULL 
+     */
+    refresh();
+    getch();
+    endwin();                   /* End curses mode                */
+    return 0;
 }</span></pre>
       </div>
 

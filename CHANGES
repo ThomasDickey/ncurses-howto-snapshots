@@ -1,3 +1,35 @@
+2024-09-08  Thomas E. Dickey  <dickey@invisible-island.net>
+
+	* result/NCURSES-nochunks.html, result/attrib.html, result/color.html,
+	  result/forms.html, result/helloworld.html, result/index.html,
+	  result/init.html, result/keys.html, result/menus.html,
+	  result/misc.html, result/mouse.html, result/panels.html,
+	  result/printw.html, result/scanw.html, result/screen.html,
+	  result/tools.html, result/windows.html:
+	regen
+
+	* NCURSES-Programming-HOWTO.sgml: spelling fixes
+
+	* NCURSES-Programming-HOWTO.sgml:
+	docbook generates uppercase link names, make the url match
+
+	* NCURSES-Programming-HOWTO.sgml: shorten a title to fit in nav-bar
+
+	* NCURSES-Programming-HOWTO.sgml:
+	add-back the pointer to "this" file to provide for switching to the multi-file.
+
+	* NCURSES-Programming-HOWTO.sgml:
+	fix linkrot with tldp by providing my own up-to-date files
+
+	* NCURSES-Programming-HOWTO.sgml:
+	updated/simplified instructions for building since those are simple makefiles
+
+	* NCURSES-Programming-HOWTO.sgml:
+	trim obsolete email-addresses, and dated advice on packages.  Repair links
+	to GNU site, and correct a url which was missing "mailto:".
+
+	* Makefile: add commands to generate pdf and ps files
+
 2024-09-07  Thomas E. Dickey  <dickey@invisible-island.net>
 
 	* ncurses_programs/COPYING: update copyright
