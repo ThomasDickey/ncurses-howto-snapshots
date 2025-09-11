@@ -4,7 +4,7 @@ int main(void)
 {
     initscr();
 
-    printw("Upper left corner           "); addch(ACS_ULCORNER); printw("\n"); 
+    printw("Upper left corner           "); addch(ACS_ULCORNER); printw("\n");
     printw("Lower left corner           "); addch(ACS_LLCORNER); printw("\n");
     printw("Lower right corner          "); addch(ACS_LRCORNER); printw("\n");
     printw("Tee pointing right          "); addch(ACS_LTEE); printw("\n");

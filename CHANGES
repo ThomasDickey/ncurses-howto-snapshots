@@ -1,3 +1,28 @@
+2025-09-11  Thomas E. Dickey  <dickey@invisible-island.net>
+
+	* result/windows.html, result/attrib.html, result/misc.html,
+	  result/panels.html, result/NCURSES-nochunks.html:
+	regen
+
+	* ncurses_programs/COPYING: bump
+
+	* ncurses_programs/JustForFun/hanoi.c,
+	  ncurses_programs/basics/acs_vars.c,
+	  ncurses_programs/basics/win_border.c,
+	  ncurses_programs/basics/with_chgat.c,
+	  ncurses_programs/panels/panel_simple.c:
+	trim-blanks
+
+	* ncurses_programs/panels/panel_simple.c:
+	simplify the new_panel calls and show that del_panel does nothing obvious
+
+	* ncurses_programs/basics/Makefile, ncurses_programs/forms/Makefile,
+	  ncurses_programs/menus/Makefile, ncurses_programs/panels/Makefile,
+	  ncurses_programs/JustForFun/Makefile, ncurses_programs/Makefile:
+	pass $CFLAGS to submakes
+
+	* ncurses_programs/basics/simple_attr.c: fix for c89 builds
+
 2024-09-08  Thomas E. Dickey  <dickey@invisible-island.net>
 
 	* result/NCURSES-nochunks.html, result/attrib.html, result/color.html,

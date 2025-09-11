@@ -108,7 +108,7 @@ init_pegs(peg * p_my_pegs, int n_discs)
 
     p_my_pegs[0].n_discs = n_discs;
 
-    /* Allocate memory for size array               
+    /* Allocate memory for size array
      * atmost the number of discs on a peg can be n_discs
      */
     for (i = 0; i < NUM_PEGS; ++i)

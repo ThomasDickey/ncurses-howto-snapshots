@@ -19,7 +19,7 @@ ${EXE_DIR}/%: %.o
 	${CC} -o $@ $< ${LIBS}
 
 %.o: ${SRC_DIR}/%.c
-	${CC} -o $@ -c $<
+	${CC} -o $@ $(CFLAGS) $(CPPFLAGS) -c $<
 
 all:    ${EXES}
 

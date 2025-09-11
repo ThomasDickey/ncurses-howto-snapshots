@@ -5,8 +5,8 @@
 int
 main(int argc, char *argv[])
 {
-    int ch, prev, row, col;
-    prev = EOF;
+    int ch, row, col;
+    int prev = EOF;
     FILE *fp;
     int y, x;
 
