@@ -23,16 +23,20 @@ main(void)
     int n_choices, i;
     ITEM *cur_item;
 
+    n_choices = ARRAY_SIZE(choices);
+    if ((my_items = calloc((size_t) (n_choices + 1), sizeof(ITEM *))) == NULL) {
+        perror("my_items");
+        return EXIT_FAILURE;
+    }
+
     initscr();
     cbreak();
     noecho();
     keypad(stdscr, TRUE);
 
-    n_choices = ARRAY_SIZE(choices);
-    my_items = (ITEM **) calloc((size_t) (n_choices + 1), sizeof(ITEM *));
-
-    for (i = 0; i < n_choices; ++i)
+    for (i = 0; i < n_choices; ++i) {
         my_items[i] = new_item(choices[i], choices[i]);
+    }
     my_items[n_choices] = (ITEM *) NULL;
 
     my_menu = new_menu((ITEM **) my_items);
@@ -66,4 +70,5 @@ main(void)
     free_item(my_items[1]);
     free_menu(my_menu);
     endwin();
+    return EXIT_SUCCESS;
 }

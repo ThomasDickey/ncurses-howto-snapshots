@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <curses.h>
 
 int
@@ -13,4 +14,6 @@ main(void)
     ch = getch();
     endwin();
     printf("The key pressed is %d\n", ch);
+
+    return EXIT_SUCCESS;
 }

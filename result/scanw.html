@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for HTML5 for Linux version 5.6.0">
+  "HTML Tidy for HTML5 for Linux version 5.8.0">
   <title>Input functions</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -140,7 +140,8 @@ vlink="#840084" alink="#0000FF">
         </p>
 
         <pre class="PROGRAMLISTING"><span class=
-        "INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;curses.h&gt;
 #include &lt;string.h&gt;
 
 int
@@ -159,7 +160,7 @@ main(void)
     getch();
     endwin();
 
-    return 0;
+    return EXIT_SUCCESS;
 }</span></pre>
       </div>
     </div>

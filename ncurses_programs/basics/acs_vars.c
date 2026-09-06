@@ -1,44 +1,49 @@
+#include <stdlib.h>
 #include <curses.h>
 
-int main(void)
+int
+main(void)
 {
     initscr();
 
-    printw("Upper left corner           "); addch(ACS_ULCORNER); printw("\n");
-    printw("Lower left corner           "); addch(ACS_LLCORNER); printw("\n");
-    printw("Lower right corner          "); addch(ACS_LRCORNER); printw("\n");
-    printw("Tee pointing right          "); addch(ACS_LTEE); printw("\n");
-    printw("Tee pointing left           "); addch(ACS_RTEE); printw("\n");
-    printw("Tee pointing up             "); addch(ACS_BTEE); printw("\n");
-    printw("Tee pointing down           "); addch(ACS_TTEE); printw("\n");
-    printw("Horizontal line             "); addch(ACS_HLINE); printw("\n");
-    printw("Vertical line               "); addch(ACS_VLINE); printw("\n");
-    printw("Large Plus or cross over    "); addch(ACS_PLUS); printw("\n");
-    printw("Scan Line 1                 "); addch(ACS_S1); printw("\n");
-    printw("Scan Line 3                 "); addch(ACS_S3); printw("\n");
-    printw("Scan Line 7                 "); addch(ACS_S7); printw("\n");
-    printw("Scan Line 9                 "); addch(ACS_S9); printw("\n");
-    printw("Diamond                     "); addch(ACS_DIAMOND); printw("\n");
-    printw("Checker board (stipple)     "); addch(ACS_CKBOARD); printw("\n");
-    printw("Degree Symbol               "); addch(ACS_DEGREE); printw("\n");
-    printw("Plus/Minus Symbol           "); addch(ACS_PLMINUS); printw("\n");
-    printw("Bullet                      "); addch(ACS_BULLET); printw("\n");
-    printw("Arrow Pointing Left         "); addch(ACS_LARROW); printw("\n");
-    printw("Arrow Pointing Right        "); addch(ACS_RARROW); printw("\n");
-    printw("Arrow Pointing Down         "); addch(ACS_DARROW); printw("\n");
-    printw("Arrow Pointing Up           "); addch(ACS_UARROW); printw("\n");
-    printw("Board of squares            "); addch(ACS_BOARD); printw("\n");
-    printw("Lantern Symbol              "); addch(ACS_LANTERN); printw("\n");
-    printw("Solid Square Block          "); addch(ACS_BLOCK); printw("\n");
-    printw("Less/Equal sign             "); addch(ACS_LEQUAL); printw("\n");
-    printw("Greater/Equal sign          "); addch(ACS_GEQUAL); printw("\n");
-    printw("Pi                          "); addch(ACS_PI); printw("\n");
-    printw("Not equal                   "); addch(ACS_NEQUAL); printw("\n");
-    printw("UK pound sign               "); addch(ACS_STERLING); printw("\n");
+#define SHOW(string, acs) printw("%-30s", string); addch(acs); printw("\n")
+    /* *INDENT-OFF* */
+    SHOW("Upper left corner",        ACS_ULCORNER);
+    SHOW("Lower left corner",        ACS_LLCORNER);
+    SHOW("Lower right corner",       ACS_LRCORNER);
+    SHOW("Tee pointing right",       ACS_LTEE);
+    SHOW("Tee pointing left",        ACS_RTEE);
+    SHOW("Tee pointing up",          ACS_BTEE);
+    SHOW("Tee pointing down",        ACS_TTEE);
+    SHOW("Horizontal line",          ACS_HLINE);
+    SHOW("Vertical line",            ACS_VLINE);
+    SHOW("Large Plus or cross over", ACS_PLUS);
+    SHOW("Scan Line 1",              ACS_S1);
+    SHOW("Scan Line 3",              ACS_S3);
+    SHOW("Scan Line 7",              ACS_S7);
+    SHOW("Scan Line 9",              ACS_S9);
+    SHOW("Diamond",                  ACS_DIAMOND);
+    SHOW("Checker board (stipple)",  ACS_CKBOARD);
+    SHOW("Degree Symbol",            ACS_DEGREE);
+    SHOW("Plus/Minus Symbol",        ACS_PLMINUS);
+    SHOW("Bullet",                   ACS_BULLET);
+    SHOW("Arrow Pointing Left",      ACS_LARROW);
+    SHOW("Arrow Pointing Right",     ACS_RARROW);
+    SHOW("Arrow Pointing Down",      ACS_DARROW);
+    SHOW("Arrow Pointing Up",        ACS_UARROW);
+    SHOW("Board of squares",         ACS_BOARD);
+    SHOW("Lantern Symbol",           ACS_LANTERN);
+    SHOW("Solid Square Block",       ACS_BLOCK);
+    SHOW("Less/Equal sign",          ACS_LEQUAL);
+    SHOW("Greater/Equal sign",       ACS_GEQUAL);
+    SHOW("Pi",                       ACS_PI);
+    SHOW("Not equal",                ACS_NEQUAL);
+    SHOW("UK pound sign",            ACS_STERLING);
+    /* *INDENT-ON* */
 
     refresh();
     getch();
     endwin();
 
-    return 0;
+    return EXIT_SUCCESS;
 }

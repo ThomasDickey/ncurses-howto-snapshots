@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for HTML5 for Linux version 5.6.0">
+  "HTML Tidy for HTML5 for Linux version 5.8.0">
   <title>Forms Library</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -146,7 +146,8 @@ vlink="#840084" alink="#0000FF">
         </p>
 
         <pre class="PROGRAMLISTING"><span class=
-        "INLINEMEDIAOBJECT">#include &lt;form.h&gt;
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;form.h&gt;
 
 int
 main(void)
@@ -168,8 +169,8 @@ main(void)
 
     /* Set field options */
     set_field_back(field[0], A_UNDERLINE);      /* Print a line for the option  */
-    field_opts_off(field[0], O_AUTOSKIP);       /* Don't go to next field when this */
-                                                /* Field is filled up           */
+    field_opts_off(field[0], O_AUTOSKIP);       /* Don't go to next field when this
+                                                   Field is filled up           */
     set_field_back(field[1], A_UNDERLINE);
     field_opts_off(field[1], O_AUTOSKIP);
 
@@ -212,7 +213,7 @@ main(void)
     free_field(field[1]);
 
     endwin();
-    return 0;
+    return EXIT_SUCCESS;
 }</span></pre>
       </div>
 
@@ -349,7 +350,8 @@ chtype field_pad(FIELD *field);         /* field to query */
           </p>
 
           <pre class="PROGRAMLISTING"><span class=
-          "INLINEMEDIAOBJECT">#include &lt;form.h&gt;
+          "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;form.h&gt;
 
 int
 main(void)
@@ -376,10 +378,10 @@ main(void)
 
     /* Set field options */
     set_field_fore(field[0], COLOR_PAIR(1));    /* Put the field with blue background */
-    set_field_back(field[0], COLOR_PAIR(2));    /* and white foreground (characters */
-                                                /* are printed in white         */
-    field_opts_off(field[0], O_AUTOSKIP);       /* Don't go to next field when this */
-                                                /* Field is filled up           */
+    set_field_back(field[0], COLOR_PAIR(2));    /* and white foreground (characters
+                                                   are printed in white         */
+    field_opts_off(field[0], O_AUTOSKIP);       /* Don't go to next field when this
+                                                   Field is filled up           */
     set_field_back(field[1], A_UNDERLINE);
     field_opts_off(field[1], O_AUTOSKIP);
 
@@ -425,7 +427,7 @@ main(void)
     free_field(field[1]);
 
     endwin();
-    return 0;
+    return EXIT_SUCCESS;
 }</span></pre>
         </div>
 
@@ -584,7 +586,8 @@ int field_opts(FIELD *field);             /* field to query */</pre>
           </p>
 
           <pre class="PROGRAMLISTING"><span class=
-          "INLINEMEDIAOBJECT">#include &lt;form.h&gt;
+          "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;form.h&gt;
 
 #define STARTX 15
 #define STARTY 4
@@ -615,8 +618,8 @@ main(void)
 
     field_opts_off(field[0], O_ACTIVE);         /* This field is a static label */
     field_opts_off(field[1], O_PUBLIC);         /* This filed is like a password field */
-    field_opts_off(field[1], O_AUTOSKIP);       /* To avoid entering the same field */
-                                                /* after last character is entered */
+    field_opts_off(field[1], O_AUTOSKIP);       /* To avoid entering the same field
+                                                   after last character is entered */
 
     /* Create the form and post it */
     my_form = new_form(field);
@@ -660,7 +663,7 @@ main(void)
     free_field(field[1]);
 
     endwin();
-    return 0;
+    return EXIT_SUCCESS;
 }</span></pre>
         </div>
 
@@ -866,11 +869,35 @@ proper attributes of a dynamically growable field.
         </p>
 
         <pre class="PROGRAMLISTING"><span class=
-        "INLINEMEDIAOBJECT">#include &lt;string.h&gt;
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #include &lt;form.h&gt;
 
-void print_in_middle(WINDOW *win, int starty, int startx,
-                     int width, const char *string, chtype color);
+static void
+print_in_middle(WINDOW *win, int starty, int startx,
+                int width, const char *string, chtype color)
+{
+    int length, x, y;
+    float temp;
+
+    if (win == NULL)
+        win = stdscr;
+    getyx(win, y, x);
+    if (startx != 0)
+        x = startx;
+    if (starty != 0)
+        y = starty;
+    if (width == 0)
+        width = 80;
+
+    length = (int) strlen(string);
+    temp = (float) (width - length) / 2;
+    x = startx + (int) temp;
+    wattron(win, color);
+    mvwprintw(win, y, x, "%s", string);
+    wattroff(win, color);
+    refresh();
+}
 
 int
 main(void)
@@ -958,33 +985,7 @@ main(void)
     free_field(field[1]);
 
     endwin();
-    return 0;
-}
-
-void
-print_in_middle(WINDOW *win, int starty, int startx,
-                int width, const char *string, chtype color)
-{
-    int length, x, y;
-    float temp;
-
-    if (win == NULL)
-        win = stdscr;
-    getyx(win, y, x);
-    if (startx != 0)
-        x = startx;
-    if (starty != 0)
-        y = starty;
-    if (width == 0)
-        width = 80;
-
-    length = (int) strlen(string);
-    temp = (float) (width - length) / 2;
-    x = startx + (int) temp;
-    wattron(win, color);
-    mvwprintw(win, y, x, "%s", string);
-    wattroff(win, color);
-    refresh();
+    return EXIT_SUCCESS;
 }</span></pre>
       </div>
     </div>
@@ -1031,8 +1032,8 @@ set, the validation type for a field can be queried with
       can also specify custom validation, though it is a bit tricky
       and cumbersome.</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1095" id=
-      "AEN1095"></a>TYPE_ALPHA</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1105" id=
+      "AEN1105"></a>TYPE_ALPHA</h1>
 
       <p>This field type accepts alphabetic data; no blanks, no
       digits, no special characters (this is checked at
@@ -1049,8 +1050,8 @@ set, the validation type for a field can be queried with
       validation check will always fail. A minimum width of zero
       makes field completion optional.</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1099" id=
-      "AEN1099"></a>TYPE_ALNUM</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1109" id=
+      "AEN1109"></a>TYPE_ALNUM</h1>
 
       <p>This field type accepts alphabetic data and digits; no
       blanks, no special characters (this is checked at
@@ -1066,8 +1067,8 @@ set, the validation type for a field can be queried with
       check will always fail. A minimum width of zero makes field
       completion optional.</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1103" id=
-      "AEN1103"></a>TYPE_ENUM</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1113" id=
+      "AEN1113"></a>TYPE_ENUM</h1>
 
       <p>This type allows you to restrict a field's values to be
       among a specified set of string values (for example, the
@@ -1099,8 +1100,8 @@ set, the validation type for a field can be queried with
       <p>The REQ_NEXT_CHOICE and REQ_PREV_CHOICE input requests can
       be particularly useful with these fields.</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1110" id=
-      "AEN1110"></a>TYPE_INTEGER</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1120" id=
+      "AEN1120"></a>TYPE_INTEGER</h1>
 
       <p>This field type accepts an integer. It is set up as
       follows:</p>
@@ -1122,8 +1123,8 @@ set, the validation type for a field can be queried with
       <p>A TYPE_INTEGER value buffer can conveniently be
       interpreted with the C library function atoi(3).</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1116" id=
-      "AEN1116"></a>TYPE_NUMERIC</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1126" id=
+      "AEN1126"></a>TYPE_NUMERIC</h1>
 
       <p>This field type accepts a decimal number. It is set up as
       follows:</p>
@@ -1145,8 +1146,8 @@ set, the validation type for a field can be queried with
       <p>A TYPE_NUMERIC value buffer can conveniently be
       interpreted with the C library function atof(3).</p>
 
-      <h1 class="BRIDGEHEAD"><a name="AEN1122" id=
-      "AEN1122"></a>TYPE_REGEXP</h1>
+      <h1 class="BRIDGEHEAD"><a name="AEN1132" id=
+      "AEN1132"></a>TYPE_REGEXP</h1>
 
       <p>This field type accepts data matching a regular
       expression. It is set up as follows:</p>

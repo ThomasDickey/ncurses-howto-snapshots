@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <form.h>
 
 int
@@ -25,10 +26,10 @@ main(void)
 
     /* Set field options */
     set_field_fore(field[0], COLOR_PAIR(1));    /* Put the field with blue background */
-    set_field_back(field[0], COLOR_PAIR(2));    /* and white foreground (characters */
-                                                /* are printed in white         */
-    field_opts_off(field[0], O_AUTOSKIP);       /* Don't go to next field when this */
-                                                /* Field is filled up           */
+    set_field_back(field[0], COLOR_PAIR(2));    /* and white foreground (characters
+                                                   are printed in white         */
+    field_opts_off(field[0], O_AUTOSKIP);       /* Don't go to next field when this
+                                                   Field is filled up           */
     set_field_back(field[1], A_UNDERLINE);
     field_opts_off(field[1], O_AUTOSKIP);
 
@@ -74,5 +75,5 @@ main(void)
     free_field(field[1]);
 
     endwin();
-    return 0;
+    return EXIT_SUCCESS;
 }

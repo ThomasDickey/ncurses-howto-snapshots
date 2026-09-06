@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for HTML5 for Linux version 5.6.0">
+  "HTML Tidy for HTML5 for Linux version 5.8.0">
   <title>Initialization</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -143,7 +143,8 @@ vlink="#840084" alink="#0000FF">
         </p>
 
         <pre class="PROGRAMLISTING"><span class=
-        "INLINEMEDIAOBJECT">#include &lt;curses.h&gt;
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;curses.h&gt;
 
 int
 main(void)
@@ -160,8 +161,8 @@ main(void)
                                  * we have to press enter before it
                                  * gets to the program          */
     if (ch == KEY_F(1))         /* Without keypad enabled this will */
-        printw("F1 Key pressed"); /*  not get to us either       */
-                                /* Without noecho() some ugly escape
+        printw("F1 pressed");   /* not get to us either -
+                                 * Without noecho() some ugly escape
                                  * characters might have been printed
                                  * on screen                    */
     else {
@@ -174,7 +175,7 @@ main(void)
     getch();                    /* Wait for user input */
     endwin();                   /* End curses mode                */
 
-    return 0;
+    return EXIT_SUCCESS;
 }</span></pre>
       </div>
 

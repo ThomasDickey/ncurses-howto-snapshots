@@ -8,45 +8,7 @@
 
 #define TRACE_VALUE TRACE_MAXIMUM
 
-void board(WINDOW *win, int starty, int startx, int lines, int cols,
-           int tile_width, int tile_height);
-void magic(int **, int);
-void print(int **, int);
-void magic_board(int **a, int n);
-
-int
-main(int argc, char *argv[])
-{
-
-    int **a, n, i;
-
-    if (argc != 2) {
-        printf("Usage: %s <magic square order>\n", argv[0]);
-        exit(0);
-    }
-    n = atoi(argv[1]);
-    if (n % 2 == 0) {
-        printf("Sorry !!! I don't know how to create magic square of even order\n");
-        printf("The order should be an odd number\n");
-        exit(0);
-    }
-    a = (int **) malloc((size_t) n * sizeof(int *));
-    for (i = 0; i < n; ++i)
-        a[i] = (int *) malloc((size_t) n * sizeof(int));
-
-    magic(a, n);
-
-    initscr();
-    curs_set(0);
-    noecho();
-    magic_board(a, n);
-    getch();
-    endwin();
-
-    return EXIT_SUCCESS;
-}
-
-void
+static void
 magic(int **a, int n)
 {
     int i, j, k;
@@ -87,31 +49,7 @@ magic(int **a, int n)
     return;
 }
 
-void
-print(int **a, int n)
-{
-    int i, j;
-    int x, y;
-    x = STARTX;
-    y = STARTY;
-    mvprintw(1, 30, "MAGIC SQUARE");
-    for (i = 0; i < n; ++i) {
-        for (j = 0; j < n; ++j) {
-            mvprintw(y, x, "%d", a[i][j]);
-            if (n > 9)
-                x += 4;
-            else
-                x += 6;
-        }
-        x = STARTX;
-        if (n > 7)
-            y += 2;
-        else
-            y += 3;
-    }
-    refresh();
-}
-void
+static void
 board(WINDOW *win, int starty, int startx, int lines, int cols,
       int tile_width, int tile_height)
 {
@@ -143,7 +81,7 @@ board(WINDOW *win, int starty, int startx, int lines, int cols,
     wrefresh(win);
 }
 
-void
+static void
 magic_board(int **a, int n)
 {
     int i, j, deltax, deltay;
@@ -159,4 +97,42 @@ magic_board(int **a, int n)
             mvprintw(starty + j * HEIGHT + deltay,
                      startx + i * WIDTH + deltax,
                      "%d", a[i][j]);
+}
+
+int
+main(int argc, char *argv[])
+{
+    int **a, n, i;
+
+    if (argc != 2) {
+        printf("Usage: %s <magic square order>\n", argv[0]);
+        return EXIT_SUCCESS;
+    }
+    n = atoi(argv[1]);
+    if (n % 2 == 0) {
+        printf("Sorry !!! I don't know how to create magic square of even order\n");
+        printf("The order should be an odd number\n");
+        return EXIT_SUCCESS;
+    }
+    if ((a = (int **) calloc((size_t) n, sizeof(int *))) == NULL) {
+        perror("malloc");
+        return EXIT_FAILURE;
+    }
+    for (i = 0; i < n; ++i) {
+        if ((a[i] = (int *) calloc((size_t) n, sizeof(int))) == NULL) {
+            perror("malloc");
+            return EXIT_FAILURE;
+        }
+    }
+
+    magic(a, n);
+
+    initscr();
+    curs_set(0);
+    noecho();
+    magic_board(a, n);
+    getch();
+    endwin();
+
+    return EXIT_SUCCESS;
 }

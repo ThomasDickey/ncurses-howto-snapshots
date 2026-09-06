@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <curses.h>
 
 int
@@ -9,5 +10,5 @@ main(void)
     getch();                    /* Wait for user input */
     endwin();                   /* End curses mode                */
 
-    return 0;
+    return EXIT_SUCCESS;
 }

@@ -16,72 +16,19 @@ typedef struct _peg_struct {
     int *sizes;                 /* The disc sizes array         */
 } peg;
 
-void init_pegs(peg * p_my_pegs, int n_discs);
-void show_pegs(WINDOW *win, peg * p_my_pegs, int n_discs);
-void free_pegs(peg * p_my_pegs);
-void solve_hanoi(peg * p_my_pegs, int n, int src, int aux, int dst);
-void move_disc(peg * p_my_pegs, int n_discs, int src, int dst);
-void print_in_middle(int startx, int starty, int width, const char *string, WINDOW *win);
-void check_usr_response(peg * p_my_pegs);
-
 int store_n_discs;
 const char *welcome_string = "Enter the number of discs you want to be solved: ";
 
-int
-main(void)
+static void
+free_pegs(peg * p_my_pegs)
 {
-    int n_discs;
-    peg my_pegs[NUM_PEGS];
+    int i;
 
-    initscr();                  /* Start curses mode            */
-    cbreak();                   /* Line buffering disabled. Pass on every thing */
-    keypad(stdscr, TRUE);
-    curs_set(FALSE);
-
-    print_in_middle(0, LINES / 2, COLS, welcome_string, NULL);
-    scanw("%d", &n_discs);
-
-    timeout(TIME_OUT);
-    noecho();
-    store_n_discs = n_discs;
-
-    init_pegs(my_pegs, n_discs);
-    show_pegs(stdscr, my_pegs, n_discs);
-    solve_hanoi(my_pegs, n_discs, 0, 1, 2);
-
-    free_pegs(my_pegs);
-    endwin();                   /* End curses mode                */
-    return 0;
+    for (i = 0; i < NUM_PEGS; ++i)
+        free(p_my_pegs[i].sizes);
 }
 
-void
-solve_hanoi(peg * p_my_pegs, int n_discs, int src, int aux, int dst)
-{
-    if (n_discs == 0)
-        return;
-    solve_hanoi(p_my_pegs, n_discs - 1, src, dst, aux);
-    move_disc(p_my_pegs, store_n_discs, src, dst);
-    show_pegs(stdscr, p_my_pegs, store_n_discs);
-    check_usr_response(p_my_pegs);
-    solve_hanoi(p_my_pegs, n_discs - 1, aux, src, dst);
-}
-
-void
-check_usr_response(peg * p_my_pegs)
-{
-    int ch;
-
-    ch = getch();               /* Waits for TIME_OUT milliseconds */
-    if (ch == ERR)
-        return;
-    else if (ch == KEY_F(1)) {
-        free_pegs(p_my_pegs);
-        endwin();
-        exit(0);
-    }
-}
-
-void
+static void
 move_disc(peg * p_my_pegs, int n_discs, int src, int dst)
 {
     int temp, index;
@@ -96,12 +43,28 @@ move_disc(peg * p_my_pegs, int n_discs, int src, int dst)
     index = 0;
     while (p_my_pegs[dst].sizes[index] == 0 && index != n_discs)
         ++index;
-    --index;
-    p_my_pegs[dst].sizes[index] = temp;
-    ++p_my_pegs[dst].n_discs;
+    if (--index >= 0) {
+        p_my_pegs[dst].sizes[index] = temp;
+        ++p_my_pegs[dst].n_discs;
+    }
 }
 
-void
+static void
+check_usr_response(peg * p_my_pegs)
+{
+    int ch;
+
+    ch = getch();               /* Waits for TIME_OUT milliseconds */
+    if (ch == ERR)
+        return;
+    else if (ch == KEY_F(1)) {
+        free_pegs(p_my_pegs);
+        endwin();
+        exit(EXIT_SUCCESS);
+    }
+}
+
+static void
 init_pegs(peg * p_my_pegs, int n_discs)
 {
     int size, temp, i;
@@ -111,8 +74,14 @@ init_pegs(peg * p_my_pegs, int n_discs)
     /* Allocate memory for size array
      * atmost the number of discs on a peg can be n_discs
      */
-    for (i = 0; i < NUM_PEGS; ++i)
+    for (i = 0; i < NUM_PEGS; ++i) {
         p_my_pegs[i].sizes = (int *) calloc((size_t) n_discs + 1, sizeof(int));
+        if (p_my_pegs[i].sizes == NULL) {
+            endwin();
+            perror("init_pegs");
+            exit(EXIT_FAILURE);
+        }
+    }
     size = 3;
     for (i = 0; i < n_discs; ++i, size += 2)
         p_my_pegs[0].sizes[i] = size;
@@ -128,7 +97,7 @@ init_pegs(peg * p_my_pegs, int n_discs)
     p_my_pegs[2].bottomy = POSY + 2 + n_discs;
 }
 
-void
+static void
 show_pegs(WINDOW *win, peg * p_my_pegs, int n_discs)
 {
     int i, j, k, x, y, size;
@@ -159,13 +128,16 @@ show_pegs(WINDOW *win, peg * p_my_pegs, int n_discs)
     wrefresh(win);
 }
 
-void
-free_pegs(peg * p_my_pegs)
+static void
+solve_hanoi(peg * p_my_pegs, int n_discs, int src, int aux, int dst)
 {
-    int i;
-
-    for (i = 0; i < NUM_PEGS; ++i)
-        free(p_my_pegs[i].sizes);
+    if (n_discs == 0)
+        return;
+    solve_hanoi(p_my_pegs, n_discs - 1, src, dst, aux);
+    move_disc(p_my_pegs, store_n_discs, src, dst);
+    show_pegs(stdscr, p_my_pegs, store_n_discs);
+    check_usr_response(p_my_pegs);
+    solve_hanoi(p_my_pegs, n_discs - 1, aux, src, dst);
 }
 
 /* -------------------------------------------------------------*
@@ -174,7 +146,7 @@ free_pegs(peg * p_my_pegs)
  * win = NULL means take stdscr                                 *
  * -------------------------------------------------------------*/
 
-void
+static void
 print_in_middle(int startx, int starty, int width, const char *string, WINDOW *win)
 {
     int length, x, y;
@@ -195,4 +167,31 @@ print_in_middle(int startx, int starty, int width, const char *string, WINDOW *w
     x = startx + (int) temp;
     mvwprintw(win, y, x, "%s", string);
     refresh();
+}
+
+int
+main(void)
+{
+    int n_discs;
+    peg my_pegs[NUM_PEGS];
+
+    initscr();                  /* Start curses mode            */
+    cbreak();                   /* Line buffering disabled. Pass on every thing */
+    keypad(stdscr, TRUE);
+    curs_set(FALSE);
+
+    print_in_middle(0, LINES / 2, COLS, welcome_string, NULL);
+    scanw("%d", &n_discs);
+
+    timeout(TIME_OUT);
+    noecho();
+    store_n_discs = n_discs;
+
+    init_pegs(my_pegs, n_discs);
+    show_pegs(stdscr, my_pegs, n_discs);
+    solve_hanoi(my_pegs, n_discs, 0, 1, 2);
+
+    free_pegs(my_pegs);
+    endwin();                   /* End curses mode                */
+    return EXIT_SUCCESS;
 }

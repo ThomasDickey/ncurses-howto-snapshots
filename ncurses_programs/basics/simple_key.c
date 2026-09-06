@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <curses.h>
 
 #define WIDTH 30
@@ -15,7 +16,27 @@ const char *choices[] =
     "Exit",
 };
 int n_choices = sizeof(choices) / sizeof(char *);
-void print_menu(WINDOW *menu_win, int highlight);
+
+static void
+print_menu(WINDOW *menu_win, int highlight)
+{
+    int x, y, i;
+
+    x = 2;
+    y = 2;
+    box(menu_win, 0, 0);
+    for (i = 0; i < n_choices; ++i) {
+        if (highlight == i + 1) /* Highlight the present choice */
+        {
+            wattron(menu_win, A_REVERSE);
+            mvwprintw(menu_win, y, x, "%s", choices[i]);
+            wattroff(menu_win, A_REVERSE);
+        } else
+            mvwprintw(menu_win, y, x, "%s", choices[i]);
+        ++y;
+    }
+    wrefresh(menu_win);
+}
 
 int
 main(void)
@@ -72,26 +93,5 @@ main(void)
     clrtoeol();
     refresh();
     endwin();
-    return 0;
-}
-
-void
-print_menu(WINDOW *menu_win, int highlight)
-{
-    int x, y, i;
-
-    x = 2;
-    y = 2;
-    box(menu_win, 0, 0);
-    for (i = 0; i < n_choices; ++i) {
-        if (highlight == i + 1) /* Highlight the present choice */
-        {
-            wattron(menu_win, A_REVERSE);
-            mvwprintw(menu_win, y, x, "%s", choices[i]);
-            wattroff(menu_win, A_REVERSE);
-        } else
-            mvwprintw(menu_win, y, x, "%s", choices[i]);
-        ++y;
-    }
-    wrefresh(menu_win);
+    return EXIT_SUCCESS;
 }

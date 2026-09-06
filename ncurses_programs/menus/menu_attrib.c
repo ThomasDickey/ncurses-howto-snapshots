@@ -24,6 +24,12 @@ main(void)
     MENU *my_menu;
     int n_choices, i;
 
+    /* Initialize items */
+    n_choices = ARRAY_SIZE(choices);
+    if ((my_items = calloc((size_t) (n_choices + 1), sizeof(ITEM *))) == NULL) {
+        perror("my_items");
+        return EXIT_FAILURE;
+    }
     /* Initialize curses */
     initscr();
     start_color();
@@ -34,11 +40,9 @@ main(void)
     init_pair(2, COLOR_GREEN, COLOR_BLACK);
     init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
 
-    /* Initialize items */
-    n_choices = ARRAY_SIZE(choices);
-    my_items = (ITEM **) calloc((size_t) (n_choices + 1), sizeof(ITEM *));
-    for (i = 0; i < n_choices; ++i)
+    for (i = 0; i < n_choices; ++i) {
         my_items[i] = new_item(choices[i], choices[i]);
+    }
     my_items[n_choices] = (ITEM *) NULL;
     item_opts_off(my_items[3], O_SELECTABLE);
     item_opts_off(my_items[6], O_SELECTABLE);
@@ -79,4 +83,5 @@ main(void)
         free_item(my_items[i]);
     free_menu(my_menu);
     endwin();
+    return EXIT_SUCCESS;
 }

@@ -1,8 +1,32 @@
+#include <stdlib.h>
 #include <string.h>
 #include <form.h>
 
-void print_in_middle(WINDOW *win, int starty, int startx,
-                     int width, const char *string, chtype color);
+static void
+print_in_middle(WINDOW *win, int starty, int startx,
+                int width, const char *string, chtype color)
+{
+    int length, x, y;
+    float temp;
+
+    if (win == NULL)
+        win = stdscr;
+    getyx(win, y, x);
+    if (startx != 0)
+        x = startx;
+    if (starty != 0)
+        y = starty;
+    if (width == 0)
+        width = 80;
+
+    length = (int) strlen(string);
+    temp = (float) (width - length) / 2;
+    x = startx + (int) temp;
+    wattron(win, color);
+    mvwprintw(win, y, x, "%s", string);
+    wattroff(win, color);
+    refresh();
+}
 
 int
 main(void)
@@ -90,31 +114,5 @@ main(void)
     free_field(field[1]);
 
     endwin();
-    return 0;
-}
-
-void
-print_in_middle(WINDOW *win, int starty, int startx,
-                int width, const char *string, chtype color)
-{
-    int length, x, y;
-    float temp;
-
-    if (win == NULL)
-        win = stdscr;
-    getyx(win, y, x);
-    if (startx != 0)
-        x = startx;
-    if (starty != 0)
-        y = starty;
-    if (width == 0)
-        width = 80;
-
-    length = (int) strlen(string);
-    temp = (float) (width - length) / 2;
-    x = startx + (int) temp;
-    wattron(win, color);
-    mvwprintw(win, y, x, "%s", string);
-    wattroff(win, color);
-    refresh();
+    return EXIT_SUCCESS;
 }

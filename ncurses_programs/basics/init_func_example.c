@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <curses.h>
 
 int
@@ -15,8 +16,8 @@ main(void)
                                  * we have to press enter before it
                                  * gets to the program          */
     if (ch == KEY_F(1))         /* Without keypad enabled this will */
-        printw("F1 Key pressed"); /*  not get to us either       */
-                                /* Without noecho() some ugly escape
+        printw("F1 pressed");   /* not get to us either -
+                                 * Without noecho() some ugly escape
                                  * characters might have been printed
                                  * on screen                    */
     else {
@@ -29,5 +30,5 @@ main(void)
     getch();                    /* Wait for user input */
     endwin();                   /* End curses mode                */
 
-    return 0;
+    return EXIT_SUCCESS;
 }

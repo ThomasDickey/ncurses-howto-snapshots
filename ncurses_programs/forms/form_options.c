@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <form.h>
 
 #define STARTX 15
@@ -29,8 +30,8 @@ main(void)
 
     field_opts_off(field[0], O_ACTIVE);         /* This field is a static label */
     field_opts_off(field[1], O_PUBLIC);         /* This filed is like a password field */
-    field_opts_off(field[1], O_AUTOSKIP);       /* To avoid entering the same field */
-                                                /* after last character is entered */
+    field_opts_off(field[1], O_AUTOSKIP);       /* To avoid entering the same field
+                                                   after last character is entered */
 
     /* Create the form and post it */
     my_form = new_form(field);
@@ -74,5 +75,5 @@ main(void)
     free_field(field[1]);
 
     endwin();
-    return 0;
+    return EXIT_SUCCESS;
 }

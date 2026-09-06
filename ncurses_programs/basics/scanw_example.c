@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <curses.h>
 #include <string.h>
 
@@ -17,5 +18,5 @@ main(void)
     getch();
     endwin();
 
-    return 0;
+    return EXIT_SUCCESS;
 }

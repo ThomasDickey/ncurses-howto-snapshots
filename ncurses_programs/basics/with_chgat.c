@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <curses.h>
 
 int
@@ -22,5 +23,5 @@ main(void)
     refresh();
     getch();
     endwin();                   /* End curses mode                */
-    return 0;
+    return EXIT_SUCCESS;
 }

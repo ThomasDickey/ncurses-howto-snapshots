@@ -29,6 +29,22 @@
     <revhistory>
 
     <revision>
+        <revnumber>2.3</revnumber>
+        <date>2026-09-06</date>
+        <authorinitials>dickey</authorinitials>
+        <revremark>Fixes for the sample programs.
+        </revremark>
+    </revision>
+
+    <revision>
+        <revnumber>2.2</revnumber>
+        <date>2025-09-11</date>
+        <authorinitials>dickey</authorinitials>
+        <revremark>Fixes for the sample programs.
+        </revremark>
+    </revision>
+
+    <revision>
         <revnumber>2.1</revnumber>
         <date>2024-09-08</date>
         <authorinitials>dickey</authorinitials>
@@ -2083,18 +2099,15 @@ operations.
 <para>
 Concentrate on the main while loop. Once it finds out the type of key pressed,
 it takes appropriate action. If 'r' is pressed resizing mode is started. After
-this the new sizes are updated as the user presses the arrow keys. When the user
-presses &lt;ENTER&gt; present selection ends and panel is resized by using the
-concept explained.  While in resizing mode the program doesn't show how the
-window is getting resized.  It is left as an exercise to the reader to print a
-dotted border while it gets resized to a new position.
+this the window sizes is updated as the user presses the arrow keys.
+When the user presses &lt;ENTER&gt; the resizing mode ends.
+While in resizing mode the program continuously resizes the window.
 </para>
 
 <para>
 When the user presses 'm' the move mode starts. This is a bit simpler than
-resizing.  As the arrow keys are pressed the new position is updated and
-pressing of &lt;ENTER&gt; causes the panel to be moved by calling the function
-move_panel().
+resizing.  As the arrow keys are pressed the window position is updated.
+Pressing &lt;ENTER&gt; ends the moving mode.
 </para>
 
 <para>

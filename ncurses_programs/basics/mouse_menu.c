@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <string.h>
 #include <curses.h>
 
@@ -17,8 +18,46 @@ const char *choices[] =
 
 int n_choices = sizeof(choices) / sizeof(char *);
 
-void print_menu(WINDOW *menu_win, int highlight);
-void report_choice(int mouse_x, int mouse_y, int *p_choice);
+static void
+print_menu(WINDOW *menu_win, int highlight)
+{
+    int x, y, i;
+
+    x = 2;
+    y = 2;
+    box(menu_win, 0, 0);
+    for (i = 0; i < n_choices; ++i) {
+        if (highlight == i + 1) {
+            wattron(menu_win, A_REVERSE);
+            mvwprintw(menu_win, y, x, "%s", choices[i]);
+            wattroff(menu_win, A_REVERSE);
+        } else
+            mvwprintw(menu_win, y, x, "%s", choices[i]);
+        ++y;
+    }
+    wrefresh(menu_win);
+}
+
+/* Report the choice according to mouse position */
+static void
+report_choice(int mouse_x, int mouse_y, int *p_choice)
+{
+    int i, j, choice;
+
+    i = startx + 2;
+    j = starty + 3;
+
+    for (choice = 0; choice < n_choices; ++choice)
+        if (mouse_y == j + choice
+            && mouse_x >= i
+            && mouse_x <= i + (int) strlen(choices[choice])) {
+            if (choice == n_choices - 1)
+                *p_choice = -1;
+            else
+                *p_choice = choice + 1;
+            break;
+        }
+}
 
 int
 main(void)
@@ -71,46 +110,5 @@ main(void)
     }
   end:
     endwin();
-    return 0;
-}
-
-void
-print_menu(WINDOW *menu_win, int highlight)
-{
-    int x, y, i;
-
-    x = 2;
-    y = 2;
-    box(menu_win, 0, 0);
-    for (i = 0; i < n_choices; ++i) {
-        if (highlight == i + 1) {
-            wattron(menu_win, A_REVERSE);
-            mvwprintw(menu_win, y, x, "%s", choices[i]);
-            wattroff(menu_win, A_REVERSE);
-        } else
-            mvwprintw(menu_win, y, x, "%s", choices[i]);
-        ++y;
-    }
-    wrefresh(menu_win);
-}
-
-/* Report the choice according to mouse position */
-void
-report_choice(int mouse_x, int mouse_y, int *p_choice)
-{
-    int i, j, choice;
-
-    i = startx + 2;
-    j = starty + 3;
-
-    for (choice = 0; choice < n_choices; ++choice)
-        if (mouse_y == j + choice
-            && mouse_x >= i
-            && mouse_x <= i + (int) strlen(choices[choice])) {
-            if (choice == n_choices - 1)
-                *p_choice = -1;
-            else
-                *p_choice = choice + 1;
-            break;
-        }
+    return EXIT_SUCCESS;
 }

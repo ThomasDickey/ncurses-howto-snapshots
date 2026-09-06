@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta name="generator" content=
-  "HTML Tidy for HTML5 for Linux version 5.6.0">
+  "HTML Tidy for HTML5 for Linux version 5.8.0">
   <title>Panel Library</title>
   <meta name="GENERATOR" content=
   "Modular DocBook HTML Stylesheet Version 1.79">
@@ -145,7 +145,8 @@ vlink="#840084" alink="#0000FF">
         </p>
 
         <pre class="PROGRAMLISTING"><span class=
-        "INLINEMEDIAOBJECT">#include &lt;panel.h&gt;
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;panel.h&gt;
 
 int
 main(void)
@@ -191,7 +192,7 @@ main(void)
         del_panel(my_panels[i]);
 
     endwin();
-    return 0;
+    return EXIT_SUCCESS;
 }</span></pre>
       </div>
 
@@ -217,16 +218,73 @@ main(void)
         </p>
 
         <pre class="PROGRAMLISTING"><span class=
-        "INLINEMEDIAOBJECT">#include &lt;string.h&gt;
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #include &lt;panel.h&gt;
 
 #define NLINES 10
 #define NCOLS 40
 
-void init_wins(WINDOW **wins, int n);
-void win_show(WINDOW *win, const char *label, int label_color);
-void print_in_middle(WINDOW *win, int starty, int startx,
-                     int width, const char *string, chtype color);
+static void
+print_in_middle(WINDOW *win, int starty, int startx,
+                int width, const char *string, chtype color)
+{
+    int length, x, y;
+    float temp;
+
+    if (win == NULL)
+        win = stdscr;
+    getyx(win, y, x);
+    if (startx != 0)
+        x = startx;
+    if (starty != 0)
+        y = starty;
+    if (width == 0)
+        width = 80;
+
+    length = (int) strlen(string);
+    temp = (float) (width - length) / 2;
+    x = startx + (int) temp;
+    wattron(win, color);
+    mvwprintw(win, y, x, "%s", string);
+    wattroff(win, color);
+    refresh();
+}
+
+/* Show the window with a border and a label */
+static void
+win_show(WINDOW *win, const char *label, int label_color)
+{
+    int height, width;
+
+    getmaxyx(win, height, width);
+    (void) height;
+
+    box(win, 0, 0);
+    mvwaddch(win, 2, 0, ACS_LTEE);
+    mvwhline(win, 2, 1, ACS_HLINE, width - 2);
+    mvwaddch(win, 2, width - 1, ACS_RTEE);
+
+    print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
+}
+
+/* Put all the windows */
+static void
+init_wins(WINDOW **wins, int n)
+{
+    int x, y, i;
+    char label[80];
+
+    y = 2;
+    x = 10;
+    for (i = 0; i &lt; n; ++i) {
+        wins[i] = newwin(NLINES, NCOLS, y, x);
+        sprintf(label, "Window Number %d", i + 1);
+        win_show(wins[i], label, i + 1);
+        y += 3;
+        x += 7;
+    }
+}
 
 int
 main(void)
@@ -284,68 +342,7 @@ main(void)
         doupdate();
     }
     endwin();
-    return 0;
-}
-
-/* Put all the windows */
-void
-init_wins(WINDOW **wins, int n)
-{
-    int x, y, i;
-    char label[80];
-
-    y = 2;
-    x = 10;
-    for (i = 0; i &lt; n; ++i) {
-        wins[i] = newwin(NLINES, NCOLS, y, x);
-        sprintf(label, "Window Number %d", i + 1);
-        win_show(wins[i], label, i + 1);
-        y += 3;
-        x += 7;
-    }
-}
-
-/* Show the window with a border and a label */
-void
-win_show(WINDOW *win, const char *label, int label_color)
-{
-    int height, width;
-
-    getmaxyx(win, height, width);
-    (void) height;
-
-    box(win, 0, 0);
-    mvwaddch(win, 2, 0, ACS_LTEE);
-    mvwhline(win, 2, 1, ACS_HLINE, width - 2);
-    mvwaddch(win, 2, width - 1, ACS_RTEE);
-
-    print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
-}
-
-void
-print_in_middle(WINDOW *win, int starty, int startx,
-                int width, const char *string, chtype color)
-{
-    int length, x, y;
-    float temp;
-
-    if (win == NULL)
-        win = stdscr;
-    getyx(win, y, x);
-    if (startx != 0)
-        x = startx;
-    if (starty != 0)
-        y = starty;
-    if (width == 0)
-        width = 80;
-
-    length = (int) strlen(string);
-    temp = (float) (width - length) / 2;
-    x = startx + (int) temp;
-    wattron(win, color);
-    mvwprintw(win, y, x, "%s", string);
-    wattroff(win, color);
-    refresh();
+    return EXIT_SUCCESS;
 }</span></pre>
       </div>
     </div>
@@ -414,221 +411,7 @@ typedef struct _PANEL_DATA {
 #define NLINES 10
 #define NCOLS 40
 
-void init_wins(WINDOW **wins, int n);
-void win_show(WINDOW *win, const char *label, int label_color);
-void print_in_middle(WINDOW *win, int starty, int startx,
-                     int width, const char *string, chtype color);
-void set_user_ptrs(PANEL **panels, int n);
-
-int
-main(void)
-{
-    WINDOW *my_wins[3];
-    PANEL *my_panels[3];
-    PANEL_DATA *top;
-    PANEL *stack_top;
-    WINDOW *temp_win, *old_win;
-    int ch;
-    int newx, newy, neww, newh;
-    int size = FALSE, move = FALSE;
-
-    /* Initialize curses */
-    initscr();
-    start_color();
-    cbreak();
-    noecho();
-    keypad(stdscr, TRUE);
-
-    /* Initialize all the colors */
-    init_pair(1, COLOR_RED, COLOR_BLACK);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);
-    init_pair(3, COLOR_BLUE, COLOR_BLACK);
-    init_pair(4, COLOR_CYAN, COLOR_BLACK);
-
-    init_wins(my_wins, 3);
-
-    /* Attach a panel to each window */
-    /* Order is bottom up */
-    my_panels[0] = new_panel(my_wins[0]);       /* Push 0, order: stdscr-0 */
-    my_panels[1] = new_panel(my_wins[1]);       /* Push 1, order: stdscr-0-1 */
-    my_panels[2] = new_panel(my_wins[2]);       /* Push 2, order: stdscr-0-1-2 */
-
-    set_user_ptrs(my_panels, 3);
-    /* Update the stacking order. 2nd panel will be on top */
-    update_panels();
-
-    /* Show it on the screen */
-    attron(COLOR_PAIR(4));
-    mvprintw(LINES - 3, 0, "Use 'm' for moving, 'r' for resizing");
-    mvprintw(LINES - 2, 0,
-             "Use tab to browse through the windows (F1 to Exit)");
-    attroff(COLOR_PAIR(4));
-    doupdate();
-
-    stack_top = my_panels[2];
-    top = (PANEL_DATA *) panel_userptr(stack_top);
-    newx = top-&gt;x;
-    newy = top-&gt;y;
-    neww = top-&gt;w;
-    newh = top-&gt;h;
-    while ((ch = getch()) != KEY_F(1)) {
-        switch (ch) {
-        case 9:         /* Tab */
-            top = (PANEL_DATA *) panel_userptr(stack_top);
-            top_panel(top-&gt;next);
-            stack_top = top-&gt;next;
-            top = (PANEL_DATA *) panel_userptr(stack_top);
-            newx = top-&gt;x;
-            newy = top-&gt;y;
-            neww = top-&gt;w;
-            newh = top-&gt;h;
-            break;
-        case 'r':               /* Re-Size */
-            size = TRUE;
-            attron(COLOR_PAIR(4));
-            mvprintw(LINES - 4, 0,
-                     "Entered Resizing :Use Arrow Keys to resize and press &lt;ENTER&gt; to end resizing");
-            refresh();
-            attroff(COLOR_PAIR(4));
-            break;
-        case 'm':               /* Move */
-            attron(COLOR_PAIR(4));
-            mvprintw(LINES - 4, 0,
-                     "Entered Moving: Use Arrow Keys to Move and press &lt;ENTER&gt; to end moving");
-            refresh();
-            attroff(COLOR_PAIR(4));
-            move = TRUE;
-            break;
-        case KEY_LEFT:
-            if (size == TRUE) {
-                --newx;
-                ++neww;
-            }
-            if (move == TRUE)
-                --newx;
-            break;
-        case KEY_RIGHT:
-            if (size == TRUE) {
-                ++newx;
-                --neww;
-            }
-            if (move == TRUE)
-                ++newx;
-            break;
-        case KEY_UP:
-            if (size == TRUE) {
-                --newy;
-                ++newh;
-            }
-            if (move == TRUE)
-                --newy;
-            break;
-        case KEY_DOWN:
-            if (size == TRUE) {
-                ++newy;
-                --newh;
-            }
-            if (move == TRUE)
-                ++newy;
-            break;
-        case 10:                /* Enter */
-            move(LINES - 4, 0);
-            clrtoeol();
-            refresh();
-            if (size == TRUE) {
-                old_win = panel_window(stack_top);
-                temp_win = newwin(newh, neww, newy, newx);
-                replace_panel(stack_top, temp_win);
-                win_show(temp_win, top-&gt;label, top-&gt;label_color);
-                delwin(old_win);
-                size = FALSE;
-            }
-            if (move == TRUE) {
-                move_panel(stack_top, newy, newx);
-                move = FALSE;
-            }
-            break;
-
-        }
-        attron(COLOR_PAIR(4));
-        mvprintw(LINES - 3, 0, "Use 'm' for moving, 'r' for resizing");
-        mvprintw(LINES - 2, 0,
-                 "Use tab to browse through the windows (F1 to Exit)");
-        attroff(COLOR_PAIR(4));
-        refresh();
-        update_panels();
-        doupdate();
-    }
-    endwin();
-    return 0;
-}
-
-/* Put all the windows */
-void
-init_wins(WINDOW **wins, int n)
-{
-    int x, y, i;
-    char label[80];
-
-    y = 2;
-    x = 10;
-    for (i = 0; i &lt; n; ++i) {
-        wins[i] = newwin(NLINES, NCOLS, y, x);
-        sprintf(label, "Window Number %d", i + 1);
-        win_show(wins[i], label, i + 1);
-        y += 3;
-        x += 7;
-    }
-}
-
-/* Set the PANEL_DATA structures for individual panels */
-void
-set_user_ptrs(PANEL **panels, int n)
-{
-    PANEL_DATA *ptrs;
-    WINDOW *win;
-    int x, y, w, h, i;
-    char temp[80];
-
-    ptrs = (PANEL_DATA *) calloc((size_t) n, sizeof(PANEL_DATA));
-
-    for (i = 0; i &lt; n; ++i) {
-        win = panel_window(panels[i]);
-        getbegyx(win, y, x);
-        getmaxyx(win, h, w);
-        ptrs[i].x = x;
-        ptrs[i].y = y;
-        ptrs[i].w = w;
-        ptrs[i].h = h;
-        sprintf(temp, "Window Number %d", i + 1);
-        strcpy(ptrs[i].label, temp);
-        ptrs[i].label_color = i + 1;
-        if (i + 1 == n)
-            ptrs[i].next = panels[0];
-        else
-            ptrs[i].next = panels[i + 1];
-        set_panel_userptr(panels[i], &amp;ptrs[i]);
-    }
-}
-
-/* Show the window with a border and a label */
-void
-win_show(WINDOW *win, const char *label, int label_color)
-{
-    int height, width;
-
-    getmaxyx(win, height, width);
-    (void) height;
-
-    box(win, 0, 0);
-    mvwaddch(win, 2, 0, ACS_LTEE);
-    mvwhline(win, 2, 1, ACS_HLINE, width - 2);
-    mvwaddch(win, 2, width - 1, ACS_RTEE);
-
-    print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
-}
-
-void
+static void
 print_in_middle(WINDOW *win, int starty, int startx,
                 int width, const char *string, chtype color)
 {
@@ -652,24 +435,245 @@ print_in_middle(WINDOW *win, int starty, int startx,
     mvwprintw(win, y, x, "%s", string);
     wattroff(win, color);
     refresh();
+}
+
+/* Show the window with a border and a label */
+static void
+win_show(WINDOW *win, const char *label, int label_color)
+{
+    int height, width;
+
+    getmaxyx(win, height, width);
+    (void) height;
+
+    box(win, 0, 0);
+    mvwaddch(win, 2, 0, ACS_LTEE);
+    mvwhline(win, 2, 1, ACS_HLINE, width - 2);
+    mvwaddch(win, 2, width - 1, ACS_RTEE);
+
+    print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
+}
+
+/* Put all the windows */
+static void
+init_wins(WINDOW **wins, int n)
+{
+    int x, y, i;
+    char label[80];
+
+    y = 2;
+    x = 10;
+    for (i = 0; i &lt; n; ++i) {
+        wins[i] = newwin(NLINES, NCOLS, y, x);
+        sprintf(label, "Window Number %d", i + 1);
+        win_show(wins[i], label, i + 1);
+        y += 3;
+        x += 7;
+    }
+}
+
+/* Set the PANEL_DATA structures for individual panels */
+static void
+set_user_ptrs(PANEL **panels, PANEL_DATA * ptrs, int n)
+{
+    WINDOW *win;
+    int x, y, w, h, i;
+    char temp[80];
+
+    for (i = 0; i &lt; n; ++i) {
+        win = panel_window(panels[i]);
+        getbegyx(win, y, x);
+        getmaxyx(win, h, w);
+        ptrs[i].x = x;
+        ptrs[i].y = y;
+        ptrs[i].w = w;
+        ptrs[i].h = h;
+        sprintf(temp, "Window Number %d", i + 1);
+        strcpy(ptrs[i].label, temp);
+        ptrs[i].label_color = i + 1;
+        if (i + 1 == n)
+            ptrs[i].next = panels[0];
+        else
+            ptrs[i].next = panels[i + 1];
+        set_panel_userptr(panels[i], &amp;ptrs[i]);
+    }
+}
+
+int
+main(void)
+{
+    WINDOW *my_wins[3];
+    PANEL *my_panels[3];
+    PANEL_DATA *top;
+    PANEL *stack_top;
+    PANEL_DATA *ptrs;
+    WINDOW *temp_win, *old_win;
+    int ch;
+    int newx, newy, neww, newh;
+    bool size = FALSE, move = FALSE;
+    const int nptrs = 3;
+
+    if ((ptrs = (PANEL_DATA *) calloc((size_t) nptrs, sizeof(PANEL_DATA)))
+        == NULL) {
+        perror("panel data");
+        exit(EXIT_FAILURE);
+    }
+
+    /* Initialize curses */
+    initscr();
+    start_color();
+    cbreak();
+    noecho();
+    keypad(stdscr, TRUE);
+
+    /* Initialize all the colors */
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);
+    init_pair(3, COLOR_BLUE, COLOR_BLACK);
+    init_pair(4, COLOR_CYAN, COLOR_BLACK);
+
+    init_wins(my_wins, nptrs);
+
+    /* Attach a panel to each window */
+    /* Order is bottom up */
+    my_panels[0] = new_panel(my_wins[0]);       /* Push 0, order: stdscr-0 */
+    my_panels[1] = new_panel(my_wins[1]);       /* Push 1, order: stdscr-0-1 */
+    my_panels[2] = new_panel(my_wins[2]);       /* Push 2, order: stdscr-0-1-2 */
+
+    set_user_ptrs(my_panels, ptrs, nptrs);
+    /* Update the stacking order. 2nd panel will be on top */
+    update_panels();
+
+    /* Show it on the screen */
+    attron(COLOR_PAIR(4));
+    mvprintw(LINES - 3, 0, "Use 'm' for moving, 'r' for resizing");
+    mvprintw(LINES - 2, 0,
+             "Use tab to browse through the windows (F1 to Exit)");
+    attroff(COLOR_PAIR(4));
+    doupdate();
+
+    stack_top = my_panels[2];
+    top = (PANEL_DATA *) panel_userptr(stack_top);
+    newx = top-&gt;x;
+    newy = top-&gt;y;
+    neww = top-&gt;w;
+    newh = top-&gt;h;
+
+    while ((ch = getch()) != KEY_F(1)) {
+        bool resized = FALSE;
+
+        switch (ch) {
+        case 9:         /* Tab */
+            top = (PANEL_DATA *) panel_userptr(stack_top);
+            top_panel(top-&gt;next);
+            stack_top = top-&gt;next;
+            top = (PANEL_DATA *) panel_userptr(stack_top);
+            newx = top-&gt;x;
+            newy = top-&gt;y;
+            neww = top-&gt;w;
+            newh = top-&gt;h;
+            break;
+        case 'r':               /* Re-Size */
+            size = TRUE;
+            move = FALSE;
+            attron(COLOR_PAIR(4));
+            mvprintw(LINES - 4, 0,
+                     "Entered Resizing :Use Arrow Keys to resize and press &lt;ENTER&gt; to end resizing");
+            refresh();
+            attroff(COLOR_PAIR(4));
+            break;
+        case 'm':               /* Move */
+            size = FALSE;
+            move = TRUE;
+            attron(COLOR_PAIR(4));
+            mvprintw(LINES - 4, 0,
+                     "Entered Moving: Use Arrow Keys to Move and press &lt;ENTER&gt; to end moving");
+            refresh();
+            attroff(COLOR_PAIR(4));
+            break;
+        case KEY_LEFT:
+            if (size == TRUE) {
+                --newx;
+                ++neww;
+                resized = TRUE;
+            } else if (move) {
+                move_panel(stack_top, newy, --newx);
+            }
+            break;
+        case KEY_RIGHT:
+            if (size == TRUE) {
+                ++newx;
+                --neww;
+                resized = TRUE;
+            } else if (move) {
+                move_panel(stack_top, newy, ++newx);
+            }
+            break;
+        case KEY_UP:
+            if (size == TRUE) {
+                --newy;
+                ++newh;
+                resized = TRUE;
+            } else if (move) {
+                move_panel(stack_top, --newy, newx);
+            }
+            break;
+        case KEY_DOWN:
+            if (size == TRUE) {
+                ++newy;
+                --newh;
+                resized = TRUE;
+            } else if (move) {
+                move_panel(stack_top, ++newy, newx);
+            }
+            break;
+        case 10:                /* Enter */
+            move(LINES - 4, 0);
+            clrtoeol();
+            refresh();
+            if (size) {
+                size = FALSE;
+            } else if (move) {
+                move = FALSE;
+            }
+            break;
+
+        }
+        if (size &amp;&amp; resized) {
+            resized = FALSE;
+            if ((old_win = panel_window(stack_top)) != NULL
+                &amp;&amp; (temp_win = newwin(newh, neww, newy, newx)) != NULL) {
+                replace_panel(stack_top, temp_win);
+                win_show(temp_win, top-&gt;label, top-&gt;label_color);
+                delwin(old_win);
+            }
+        }
+        attron(COLOR_PAIR(4));
+        mvprintw(LINES - 3, 0, "Use 'm' for moving, 'r' for resizing");
+        mvprintw(LINES - 2, 0,
+                 "Use tab to browse through the windows (F1 to Exit)");
+        attroff(COLOR_PAIR(4));
+        refresh();
+        update_panels();
+        doupdate();
+    }
+    endwin();
+    return EXIT_SUCCESS;
 }</span></pre>
       </div>
 
       <p>Concentrate on the main while loop. Once it finds out the
       type of key pressed, it takes appropriate action. If 'r' is
-      pressed resizing mode is started. After this the new sizes
-      are updated as the user presses the arrow keys. When the user
-      presses &lt;ENTER&gt; present selection ends and panel is
-      resized by using the concept explained. While in resizing
-      mode the program doesn't show how the window is getting
-      resized. It is left as an exercise to the reader to print a
-      dotted border while it gets resized to a new position.</p>
+      pressed resizing mode is started. After this the window sizes
+      is updated as the user presses the arrow keys. When the user
+      presses &lt;ENTER&gt; the resizing mode ends. While in
+      resizing mode the program continuously resizes the
+      window.</p>
 
       <p>When the user presses 'm' the move mode starts. This is a
       bit simpler than resizing. As the arrow keys are pressed the
-      new position is updated and pressing of &lt;ENTER&gt; causes
-      the panel to be moved by calling the function
-      move_panel().</p>
+      window position is updated. Pressing &lt;ENTER&gt; ends the
+      moving mode.</p>
 
       <p>In this program the user data which is represented as
       PANEL_DATA, plays very important role in finding the
@@ -706,7 +710,8 @@ print_in_middle(WINDOW *win, int starty, int startx,
         </p>
 
         <pre class="PROGRAMLISTING"><span class=
-        "INLINEMEDIAOBJECT">#include &lt;string.h&gt;
+        "INLINEMEDIAOBJECT">#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #include &lt;panel.h&gt;
 
 typedef struct _PANEL_DATA {
@@ -716,10 +721,66 @@ typedef struct _PANEL_DATA {
 #define NLINES 10
 #define NCOLS 40
 
-void init_wins(WINDOW **wins, int n);
-void win_show(WINDOW *win, const char *label, int label_color);
-void print_in_middle(WINDOW *win, int starty, int startx,
-                     int width, const char *string, chtype color);
+static void
+print_in_middle(WINDOW *win, int starty, int startx,
+                int width, const char *string, chtype color)
+{
+    int length, x, y;
+    float temp;
+
+    if (win == NULL)
+        win = stdscr;
+    getyx(win, y, x);
+    if (startx != 0)
+        x = startx;
+    if (starty != 0)
+        y = starty;
+    if (width == 0)
+        width = 80;
+
+    length = (int) strlen(string);
+    temp = (float) (width - length) / 2;
+    x = startx + (int) temp;
+    wattron(win, color);
+    mvwprintw(win, y, x, "%s", string);
+    wattroff(win, color);
+    refresh();
+}
+
+/* Show the window with a border and a label */
+static void
+win_show(WINDOW *win, const char *label, int label_color)
+{
+    int height, width;
+
+    getmaxyx(win, height, width);
+    (void) height;
+
+    box(win, 0, 0);
+    mvwaddch(win, 2, 0, ACS_LTEE);
+    mvwhline(win, 2, 1, ACS_HLINE, width - 2);
+    mvwaddch(win, 2, width - 1, ACS_RTEE);
+
+    print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
+}
+
+/* Put all the windows */
+static void
+init_wins(WINDOW **wins, int n)
+{
+    int x, y, i;
+    char label[80];
+
+    y = 2;
+    x = 10;
+    for (i = 0; i &lt; n; ++i) {
+        wins[i] = newwin(NLINES, NCOLS, y, x);
+        sprintf(label, "Window Number %d", i + 1);
+        win_show(wins[i], label, i + 1);
+        y += 3;
+        x += 7;
+    }
+}
 
 int
 main(void)
@@ -809,68 +870,7 @@ main(void)
         doupdate();
     }
     endwin();
-    return 0;
-}
-
-/* Put all the windows */
-void
-init_wins(WINDOW **wins, int n)
-{
-    int x, y, i;
-    char label[80];
-
-    y = 2;
-    x = 10;
-    for (i = 0; i &lt; n; ++i) {
-        wins[i] = newwin(NLINES, NCOLS, y, x);
-        sprintf(label, "Window Number %d", i + 1);
-        win_show(wins[i], label, i + 1);
-        y += 3;
-        x += 7;
-    }
-}
-
-/* Show the window with a border and a label */
-void
-win_show(WINDOW *win, const char *label, int label_color)
-{
-    int height, width;
-
-    getmaxyx(win, height, width);
-    (void) height;
-
-    box(win, 0, 0);
-    mvwaddch(win, 2, 0, ACS_LTEE);
-    mvwhline(win, 2, 1, ACS_HLINE, width - 2);
-    mvwaddch(win, 2, width - 1, ACS_RTEE);
-
-    print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
-}
-
-void
-print_in_middle(WINDOW *win, int starty, int startx,
-                int width, const char *string, chtype color)
-{
-    int length, x, y;
-    float temp;
-
-    if (win == NULL)
-        win = stdscr;
-    getyx(win, y, x);
-    if (startx != 0)
-        x = startx;
-    if (starty != 0)
-        y = starty;
-    if (width == 0)
-        width = 80;
-
-    length = (int) strlen(string);
-    temp = (float) (width - length) / 2;
-    x = startx + (int) temp;
-    wattron(win, color);
-    mvwprintw(win, y, x, "%s", string);
-    wattroff(win, color);
-    refresh();
+    return EXIT_SUCCESS;
 }</span></pre>
       </div>
     </div>

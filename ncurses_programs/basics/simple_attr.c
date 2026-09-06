@@ -12,32 +12,32 @@ main(int argc, char *argv[])
 
     if (argc != 2) {
         printf("Usage: %s <a c file name>\n", argv[0]);
-        exit(1);
+        return EXIT_FAILURE;
     }
     fp = fopen(argv[1], "r");
     if (fp == NULL) {
         perror("Cannot open input file");
-        exit(1);
+        return EXIT_FAILURE;
     }
-    initscr();                          /* Start curses mode */
-    getmaxyx(stdscr, row, col);         /* find the boundaries of the screeen */
+    initscr();                  /* Start curses mode */
+    getmaxyx(stdscr, row, col); /* find the boundaries of the screeen */
     (void) col;
     while ((ch = fgetc(fp)) != EOF)     /* read the file till we reach the end */
     {
-        getyx(stdscr, y, x);            /* get the current cursor position */
-        if (y == (row - 1))             /* are we are at the end of the screen */
+        getyx(stdscr, y, x);    /* get the current cursor position */
+        if (y == (row - 1))     /* are we are at the end of the screen */
         {
-            printw("<-Press Any Key->"); /* tell the user to press a key */
+            printw("<-Press Any Key->");        /* tell the user to press a key */
             getch();
-            clear();                    /* clear the screen */
-            move(0, 0);                 /* start at the beginning of the screen */
+            clear();            /* clear the screen */
+            move(0, 0);         /* start at the beginning of the screen */
         }
         if (prev == '/' && ch == '*')   /* If it is / and * then only
                                          * switch bold on */
         {
-            attron(A_BOLD);             /* cut bold on */
+            attron(A_BOLD);     /* cut bold on */
             getyx(stdscr, y, x);        /* get the current cursor position */
-            move(y, x - 1);             /* back up one space */
+            move(y, x - 1);     /* back up one space */
             printw("%c%c", '/', ch);    /* The actual printing is done here */
         } else
             printw("%c", ch);
@@ -49,5 +49,6 @@ main(int argc, char *argv[])
     }
     endwin();                   /* End curses mode */
     fclose(fp);
-    return 0;
+
+    return EXIT_SUCCESS;
 }

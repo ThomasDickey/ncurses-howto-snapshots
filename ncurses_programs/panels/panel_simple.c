@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <panel.h>
 
 int
@@ -29,7 +30,7 @@ main(void)
     /* Push 1, order: stdscr-0-1 */
     /* Push 2, order: stdscr-0-1-2 */
     for (i = 0; i < 3; ++i)
-	my_panels[i] = new_panel(my_wins[i]);
+        my_panels[i] = new_panel(my_wins[i]);
 
     /* Update the stacking order. Last-created panel will be on top */
     update_panels();
@@ -41,8 +42,8 @@ main(void)
 
     /* Deleting panels does not erase their window */
     for (i = 0; i < 3; ++i)
-	del_panel(my_panels[i]);
+        del_panel(my_panels[i]);
 
     endwin();
-    return 0;
+    return EXIT_SUCCESS;
 }

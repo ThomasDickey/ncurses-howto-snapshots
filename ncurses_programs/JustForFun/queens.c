@@ -3,101 +3,7 @@
 
 #define QUEEN_CHAR '*'
 
-int *nqueens(int num);
-int place(int current, int *position);
-void print(int *positions, int num_queens);
-void board(WINDOW *win, int starty, int startx, int lines, int cols,
-           int tile_width, int tile_height);
-
-int
-main(int argc, char *argv[])
-{
-    int num_queens, *positions;
-
-    if (argc != 2) {
-        printf("Usage: %s <number of queens (chess board order)>\n", argv[0]);
-        exit(1);
-    }
-
-    num_queens = atoi(argv[1]);
-    initscr();
-    cbreak();
-    keypad(stdscr, TRUE);
-    positions = nqueens(num_queens);
-    free(positions);
-    endwin();
-    return 0;
-}
-
-int *
-nqueens(int num)
-{
-    int current, *position, num_solutions = 0;
-
-    position = (int *) calloc((size_t) num + 1, sizeof(int));
-
-    position[1] = 0;
-    current = 1;                /* current queen is being checked       */
-    /* position[current] is the column */
-    while (current > 0) {
-        position[current] += 1;
-        while (position[current] <= num && !place(current, position))
-            position[current] += 1;
-        if (position[current] <= num) {
-            if (current == num) {
-                ++num_solutions;
-                print(position, num);
-            } else {
-                current += 1;
-                position[current] = 0;
-            }
-        } else
-            current -= 1;       /*      backtrack               */
-    }
-    printf("Total Number of Solutions : %d\n", num_solutions);
-    return (position);
-}
-
-int
-place(int current, int *position)
-{
-    int i;
-    if (current == 1)
-        return (1);
-    for (i = 1; i < current; ++i)
-        if (position[i] == position[current])
-            return (0);
-        else if (abs(position[i] - position[current]) ==
-                 abs(i - current))
-            return (0);
-
-    return (1);
-}
-
-void
-print(int *positions, int num_queens)
-{
-    int count;
-    int y = 2, x = 2, w = 4, h = 2;
-    static int solution = 1;
-
-    mvprintw(0, 0, "Solution No: %d", solution++);
-    board(stdscr, y, x, num_queens, num_queens, w, h);
-    for (count = 1; count <= num_queens; ++count) {
-        int tempy = y + (count - 1) * h + h / 2;
-        int tempx = x + (positions[count] - 1) * w + w / 2;
-        mvaddch(tempy, tempx, QUEEN_CHAR);
-    }
-    refresh();
-    mvprintw(LINES - 2, 0, "Press Any Key to See next solution (F1 to Exit)");
-    if (getch() == KEY_F(1)) {
-        endwin();
-        exit(0);
-    }
-    clear();
-}
-
-void
+static void
 board(WINDOW *win, int starty, int startx, int lines, int cols,
       int tile_width, int tile_height)
 {
@@ -127,4 +33,95 @@ board(WINDOW *win, int starty, int startx, int lines, int cols,
         mvwaddch(win, endy, i, ACS_BTEE);
     }
     wrefresh(win);
+}
+
+static void
+print(int *positions, int num_queens)
+{
+    int count;
+    int y = 2, x = 2, w = 4, h = 2;
+    static int solution = 1;
+
+    mvprintw(0, 0, "Solution No: %d", solution++);
+    board(stdscr, y, x, num_queens, num_queens, w, h);
+    for (count = 1; count <= num_queens; ++count) {
+        int tempy = y + (count - 1) * h + h / 2;
+        int tempx = x + (positions[count] - 1) * w + w / 2;
+        mvaddch(tempy, tempx, QUEEN_CHAR);
+    }
+    refresh();
+    mvprintw(LINES - 2, 0, "Press Any Key to See next solution (F1 to Exit)");
+    if (getch() == KEY_F(1)) {
+        endwin();
+        exit(EXIT_SUCCESS);
+    }
+    clear();
+}
+
+static int
+place(int current, int *position)
+{
+    int i;
+    if (current == 1)
+        return (1);
+    for (i = 1; i < current; ++i)
+        if (position[i] == position[current])
+            return (0);
+        else if (abs(position[i] - position[current]) ==
+                 abs(i - current))
+            return (0);
+
+    return (1);
+}
+
+static int *
+nqueens(int num)
+{
+    int current, *position, num_solutions = 0;
+
+    if ((position = (int *) calloc((size_t) num + 1, sizeof(int))) == NULL) {
+        perror("calloc");
+        exit(EXIT_FAILURE);
+    }
+
+    position[1] = 0;
+    current = 1;                /* current queen is being checked       */
+    /* position[current] is the column */
+    while (current > 0) {
+        position[current] += 1;
+        while (position[current] <= num && !place(current, position))
+            position[current] += 1;
+        if (position[current] <= num) {
+            if (current == num) {
+                ++num_solutions;
+                print(position, num);
+            } else {
+                current += 1;
+                position[current] = 0;
+            }
+        } else
+            current -= 1;       /*      backtrack               */
+    }
+    printf("Total Number of Solutions : %d\n", num_solutions);
+    return (position);
+}
+
+int
+main(int argc, char *argv[])
+{
+    int num_queens, *positions;
+
+    if (argc != 2) {
+        printf("Usage: %s <number of queens (chess board order)>\n", argv[0]);
+        return EXIT_FAILURE;
+    }
+
+    num_queens = atoi(argv[1]);
+    initscr();
+    cbreak();
+    keypad(stdscr, TRUE);
+    positions = nqueens(num_queens);
+    free(positions);
+    endwin();
+    return EXIT_SUCCESS;
 }

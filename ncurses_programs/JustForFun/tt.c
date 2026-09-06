@@ -1,3 +1,7 @@
+#ifndef _XOPEN_SOURCE
+#define _XOPEN_SOURCE 500       /* needed for srandom */
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
@@ -13,14 +17,7 @@
 
 #define KEY_F1 265
 
-int print_menu(void);
-void print_byebye(void);
-void create_test_string(char *const, int);
-void print_time(time_t startt, time_t endt, int mistakes);
-void print_in_middle(int startx, int starty,
-                     int width, const char *string, WINDOW *win);
-
-const char *groups[] =
+static const char *groups[] =
 {
     "`123456",
     "7890-=",
@@ -36,7 +33,125 @@ const char *groups[] =
     "zxcv",
     "bnm",
 };
-int n_groups;
+static int n_groups;
+
+/* ---------------------------------------------------------------- *
+ * startx = 0 means at present x                                                                        *
+ * starty = 0 means at present y                                                                        *
+ * win = NULL means take stdscr                                                                         *
+ * ---------------------------------------------------------------- */
+
+static void
+print_in_middle(int startx, int starty,
+                int width, const char *string, WINDOW *win)
+{
+    int length, x, y;
+    float temp;
+
+    if (win == NULL)
+        win = stdscr;
+    getyx(win, y, x);
+    if (startx != 0)
+        x = startx;
+    if (starty != 0)
+        y = starty;
+    if (width == 0)
+        width = 80;
+
+    length = (int) strlen(string);
+    temp = (float) (width - length) / 2;
+    x = startx + (int) temp;
+    mvwprintw(win, y, x, "%s", string);
+    refresh();
+}
+
+static int
+print_menu(void)
+{
+    int choice, i;
+
+    choice = 0;
+    while (1) {
+        clear();
+        printw("\n\n");
+        print_in_middle(1, 1, 0,
+                        "* * *   Welcome to typing practice (Version 1.0) * * * ", NULL);
+        printw("\n\n\n");
+        for (i = 0; i <= n_groups - 1; ++i)
+            printw("\t%3d: \tPractice %s\n", i + 1, groups[i]);
+        printw("\t%3d: \tExit\n", i + 1);
+
+        printw("\n\n\tChoice: ");
+        refresh();
+        echo();
+        scanw("%d", &choice);
+        noecho();
+
+        if (choice >= 1 && choice <= n_groups + 1)
+            break;
+        else {
+            attron(A_REVERSE);
+            mvprintw(STATUSY, STATUSX,
+                     "Wrong choice\tPress any key to continue");
+            attroff(A_REVERSE);
+            getch();
+        }
+    }
+    return choice;
+}
+
+static void
+create_test_string(char *const test_array, int choice)
+{
+    int i, index, length;
+
+    length = (int) strlen(groups[choice]);
+    for (i = 0; i <= HSIZE - 1; ++i) {
+        if (i % 5 == 0)
+            test_array[i] = ' ';
+        else {
+            index = (int) (random() % length);
+            test_array[i] = groups[choice][index];
+        }
+    }
+    test_array[i] = '\0';
+}
+
+static void
+print_byebye(void)
+{
+    printw("\n");
+    print_in_middle(0, 0, 0, "Thank you for using my typing tutor\n", NULL);
+    print_in_middle(0, 0, 0, "Bye Bye ! ! !\n", NULL);
+    refresh();
+}
+
+static void
+print_time(time_t start_t, time_t end_t, int mistakes)
+{
+    long int diff;
+    int h, m, s;
+    float wpm;
+
+    diff = end_t - start_t;
+    wpm = (float) ((HSIZE / 5) / (double) diff) * 60;
+
+    h = (int) (diff / 3600);
+    diff -= h * 3600;
+    m = (int) (diff / 60);
+    diff -= m * 60;
+    s = (int) diff;
+
+    attron(A_REVERSE);
+    mvprintw(STATUSY, STATUSX,
+             "Mistakes made : %d time taken: %d:%d:%d WPM : %.2f    Press any Key to continue",
+             mistakes, h, m, s, wpm);
+    attroff(A_REVERSE);
+
+    refresh();
+    getch();
+
+}
 
 int
 main(void)
@@ -52,6 +167,12 @@ main(void)
 
     string[0] = '\0';
 
+    n_groups = sizeof(groups) / sizeof(char *);
+    if ((test_array = (char *) calloc(HSIZE + 1, sizeof(char))) == NULL) {
+        perror("test_array");
+        return EXIT_FAILURE;
+    }
+
     initscr();
     cbreak();
     noecho();
@@ -59,8 +180,6 @@ main(void)
     intrflush(stdscr, FALSE);
 
     srandom((unsigned) time(NULL));
-    n_groups = sizeof(groups) / sizeof(char *);
-    test_array = (char *) calloc(HSIZE + 1, sizeof(char));
 
     while (1) {
         if (ch == KEY_F1) {
@@ -70,7 +189,7 @@ main(void)
                 print_byebye();
                 free(test_array);
                 endwin();
-                exit(0);
+                exit(EXIT_SUCCESS);
             }
         }
         clear();
@@ -118,123 +237,5 @@ main(void)
     }
     free(test_array);
     endwin();
-    return 0;
-}
-
-int
-print_menu(void)
-{
-    int choice, i;
-
-    choice = 0;
-    while (1) {
-        clear();
-        printw("\n\n");
-        print_in_middle(1, 1, 0,
-                        "* * *   Welcome to typing practice (Version 1.0) * * * ", NULL);
-        printw("\n\n\n");
-        for (i = 0; i <= n_groups - 1; ++i)
-            printw("\t%3d: \tPractice %s\n", i + 1, groups[i]);
-        printw("\t%3d: \tExit\n", i + 1);
-
-        printw("\n\n\tChoice: ");
-        refresh();
-        echo();
-        scanw("%d", &choice);
-        noecho();
-
-        if (choice >= 1 && choice <= n_groups + 1)
-            break;
-        else {
-            attron(A_REVERSE);
-            mvprintw(STATUSY, STATUSX,
-                     "Wrong choice\tPress any key to continue");
-            attroff(A_REVERSE);
-            getch();
-        }
-    }
-    return choice;
-}
-
-void
-create_test_string(char *const test_array, int choice)
-{
-    int i, index, length;
-
-    length = (int) strlen(groups[choice]);
-    for (i = 0; i <= HSIZE - 1; ++i) {
-        if (i % 5 == 0)
-            test_array[i] = ' ';
-        else {
-            index = (int) (random() % length);
-            test_array[i] = groups[choice][index];
-        }
-    }
-    test_array[i] = '\0';
-}
-
-void
-print_byebye(void)
-{
-    printw("\n");
-    print_in_middle(0, 0, 0, "Thank you for using my typing tutor\n", NULL);
-    print_in_middle(0, 0, 0, "Bye Bye ! ! !\n", NULL);
-    refresh();
-}
-
-void
-print_time(time_t start_t, time_t end_t, int mistakes)
-{
-    long int diff;
-    int h, m, s;
-    float wpm;
-
-    diff = end_t - start_t;
-    wpm = (float) ((HSIZE / 5) / (double) diff) * 60;
-
-    h = (int) (diff / 3600);
-    diff -= h * 3600;
-    m = (int) (diff / 60);
-    diff -= m * 60;
-    s = (int) diff;
-
-    attron(A_REVERSE);
-    mvprintw(STATUSY, STATUSX,
-             "Mistakes made : %d time taken: %d:%d:%d WPM : %.2f    Press any Key to continue",
-             mistakes, h, m, s, wpm);
-    attroff(A_REVERSE);
-
-    refresh();
-    getch();
-
-}
-
-/* ---------------------------------------------------------------- *
- * startx = 0 means at present x                                                                        *
- * starty = 0 means at present y                                                                        *
- * win = NULL means take stdscr                                                                         *
- * ---------------------------------------------------------------- */
-
-void
-print_in_middle(int startx, int starty,
-                int width, const char *string, WINDOW *win)
-{
-    int length, x, y;
-    float temp;
-
-    if (win == NULL)
-        win = stdscr;
-    getyx(win, y, x);
-    if (startx != 0)
-        x = startx;
-    if (starty != 0)
-        y = starty;
-    if (width == 0)
-        width = 80;
-
-    length = (int) strlen(string);
-    temp = (float) (width - length) / 2;
-    x = startx + (int) temp;
-    mvwprintw(win, y, x, "%s", string);
-    refresh();
+    return EXIT_SUCCESS;
 }

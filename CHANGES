@@ -1,3 +1,74 @@
+2026-09-06  Thomas E. Dickey  <dickey@invisible-island.net>
+
+	* result/NCURSES-nochunks.html, result/forms.html, result/index.html,
+	  result/panels.html, result/printw.html:
+	regen
+
+	* NCURSES-Programming-HOWTO.sgml: update description of panel_resize
+
+	* result/NCURSES-nochunks.html, result/panels.html: regen
+
+	* ncurses_programs/panels/panel_resize.c:
+	make the panel_resize example more interesting by moving/resizing the panels
+	directly as cursor-keys are pressed rather than waiting for the <ENTER> key
+
+	* result/README: explain contents of "result" directory
+
+	* result/NCURSES-nochunks.html, result/attrib.html,
+	  result/awordwindows.html, result/color.html, result/forms.html,
+	  result/gory.html, result/helloworld.html, result/index.html,
+	  result/init.html, result/justforfun.html, result/keys.html,
+	  result/menus.html, result/misc.html, result/mouse.html,
+	  result/otherlib.html, result/panels.html, result/printw.html,
+	  result/ref.html, result/scanw.html, result/screen.html,
+	  result/tools.html, result/windows.html:
+	regenerate using DocBook-utils version 0.6.14 (jw version 1.1)
+
+	* ncurses_programs/menus/menu_attrib.c,
+	  ncurses_programs/menus/menu_item_data.c,
+	  ncurses_programs/menus/menu_userptr.c,
+	  ncurses_programs/menus/menu_toggle.c,
+	  ncurses_programs/menus/menu_simple.c,
+	  ncurses_programs/JustForFun/tt.c, ncurses_programs/menus/menu_multi_column.c:
+	minor code cleanup:
+	+ fix warnings reported by gcc 14's -fanalyzer option
+	+ change function order to eliminate forward references
+	+ re-indented (and fix some alignment of comments)
+
+	* ncurses_programs/COPYING: bump
+
+	* ncurses_programs/menus/menu_scroll.c,
+	  ncurses_programs/JustForFun/life.c,
+	  ncurses_programs/basics/acs_vars.c, ncurses_programs/basics/init_func_example.c,
+	  ncurses_programs/basics/mouse_menu.c,
+	  ncurses_programs/basics/temp_leave.c,
+	  ncurses_programs/basics/other_border.c,
+	  ncurses_programs/basics/simple_key.c,
+	  ncurses_programs/forms/form_simple.c,
+	  ncurses_programs/forms/form_options.c,
+	  ncurses_programs/forms/form_attrib.c,
+	  ncurses_programs/panels/panel_hide.c,
+	  ncurses_programs/JustForFun/magic.c,
+	  ncurses_programs/panels/panel_browse.c,
+	  ncurses_programs/panels/panel_simple.c,
+	  ncurses_programs/forms/form_win.c,
+	  ncurses_programs/basics/win_border.c,
+	  ncurses_programs/basics/scanw_example.c,
+	  ncurses_programs/basics/printw_example.c,
+	  ncurses_programs/basics/hello_world.c,
+	  ncurses_programs/basics/with_chgat.c,
+	  ncurses_programs/JustForFun/shuffle.c,
+	  ncurses_programs/JustForFun/hanoi.c,
+	  ncurses_programs/JustForFun/queens.c,
+	  ncurses_programs/basics/simple_attr.c,
+	  ncurses_programs/basics/simple_color.c,
+	  ncurses_programs/panels/panel_resize.c,
+	  ncurses_programs/menus/menu_win.c, ncurses_programs/basics/key_code.c:
+	minor code cleanup:
+	+ fix warnings reported by gcc 14's -fanalyzer option
+	+ change function order to eliminate forward references
+	+ re-indented (and fix some alignment of comments)
+
 2025-09-11  Thomas E. Dickey  <dickey@invisible-island.net>
 
 	* result/windows.html, result/attrib.html, result/misc.html,
@@ -222,12 +293,12 @@
 	Tweaked these manually (splitting the generated index.html) to correspond
 	to the older scheme.
 
-	* README: RCS_BASE
+	* README: brief note about content
 
 	* NCURSES-Programming-HOWTO.sgml:
 	remove "_" from id's which openjade objects to
 
-	* Makefile: RCS_BASE
+	* Makefile: makefile for sgml/html conversion
 
 	* NCURSES-Programming-HOWTO.sgml: errata reported by Damien Ruscoe
 
@@ -413,5 +484,5 @@
 
 2001-07-28  Thomas E. Dickey  <dickey@clark.net>
 
-	* result/NCURSES_HOWTO.html: RCS_BASE
+	* result/NCURSES_HOWTO.html: 20010728
 

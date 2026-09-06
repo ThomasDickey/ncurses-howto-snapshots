@@ -1,0 +1,3 @@
+The ".html" files in this directory are generated in the upper level, copied
+here and indent'd with tidy, for reference.  The large NCURSES-nochunks.html
+file is bundled with ncurses as NCURSES-Programming-HOWTO.html

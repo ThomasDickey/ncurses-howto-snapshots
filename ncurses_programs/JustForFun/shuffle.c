@@ -15,65 +15,11 @@ typedef struct _tile {
     int y;
 } tile;
 
-void init_board(int **board, int n, tile * blank);
-void board(WINDOW *win, int starty, int startx, int lines, int cols,
-           int tile_width, int tile_height);
-void shuffle_board(int **board, int n);
-void move_blank(int direction, int **s_board, int n, tile * blank);
-int check_win(int **s_board, int n, tile * blank);
-
 enum {
     LEFT, RIGHT, UP, DOWN
 };
 
-int
-main(int argc, char *argv[])
-{
-    int **s_board;
-    int n, i, ch;
-    tile blank;
-
-    if (argc != 2) {
-        printf("Usage: %s <shuffle board order>\n", argv[0]);
-        exit(1);
-    }
-    n = atoi(argv[1]);
-
-    s_board = (int **) calloc((size_t) n, sizeof(int *));
-    for (i = 0; i < n; ++i)
-        s_board[i] = (int *) calloc((size_t) n, sizeof(int));
-    init_board(s_board, n, &blank);
-    initscr();
-    keypad(stdscr, TRUE);
-    cbreak();
-    shuffle_board(s_board, n);
-    while ((ch = getch()) != KEY_F(1)) {
-        switch (ch) {
-        case KEY_LEFT:
-            move_blank(RIGHT, s_board, n, &blank);
-            break;
-        case KEY_RIGHT:
-            move_blank(LEFT, s_board, n, &blank);
-            break;
-        case KEY_UP:
-            move_blank(DOWN, s_board, n, &blank);
-            break;
-        case KEY_DOWN:
-            move_blank(UP, s_board, n, &blank);
-            break;
-        }
-        shuffle_board(s_board, n);
-        if (check_win(s_board, n, &blank) == TRUE) {
-            mvprintw(24, 0, "You Win !!!\n");
-            refresh();
-            break;
-        }
-    }
-    endwin();
-    return 0;
-}
-
-void
+static void
 move_blank(int direction, int **s_board, int n, tile * blank)
 {
     int temp;
@@ -122,7 +68,7 @@ move_blank(int direction, int **s_board, int n, tile * blank)
     }
 }
 
-int
+static int
 check_win(int **s_board, int n, tile * blank)
 {
     int i, j;
@@ -139,25 +85,31 @@ check_win(int **s_board, int n, tile * blank)
     return TRUE;
 }
 
-void
+static void
 init_board(int **s_board, int n, tile * blank)
 {
     int i, j, k;
     int *temp_board;
 
-    temp_board = (int *) calloc((size_t) (n * n), sizeof(int));
+    if ((temp_board = (int *) calloc((size_t) (n * n), sizeof(int))) == NULL) {
+        perror("calloc");
+        exit(EXIT_FAILURE);
+    }
+
     srand((unsigned) time(NULL));
+    memset(blank, 0, sizeof(*blank));
     for (i = 0; i < n * n; ++i) {
       repeat:
         k = rand() % (n * n);
-        for (j = 0; j <= i - 1; ++j)
+        for (j = 0; j <= i - 1; ++j) {
             if (k == temp_board[j])
                 goto repeat;
             else
                 temp_board[i] = k;
+        }
     }
     k = 0;
-    for (i = 0; i < n; ++i)
+    for (i = 0; i < n; ++i) {
         for (j = 0; j < n; ++j, ++k) {
             if (temp_board[k] == 0) {
                 blank->x = i;
@@ -165,10 +117,11 @@ init_board(int **s_board, int n, tile * blank)
             }
             s_board[i][j] = temp_board[k];
         }
+    }
     free(temp_board);
 }
 
-void
+static void
 board(WINDOW *win, int starty, int startx, int lines, int cols,
       int tile_width, int tile_height)
 {
@@ -200,7 +153,7 @@ board(WINDOW *win, int starty, int startx, int lines, int cols,
     wrefresh(win);
 }
 
-void
+static void
 shuffle_board(int **s_board, int n)
 {
     int i, j, deltax, deltay;
@@ -220,4 +173,58 @@ shuffle_board(int **s_board, int n)
                          startx + i * WIDTH + deltax,
                          "%-2d", s_board[i][j]);
     refresh();
+}
+
+int
+main(int argc, char *argv[])
+{
+    int **s_board;
+    int n, i, ch;
+    tile blank;
+
+    if (argc != 2) {
+        printf("Usage: %s <shuffle board order>\n", argv[0]);
+        return EXIT_FAILURE;
+    }
+    n = atoi(argv[1]);
+
+    if ((s_board = (int **) calloc((size_t) n, sizeof(int *))) == NULL) {
+        perror("s_board");
+        return EXIT_FAILURE;
+    }
+    for (i = 0; i < n; ++i) {
+        if ((s_board[i] = (int *) calloc((size_t) n, sizeof(int))) == NULL) {
+            perror("s_board[]");
+            return EXIT_FAILURE;
+        }
+    }
+    init_board(s_board, n, &blank);
+    initscr();
+    keypad(stdscr, TRUE);
+    cbreak();
+    shuffle_board(s_board, n);
+    while ((ch = getch()) != KEY_F(1)) {
+        switch (ch) {
+        case KEY_LEFT:
+            move_blank(RIGHT, s_board, n, &blank);
+            break;
+        case KEY_RIGHT:
+            move_blank(LEFT, s_board, n, &blank);
+            break;
+        case KEY_UP:
+            move_blank(DOWN, s_board, n, &blank);
+            break;
+        case KEY_DOWN:
+            move_blank(UP, s_board, n, &blank);
+            break;
+        }
+        shuffle_board(s_board, n);
+        if (check_win(s_board, n, &blank) == TRUE) {
+            mvprintw(24, 0, "You Win !!!\n");
+            refresh();
+            break;
+        }
+    }
+    endwin();
+    return EXIT_SUCCESS;
 }

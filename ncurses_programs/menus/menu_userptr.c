@@ -22,7 +22,13 @@ typedef union {
     void *data;
 } MY_DATA;
 
-void func(const char *name);
+static void
+func(const char *name)
+{
+    move(20, 0);
+    clrtoeol();
+    mvprintw(20, 0, "Item selected is : %s", name);
+}
 
 int
 main(void)
@@ -31,6 +37,12 @@ main(void)
     int c;
     MENU *my_menu;
     int n_choices, i;
+
+    n_choices = ARRAY_SIZE(choices);
+    if ((my_items = calloc((size_t) (n_choices + 1), sizeof(ITEM *))) == NULL) {
+        perror("my_items");
+        return EXIT_FAILURE;
+    }
 
     /* Initialize curses */
     initscr();
@@ -43,10 +55,9 @@ main(void)
     init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
 
     /* Initialize items */
-    n_choices = ARRAY_SIZE(choices);
-    my_items = (ITEM **) calloc((size_t) (n_choices + 1), sizeof(ITEM *));
     for (i = 0; i < n_choices; ++i) {
-        MY_DATA data = { func };
+        MY_DATA data =
+        {func};
         my_items[i] = new_item(choices[i], choices[i]);
         /* Set the user pointer */
         set_item_userptr(my_items[i], (void *) &data);
@@ -89,12 +100,6 @@ main(void)
         free_item(my_items[i]);
     free_menu(my_menu);
     endwin();
-}
 
-void
-func(const char *name)
-{
-    move(20, 0);
-    clrtoeol();
-    mvprintw(20, 0, "Item selected is : %s", name);
+    return EXIT_SUCCESS;
 }

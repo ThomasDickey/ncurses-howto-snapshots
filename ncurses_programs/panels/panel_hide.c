@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <string.h>
 #include <panel.h>
 
@@ -8,10 +9,66 @@ typedef struct _PANEL_DATA {
 #define NLINES 10
 #define NCOLS 40
 
-void init_wins(WINDOW **wins, int n);
-void win_show(WINDOW *win, const char *label, int label_color);
-void print_in_middle(WINDOW *win, int starty, int startx,
-                     int width, const char *string, chtype color);
+static void
+print_in_middle(WINDOW *win, int starty, int startx,
+                int width, const char *string, chtype color)
+{
+    int length, x, y;
+    float temp;
+
+    if (win == NULL)
+        win = stdscr;
+    getyx(win, y, x);
+    if (startx != 0)
+        x = startx;
+    if (starty != 0)
+        y = starty;
+    if (width == 0)
+        width = 80;
+
+    length = (int) strlen(string);
+    temp = (float) (width - length) / 2;
+    x = startx + (int) temp;
+    wattron(win, color);
+    mvwprintw(win, y, x, "%s", string);
+    wattroff(win, color);
+    refresh();
+}
+
+/* Show the window with a border and a label */
+static void
+win_show(WINDOW *win, const char *label, int label_color)
+{
+    int height, width;
+
+    getmaxyx(win, height, width);
+    (void) height;
+
+    box(win, 0, 0);
+    mvwaddch(win, 2, 0, ACS_LTEE);
+    mvwhline(win, 2, 1, ACS_HLINE, width - 2);
+    mvwaddch(win, 2, width - 1, ACS_RTEE);
+
+    print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
+}
+
+/* Put all the windows */
+static void
+init_wins(WINDOW **wins, int n)
+{
+    int x, y, i;
+    char label[80];
+
+    y = 2;
+    x = 10;
+    for (i = 0; i < n; ++i) {
+        wins[i] = newwin(NLINES, NCOLS, y, x);
+        sprintf(label, "Window Number %d", i + 1);
+        win_show(wins[i], label, i + 1);
+        y += 3;
+        x += 7;
+    }
+}
 
 int
 main(void)
@@ -101,66 +158,5 @@ main(void)
         doupdate();
     }
     endwin();
-    return 0;
-}
-
-/* Put all the windows */
-void
-init_wins(WINDOW **wins, int n)
-{
-    int x, y, i;
-    char label[80];
-
-    y = 2;
-    x = 10;
-    for (i = 0; i < n; ++i) {
-        wins[i] = newwin(NLINES, NCOLS, y, x);
-        sprintf(label, "Window Number %d", i + 1);
-        win_show(wins[i], label, i + 1);
-        y += 3;
-        x += 7;
-    }
-}
-
-/* Show the window with a border and a label */
-void
-win_show(WINDOW *win, const char *label, int label_color)
-{
-    int height, width;
-
-    getmaxyx(win, height, width);
-    (void) height;
-
-    box(win, 0, 0);
-    mvwaddch(win, 2, 0, ACS_LTEE);
-    mvwhline(win, 2, 1, ACS_HLINE, width - 2);
-    mvwaddch(win, 2, width - 1, ACS_RTEE);
-
-    print_in_middle(win, 1, 0, width, label, COLOR_PAIR(label_color));
-}
-
-void
-print_in_middle(WINDOW *win, int starty, int startx,
-                int width, const char *string, chtype color)
-{
-    int length, x, y;
-    float temp;
-
-    if (win == NULL)
-        win = stdscr;
-    getyx(win, y, x);
-    if (startx != 0)
-        x = startx;
-    if (starty != 0)
-        y = starty;
-    if (width == 0)
-        width = 80;
-
-    length = (int) strlen(string);
-    temp = (float) (width - length) / 2;
-    x = startx + (int) temp;
-    wattron(win, color);
-    mvwprintw(win, y, x, "%s", string);
-    wattroff(win, color);
-    refresh();
+    return EXIT_SUCCESS;
 }
